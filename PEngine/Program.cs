@@ -1,13 +1,56 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using PEngine.Data;
+using System.Resources;
+using System.Text;
 
 namespace PEngine
 {
     public class Program
     {
+        public static IConfiguration? WebsiteConfiguration { get; set; }
+
+        private static readonly DirectoryInfo PEngineRoot;
+        private static DirectoryInfo? DataDirRoot { get; set; }
+
+        private const string DataDirectoryEnvName = "PENGINE_DATA_DIRECTORY";
+        private const string DataDirectoryDefault = "PData";
+
+        static Program()
+        {
+            PEngineRoot = new DirectoryInfo(Environment.CurrentDirectory);
+        }
+
+        private static void LoadConfiguration()
+        {
+            var dataDir = Environment.GetEnvironmentVariable(DataDirectoryEnvName) ?? DataDirectoryDefault;
+
+            try
+            {
+                DataDirRoot = new DirectoryInfo(dataDir);
+                var settingFilePath = $"{DataDirRoot.FullName}/appsettings.json";
+
+                if (!DataDirRoot.Exists && DataDirRoot.FullName.Contains(PEngineRoot.FullName, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    Directory.CreateDirectory(dataDir);
+                    File.Copy("Resources/DefaultAppSettings.json", settingFilePath, true);
+                }
+
+                WebsiteConfiguration = new ConfigurationBuilder()
+                                            .AddJsonFile(settingFilePath)
+                                            .Build();
+            }
+            catch
+            {
+                // TODO: Handle Configuration Loading Error;
+                Environment.Exit(-1);
+            }
+        }
+
         public static void Main(string[] args)
         {
+            LoadConfiguration();
+
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.

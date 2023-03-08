@@ -14,3 +14,6 @@ wwwroot/style.css
 # editor specified files
 *.bak
 *.swp
+
+# default data directory
+PData
