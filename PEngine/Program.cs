@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using PEngine.Data;
+using PEngine.ViewModels;
 using System.Resources;
 using System.Text;
 
@@ -56,7 +57,7 @@ namespace PEngine
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddSingleton<UIState>();
+            builder.Services.AddSingleton<GlobalViewModel>();
 
             var app = builder.Build();
 

@@ -9,12 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Resources\DefaultAppSettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Utilities\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Resources\DefaultAppSettings.json" />
   </ItemGroup>
 
 </Project>
