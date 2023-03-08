@@ -1,0 +1,78 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>PEngine</PageTitle>
+
+<div class="page">
+    <header>
+        <ul class="gnb">
+            <li class="top-item">
+                <NavLink href="/introduction">Introduction</NavLink>
+            </li>
+            <li class="top-item">
+                <NavLink href="/tags">Tags</NavLink>
+            </li>
+            <li class="top-item">
+                <NavLink href="/terminal">Terminal</NavLink>
+            </li>
+            <li class="top-item">
+                <NavLink href="/guestbook">Guestbook</NavLink>
+            </li>
+        </ul>
+        <ul class="gnb">
+            <li class="top-item">
+                <form action="/search">
+                    <input type="text" name="query" placeholder="Search..."/>
+                </form>
+            </li>
+            <li class="top-item">
+                <NavLink href="/login">Login</NavLink>
+            </li>
+        </ul>
+    </header>
+    <main>
+        <aside>
+            <ul class="tree">
+                <li class="item">
+                    <input type="checkbox" id="node_1" />
+                    <label for="node_1">
+                        <span>ITEM</span>
+                    </label>
+                    <ul class="tree">
+                        <li class="item">
+                            <input type="checkbox" id="node_2" />
+                            <label for="node_2">
+                                <span>ITEM</span>
+                            </label>
+                        </li>
+                        <li class="item">
+                            <input type="checkbox" id="node_3" />
+                            <label for="node_3">
+                                <span>ITEM</span>
+                            </label>
+                            <ul class="tree">
+                                <li class="item">
+                                    <input type="checkbox" id="node_4" />
+                                    <label for="node_4">
+                                        <span>ITEM</span>
+                                    </label>
+                                </li>
+                                <li class="item">
+                                    <input type="checkbox" id="node_5" />
+                                    <label for="node_5">
+                                        <span>ITEM</span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+        <content>@Body</content>
+        <Loader />
+        <Pronama />
+    </main>
+    <footer>
+        Current Status Goes Here
+    </footer>
+</div>

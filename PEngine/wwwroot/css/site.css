@@ -1,0 +1,25 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css");
+
+* { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+
+html, body {
+    height: 100vh;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+body {
+    position: relative;
+    font-family: 'Yu Gothic UI', 'Meiryo UI', 'Malgun Gothic', 'Segoe UI', 'Helvetica Neue', 'Apple SD Gothic', sans-serif;
+    font-size: 0.9em;
+}
+
+footer {
+    height: 32px;
+    width: 100vw;
+    position: fixed;
+    bottom: 0; left: 0;
+    display: flex;
+    align-items: center;
+    z-index: 10;
+}

@@ -1,0 +1,99 @@
+﻿@page "/post/{Id:int}"
+
+<PageTitle>Index</PageTitle>
+
+<article>
+    <h1 class="title">제목을 여기에 입력</h1>
+
+    <section class="article-metadata">
+        <ul>
+            <li>카테고리: ABCDEFG</li>
+            <li>작성자: 허강준(0x00000FF)</li>
+            <li>작성: @DateTime.Now</li>
+            <li>수정: @DateTime.Now</li>
+            <li>조회수: 0 회</li>
+        </ul>
+    </section>
+
+    <section class="article-toc">
+        <ol>
+            <li>목차1</li>
+            <li>목차2</li>
+            <li>목차3</li>
+            <li>목차4</li>
+            <li>목차5</li>
+            <li>목차6</li>
+        </ol>
+    </section>
+
+    <section class="article-body">
+        <h3>1. 한국어판 (Korean)</h3>
+        <p>비상계엄이 선포된 때에는 법률이 정하는 바에 의하여 영장제도, 언론·출판·집회·결사의 자유, 정부나 법원의 권한에 관하여 특별한 조치를 할 수 있다. 사면·감형 및 복권에 관한 사항은 법률로 정한다. 재산권의 행사는 공공복리에 적합하도록 하여야 한다. 국가는 노인과 청소년의 복지향상을 위한 정책을 실시할 의무를 진다.</p>
+        <p>국회의원은 현행범인인 경우를 제외하고는 회기중 국회의 동의없이 체포 또는 구금되지 아니한다. 의원을 제명하려면 국회재적의원 3분의 2 이상의 찬성이 있어야 한다. 국가안전보장회의의 조직·직무범위 기타 필요한 사항은 법률로 정한다. 제3항의 승인을 얻지 못한 때에는 그 처분 또는 명령은 그때부터 효력을 상실한다. 이 경우 그 명령에 의하여 개정 또는 폐지되었던 법률은 그 명령이 승인을 얻지 못한 때부터 당연히 효력을 회복한다.</p>
+
+        <h3>2. 영어판 (English)</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque gravida lorem nibh, nec maximus nisi bibendum ac. Curabitur ac vestibulum nisi. Fusce imperdiet tempor magna. Praesent a rhoncus lorem. Donec nec mauris vitae lectus commodo tincidunt. Nullam ullamcorper, ex nec pellentesque sodales, velit justo facilisis velit, a laoreet nisl orci vel felis. Curabitur porta commodo dui id consectetur. Nulla pharetra sed magna quis aliquet. Sed molestie elementum ultrices. Donec sem ex, pellentesque in diam vitae, eleifend mollis mi. Quisque pretium ipsum ut mauris interdum, eget pulvinar nisl vehicula. Donec tellus augue, condimentum at arcu a, consequat ultrices purus.</p>
+        <p>Duis maximus suscipit ex in volutpat. Vestibulum eu urna a libero porttitor commodo. Cras scelerisque leo vel neque congue mollis. Etiam semper pharetra leo, sit amet ullamcorper purus accumsan vel. Fusce mattis nunc at nisl sagittis suscipit. Donec sed sodales ipsum. Etiam eget ipsum in arcu imperdiet viverra eu ut sem. Etiam a metus ultricies, tristique nisl sit amet, sollicitudin massa. Cras consectetur urna eget lorem sagittis, sed auctor nisl vulputate. Phasellus et ex sed nisi tincidunt hendrerit quis at quam. Aenean ut ante tincidunt, rhoncus enim quis, mattis elit. Vivamus lobortis egestas magna, vitae ultrices sapien. Maecenas sodales dapibus velit ac elementum. Pellentesque nec neque id dui cursus egestas.</p>
+
+        <h3>3. 日本語 (Japanese)</h3>
+        <p>私は時間けっしてその尊重人とともにののうちがするだろでし。とにかく一遍が建設士もどうしてもそのお話んなだけにして始めでしょをは仕事忘れでですと、どうにはしたなけれでた。人格になりますのはよほど今に実にたますます。</p>
+        <p>まして大森さんを腐敗離れ離れ始終安心を駈けで国家その教授ここか誤解をってご所有ないでたですが、その次第はいつか国家国が読まて、嘉納さんのものに一つの私にまるでご尊敬とありて私差をお通知が云っように最もご講演をしんですて、単にとにかく料理の見えるうていないものに訊かないます。ただそうしてお心持にすれ事は当然必要と仕たので、その新にも云えますてとかいう大学が続いていれたない。そういううち秋刀魚の上その鶴嘴はあなたごろにあるないかと嘉納さんが握るたで、釣のほかありというご批評なないですと、時代の中が時勢に前ほどの本位の十月違えているて、そうの今度をしてそのためにどうしてもしなけれたくというだのあるて、高いなくでてまだお権力云っます訳たうなく。または例外か複雑か存在に縛りつけでから、翌日ごろ外国を上るていう上をご汚辱の場合に聴いでだ。</p>
+
+    </section>
+
+    <section class="article-signature">
+        <img class="author-profile" alt="profile-image" />
+        <div class="author-info">
+            <h4>허강준 (0x00000FF)</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras fringilla elementum arcu non hendrerit. Mauris blandit ligula quis tortor ornare posuere vel commodo diam. Vestibulum euismod scelerisque mi ac ornare. Suspendisse placerat in odio eu viverra. Morbi varius et leo a iaculis. Vivamus tincidunt convallis sem at finibus. Nulla facilisi. Pellentesque lacus sem, tristique eget arcu ac, rutrum hendrerit metus. Morbi id velit eros. Curabitur dictum, quam id elementum fringilla, sapien est commodo diam, ut convallis nisi lacus ac orci. In mattis pellentesque semper. Quisque malesuada, massa sed finibus congue, lectus lacus pulvinar lorem, in euismod felis ligula eget nunc. Vivamus nibh orci, tincidunt ac magna nec, molestie egestas ante.</p>
+            <address>2023. 03. 06.</address>
+        </div>
+    </section>
+
+    <section class="comment">
+        <input class="comment-toggle" type="checkbox" id="commentToggle-articleId" />
+        <label for="commentToggle-articleId">
+            0 개의 댓글이 등록되어있습니다.
+        </label>
+        <ul class="comment-trail">
+           <li class="comment-item">
+               <img class="comment-author-profile" />
+               <div class="comment-item-wrap">
+                   <div class="comment-metadata">
+                       <h4>댓글작성자1</h4>
+                   </div>
+                   <div class="comment-body">
+                        고교 평준화 정책은 공평한 권리보장인가, 선택권의 침해인가?
+                   </div>
+                   <div class="comment-misc">
+                        <span class="comment-timestamp">@DateTime.Now</span>
+                        <span>Edit</span>
+                        <span>Delete</span>
+                        <span>Reply</span>
+                   </div>
+               </div>
+           </li> 
+           <li class="comment-item reply">
+               <div class="comment-item-wrap">
+                   <div class="comment-metadata">
+                       <h4>글쓴이</h4>
+                   </div>
+                   <div class="comment-body">
+                        비상계엄이 선포된 때에는 법률이 정하는 바에 의하여 영장제도, 언론·출판·집회·결사의 자유, 정부나 법원의 권한에 관하여 특별한 조치를 할 수 있다. 사면·감형 및 복권에 관한 사항은 법률로 정한다. 재산권의 행사는 공공복리에 적합하도록 하여야 한다. 국가는 노인과 청소년의 복지향상을 위한 정책을 실시할 의무를 진다.
+                   </div>
+                   <div class="comment-misc">
+                        <span class="comment-timestamp">@DateTime.Now</span>
+                        <span>Edit</span>
+                        <span>Delete</span>
+                   </div>
+               </div>
+                <img class="comment-author-profile" />
+           </li> 
+        </ul>
+    </section>
+</article>
+
+@code{
+    [Parameter]
+    public int Id { get; set; }
+}

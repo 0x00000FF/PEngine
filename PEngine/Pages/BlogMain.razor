@@ -1,0 +1,41 @@
+﻿@page "/"
+@inject NavigationManager navManager
+
+<PageTitle>PEngine Main</PageTitle>
+
+<section class="explorer">
+    <div class="explorer-header">
+        <div></div>
+        <div>Title</div>
+        <div>Category</div>
+        <div>Date Created</div>
+        <div>Date Modified</div>
+        <div>Author</div>
+        <div>Size</div>
+    </div>
+    @for (var i = 0; i < 100; ++i) {
+    <div class="explorer-item" @onclick="FocusItem" @ondblclick="() => NavigateToPost(1)">
+        <div>
+            <input type="checkbox" />
+        </div>
+        <div>제목을 여기에 입력</div>
+        <div>카테고리</div>
+        <div>@DateTime.Now</div>
+        <div>@DateTime.Now</div>
+        <div>허강준</div>
+        <div>294 KB</div>
+    </div>
+    }
+</section>
+
+@code{
+    private void FocusItem()
+    {
+
+    }
+
+    private void NavigateToPost(int postId)
+    {
+        navManager.NavigateTo($"/post/{postId}");
+    }
+}

@@ -1,0 +1,58 @@
+﻿.explorer {
+   background: #202020;
+}
+
+.explorer > div  {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border-bottom: 1px solid #cdc;
+}
+
+.explorer > div > div {
+    padding: 0 15px;
+}
+
+.explorer > div > div:nth-child(2) {
+    width: 40px;
+}
+
+.explorer > div > div:nth-child(2) {
+    width: 40%;
+}
+
+.explorer > div > div:nth-child(3) {
+    width: 10%;
+}
+
+.explorer > div > div:nth-child(4) {
+    width: 180px;
+}
+
+.explorer > div > div:nth-child(5) {
+    width: 180px;
+}
+
+.explorer > div > div:nth-child(6) {
+    width: 100px;
+}
+
+.explorer > div > div:nth-child(7) {
+    width: calc(50% - 500px);
+}
+
+.explorer-header {
+    background: #bbb;
+}
+
+.explorer-header > div:not(:last-child) {
+    border-right: 1px solid #ddd;
+}
+
+.explorer-item {
+    color: #fff;
+}
+
+.explorer-item:hover {
+    background-color: #606060;
+}
