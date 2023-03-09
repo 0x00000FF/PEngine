@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inject NavigationManager navManager
+@inject PEngine.ViewModels.GlobalViewModel vm
 
 <PageTitle>PEngine Main</PageTitle>
 
@@ -29,13 +30,17 @@
 </section>
 
 @code{
-    private void FocusItem()
+    private async Task FocusItem()
     {
-
+        
     }
 
-    private void NavigateToPost(int postId)
+    private async Task NavigateToPost(int postId)
     {
-        navManager.NavigateTo($"/post/{postId}");
+        await vm.RequestTask(async (t) =>
+        {
+            await Task.Delay(3000);
+            navManager.NavigateTo($"/post/{postId}");
+        });
     }
 }

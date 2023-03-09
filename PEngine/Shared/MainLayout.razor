@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject PEngine.ViewModels.GlobalViewModel gvm;
 
 <PageTitle>PEngine</PageTitle>
 
@@ -69,7 +70,8 @@
             </ul>
         </aside>
         <content>@Body</content>
-        <Loader />
+
+        <Loader Loading="gvm.IsLoading" />
         <Pronama />
     </main>
     <footer>
