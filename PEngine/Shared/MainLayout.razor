@@ -78,8 +78,8 @@
 
         <Pronama />
     </main>
-    <footer @onclick="LoadingChange">
-        Current Status Goes Here
+    <footer>
+        @CurrentStatusMessage
     </footer>
 </div>
 
@@ -90,7 +90,9 @@
     private event Action<MainLayout> OnTaskCompleted;
 
     public System.Collections.Concurrent.ConcurrentQueue<Func<Task>> taskQueues;
+
     public bool IsBusy => !taskQueues.IsEmpty;
+    public string CurrentStatusMessage = "Ready";
 
     public MainLayout()
     {
