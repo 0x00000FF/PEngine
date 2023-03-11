@@ -1,0 +1,20 @@
+﻿@page "/guestbook/{Page:int}"
+
+@inject NavigationManager navManager
+@inject MainLayoutViewModel mvm
+
+<PageTitle>Guestbook</PageTitle>
+
+<h1>Guestbook</h1>
+
+@code {
+    private int _Page = 0;
+    public int Page
+    {
+        get => _Page;
+        set
+        {
+            _Page = value < 1 ? 1 : value;
+        }
+    }
+}
