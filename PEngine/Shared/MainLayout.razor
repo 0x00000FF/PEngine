@@ -1,5 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@inject PEngine.ViewModels.GlobalViewModel gvm;
+@inject MainLayoutViewModel vm
 
 <PageTitle>PEngine</PageTitle>
 
@@ -85,71 +85,21 @@
 
 @code
 {
-    private event Action<MainLayout, bool> LoadingStateChanged;
-    private event Action<MainLayout, Func<Task>> OnTaskEnqueueRequested;
-    private event Action<MainLayout> OnTaskCompleted;
-
-    public System.Collections.Concurrent.ConcurrentQueue<Func<Task>> taskQueues;
-
-    public bool IsBusy => !taskQueues.IsEmpty;
+    public bool IsBusy => vm.IsBusy;
     public string CurrentStatusMessage = "Ready";
 
-    public MainLayout()
+    protected override void OnInitialized()
     {
-        taskQueues = new System.Collections.Concurrent.ConcurrentQueue<Func<Task>>();
-
-        OnTaskEnqueueRequested += async (c, t) =>
-        {
-            var cts = new CancellationTokenSource();
-
-            taskQueues.Enqueue(t);
-
-            if (taskQueues.Count == 1)
-            {
-                await Task.Run(t, cts.Token);
-            }
-
-            await c.InvokeAsync(c.StateHasChanged);
-        };
-
-        OnTaskCompleted += async (c) =>
-        {
-            if (taskQueues.TryDequeue(out _))
-            {
-                taskQueues.TryPeek(out var nextTask);
-
-                if (nextTask is not null)
-                {
-                    await nextTask();
-                }
-            }
-
-            await c.InvokeAsync(c.StateHasChanged);
-        };
-
-        LoadingStateChanged += async (c, s) =>
-        {
-            await c.InvokeAsync(c.StateHasChanged);
-        };
-
+        vm.Init(this);
     }
 
-    private void LoadingChange()
+    public async Task RequestUpdate()
     {
-        QueueTask(async () =>
+        if (ShouldRender())
         {
-            await Task.Delay(3000);
-        });
+            await InvokeAsync(StateHasChanged);
+        }
     }
 
-    public void QueueTask(Func<Task> asyncTask)
-    {
-        Func<Task> wrappedTask = async () =>
-        {
-            await asyncTask();
-            OnTaskCompleted(this);
-        };
 
-        OnTaskEnqueueRequested(this, wrappedTask);
-    }
 }

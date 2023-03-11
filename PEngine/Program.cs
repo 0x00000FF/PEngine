@@ -2,12 +2,14 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using PEngine.Data;
 using PEngine.ViewModels;
+using System.Reflection;
 using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace PEngine
 {
-    public class Program
+    public static class Program
     {
         public static IConfiguration? WebsiteConfiguration { get; set; }
 
@@ -41,11 +43,18 @@ namespace PEngine
                                             .AddJsonFile(settingFilePath)
                                             .Build();
             }
-            catch
+            catch (Exception)
             {
                 // TODO: Handle Configuration Loading Error;
                 Environment.Exit(-1);
             }
+        }
+
+        public static IServiceCollection ConfigureViewModels(this IServiceCollection services)
+        {
+            services.AddScoped<MainLayoutViewModel>();
+
+            return services;
         }
 
         public static void Main(string[] args)
@@ -57,7 +66,10 @@ namespace PEngine
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddSingleton<GlobalViewModel>();
+            builder.Services.ConfigureViewModels();
+            builder.Services.AddLogging();
+
+
 
             var app = builder.Build();
 
