@@ -1,14 +1,19 @@
-﻿@page "/guestbook/{Page:int}"
+﻿@page "/guestbook/{Page:int?}"
 
 @inject NavigationManager navManager
 @inject MainLayoutViewModel mvm
 
 <PageTitle>Guestbook</PageTitle>
 
-<h1>Guestbook</h1>
+<section class="talk-view">
+    <h1>Guestbook</h1>
+</section>
+
 
 @code {
     private int _Page = 0;
+
+    [Parameter]
     public int Page
     {
         get => _Page;
