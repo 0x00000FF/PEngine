@@ -1,0 +1,37 @@
+﻿@page "/login"
+
+<div class="login-wrapper">
+    <h1>PEngine Login</h1>
+
+    <EditForm class="login-option classic-login" Model="LoginModel">
+        <h3>With Username/Password</h3>
+        <p>Classical way to access into PEngine.</p>
+        <label for="usernameInput">Username</label>
+        <input type="text" id="usernameInput" name="username" />
+
+        <label for="passwordInput">Password</label>
+        <input type="password" id="passwordInput" name="password" />
+
+        <input type="button" class="classic-login-submit" value="LOGIN" />
+    </EditForm>
+
+    <div class="login-option">
+        <h3>With Private Key [in Development]</h3>
+        <p>Access with your own private key.</p>
+    </div>
+
+    <div class="login-option">
+        <h3>With Fingerprint [in Development]</h3>
+        <p>Access with Windows Hello based Authentication.</p>
+    </div>
+</div>
+
+@code {
+    private Models.LoginRequest LoginModel;
+
+    public Login()
+    {
+        LoginModel = new();
+    }
+
+}
