@@ -1,7 +1,7 @@
 ﻿article {
-    margin: 30px auto;
+    padding: 30px calc(50% - 575px) 32px calc(50% - 575px);
     padding-bottom: 32px;
-    max-width: 1150px;
+    background-color: #F9FBFF;
 }
 
 .title {
