@@ -55,10 +55,12 @@
 
 main::-webkit-scrollbar {
     background: #252525;
+    border-left: 1px solid #aaa;
 }
 
 main::-webkit-scrollbar-thumb {
     background: #505050;
+    border-left: 1px solid #aaa;
 }
 
 main {
