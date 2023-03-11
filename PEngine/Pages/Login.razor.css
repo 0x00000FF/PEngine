@@ -10,12 +10,11 @@
     flex-direction: column;
 }
 
-::deep .classic-login {
-
+::deep .login-option {
     max-width: 500px;
 }
-
-::deep .classic-login input {
+::deep .login-option button,
+::deep .login-option input {
     padding: 10px;
     background: #505050;
     color: inherit;
@@ -23,12 +22,15 @@
     font-size: 1.2em;
 }
 
-::deep .classic-login input[type=button] {
+::deep .login-option button,
+::deep .login-option input[type=button] {
     margin-top: 10px;
     background: #1010ff;
+    color: #fff;
     cursor: pointer;
 }
 
-::deep .classic-login input[type=button]:hover {
+::deep .login-option button:hover,
+::deep .login-option input[type=button]:hover {
     background: #3030ff;
 }

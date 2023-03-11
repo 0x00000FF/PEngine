@@ -12,17 +12,21 @@
         <label for="passwordInput">Password</label>
         <input type="password" id="passwordInput" name="password" />
 
-        <input type="button" class="classic-login-submit" value="LOGIN" />
+        <button><i class="fas fa-lock"></i> LOGIN</button>
     </EditForm>
 
     <div class="login-option">
-        <h3>With Private Key [in Development]</h3>
-        <p>Access with your own private key.</p>
+        <h3>With Certificate [in Development]</h3>
+        <p>Access with pre-registered X.509 certificate.</p>
+
+        <button><i class="fas fa-certificate"></i> UPLOAD CERTIFICATE</button>
     </div>
 
     <div class="login-option">
         <h3>With Fingerprint [in Development]</h3>
         <p>Access with Windows Hello based Authentication.</p>
+
+        <button><i class="fas fa-fingerprint"></i> START AUTHENTICATION</button>
     </div>
 </div>
 
