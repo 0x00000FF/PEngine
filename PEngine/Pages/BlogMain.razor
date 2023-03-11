@@ -32,8 +32,7 @@
 @code{
     private void NavigateToPost(int postId)
     {
-
-        mvm.QueueTask(async () =>
+        mvm.QueueTask(() =>
         {
             navManager.NavigateTo($"/post/{postId}");
         });

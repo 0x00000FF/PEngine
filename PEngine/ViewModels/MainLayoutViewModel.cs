@@ -1,4 +1,5 @@
-﻿using PEngine.Shared;
+﻿using PEngine.Extensions;
+using PEngine.Shared;
 using System.Collections.Concurrent;
 
 namespace PEngine.ViewModels
@@ -55,7 +56,13 @@ namespace PEngine.ViewModels
 
         public void QueueTask(Action syncTask)
         {
-            QueueTask(() => new Task(syncTask));
+            QueueTask(() =>
+            {
+                var asynchronizedTask = new Task(syncTask);
+                asynchronizedTask.Start();
+
+                return asynchronizedTask;
+            });
         }
 
         public void QueueTask(Func<Task> asyncTask)

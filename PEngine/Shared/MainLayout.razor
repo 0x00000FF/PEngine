@@ -22,7 +22,7 @@
         <ul class="gnb">
             <li class="top-item">
                 <form action="/search">
-                    <input type="text" name="query" placeholder="Search..."/>
+                    <input type="text" name="query" placeholder="Search..."  />
                 </form>
             </li>
             <li class="top-item">
@@ -92,14 +92,5 @@
     {
         vm.Init(this);
     }
-
-    public async Task RequestUpdate()
-    {
-        if (ShouldRender())
-        {
-            await InvokeAsync(StateHasChanged);
-        }
-    }
-
 
 }
