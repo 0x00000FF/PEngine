@@ -1,0 +1,22 @@
+﻿@inject NavigationManager navManager
+@inject MainLayoutViewModel vm
+
+<a @onclick="Navigate">@ChildContent</a>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string Href { get; set; } = "";
+
+    private void Navigate()
+    {
+        vm.QueueTask(() =>
+        {
+            // Just for testing
+            Thread.Sleep(500);
+            navManager.NavigateTo(Href);
+        });
+    }
+}
