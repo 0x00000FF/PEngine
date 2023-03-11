@@ -1,6 +1,6 @@
 ﻿@page "/"
 @inject NavigationManager navManager
-@inject PEngine.ViewModels.GlobalViewModel vm
+@inject MainLayoutViewModel mvm
 
 <PageTitle>PEngine Main</PageTitle>
 
@@ -15,7 +15,7 @@
         <div>Size</div>
     </div>
     @for (var i = 0; i < 100; ++i) {
-    <div class="explorer-item" @onclick="FocusItem" @ondblclick="() => NavigateToPost(1)">
+    <div class="explorer-item" @ondblclick="() => NavigateToPost(1)">
         <div>
             <input type="checkbox" />
         </div>
@@ -30,16 +30,11 @@
 </section>
 
 @code{
-    private async Task FocusItem()
+    private void NavigateToPost(int postId)
     {
-        
-    }
 
-    private async Task NavigateToPost(int postId)
-    {
-        await vm.RequestTask(async (t) =>
+        mvm.QueueTask(async () =>
         {
-            await Task.Delay(3000);
             navManager.NavigateTo($"/post/{postId}");
         });
     }
