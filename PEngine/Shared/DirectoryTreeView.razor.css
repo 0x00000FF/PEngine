@@ -1,0 +1,50 @@
+﻿
+.tree {
+    list-style: none;
+}
+
+.tree .item {
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+.tree .item a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.tree .item input {
+    display: none;
+}
+
+.tree .item input + label::before {
+    display: inline-block;
+    content: '+';
+    width: 15px;
+    text-align: center;
+    padding-right: 5px;
+}
+
+.tree .item input + label + ul {
+    display: none;
+}
+
+.tree .item input:checked + label::before {
+    content: '−';
+    width: 15px;
+    text-align: center;
+    padding-right: 5px;
+}
+
+.tree .item input:checked + label + ul {
+    display: block;
+}
+
+.tree .item label {
+    cursor: pointer;
+}
+
+.tree .item .tree {
+    margin-left: 20px;
+    margin-top: 5px;
+}
