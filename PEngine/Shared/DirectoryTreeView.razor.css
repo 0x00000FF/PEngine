@@ -13,16 +13,21 @@
     color: inherit;
 }
 
+.tree .item label::before {
+    display: inline-block;
+    content: ' ';
+    width: 15px;
+    text-align: center;
+    padding-right: 5px;
+    margin: 0;
+}
+
 .tree .item input {
     display: none;
 }
 
 .tree .item input + label::before {
-    display: inline-block;
     content: '+';
-    width: 15px;
-    text-align: center;
-    padding-right: 5px;
 }
 
 .tree .item input + label + ul {
@@ -31,9 +36,6 @@
 
 .tree .item input:checked + label::before {
     content: '−';
-    width: 15px;
-    text-align: center;
-    padding-right: 5px;
 }
 
 .tree .item input:checked + label + ul {
