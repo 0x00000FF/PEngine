@@ -1,2 +1,9 @@
-﻿body {
+﻿.error-page-wrapper {
+    margin: 30px;
+    color: #fff;
+}
+
+.error-page-wrapper p {
+    margin: 20px 0;
+    font-size: 1.3em;
 }
