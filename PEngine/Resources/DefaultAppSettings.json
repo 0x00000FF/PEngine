@@ -1,5 +1,10 @@
 {
     "Locale": "en-US",
     "WebsiteTitle": "PEngine Blog",
+    "ConnectionString": {
+        "Database": null,
+        "ObjectStorage": null,
+        "Redis": null
+    },
     "EnableMDD": true
 }
