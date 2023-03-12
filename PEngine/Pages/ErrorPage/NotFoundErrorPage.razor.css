@@ -1,6 +1,16 @@
 ﻿.error-page-wrapper {
-    margin: 30px;
+    display: flex;
+    margin: 30px auto;
     color: #fff;
+    gap: 20px;
+    align-items: center;
+}
+
+.pronama-chan {
+    height: 300px;
+    width: 200px;
+    background: url('img/pronama-not-found.png') no-repeat;
+    background-size: cover;
 }
 
 .error-page-wrapper p {
