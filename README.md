@@ -16,7 +16,10 @@ CI/CD coming soon!
 * [ ] Introduce CI/CD Pipelines
 * [ ] Beta Release with Container Packages
 
-### Advanced Features
+### Advanced Features (Maybe more)
+* [ ] Markdown, LaTeX support for posting
+* [ ] Archive Viewer
+* [ ] PDF/PPTX Slide Viewer
 * [ ] Additional Data Security (Email Address Screening, etc.)
 * [ ] Integrate Persistence Layer with IPFS and Object Storage
 * [ ] User Authentication with X.509 Certificate or Fingerprint
