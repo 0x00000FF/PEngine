@@ -1,10 +1,10 @@
 {
     "Locale": "en-US",
     "WebsiteTitle": "PEngine Blog",
-    "ConnectionString": {
-        "Database": null,
-        "ObjectStorage": null,
-        "Redis": null
+    "Persistence": {
+        "Database": { "Service": "MySQL", "ConnectionString":  "" },
+        "ObjectStorage": { "Service":  "ConoHa", "ConnectionString":  "" },
+        "InMemDatabase": { "Service": "Redis", "ConnectionString": "" }
     },
     "EnableMDD": true
 }

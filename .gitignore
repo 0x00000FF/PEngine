@@ -1,3 +1,6 @@
+# intelliJ, Rider, ...
+.idea
+
 # visual studio auxilery files
 .vs
 bin

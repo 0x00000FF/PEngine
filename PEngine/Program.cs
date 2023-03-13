@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Text;
+using PEngine.Services;
 
 namespace PEngine
 {
@@ -49,6 +50,15 @@ namespace PEngine
             }
         }
 
+        public static IServiceCollection ConfigureBackendServices(this IServiceCollection services)
+        {
+            services.AddSingleton<PostService>()
+                .AddSingleton<CommentService>()
+                .AddSingleton<AttachmentService>()
+                .AddSingleton<UserService>();
+
+            return services;
+        }
         public static IServiceCollection ConfigureViewModels(this IServiceCollection services)
         {
             services.AddScoped<MainLayoutViewModel>();
