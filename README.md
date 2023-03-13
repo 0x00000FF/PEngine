@@ -2,6 +2,10 @@
 
 PEngine is a content management system for optimized blogging experience. This project is intended to be used as a core of my personal blog, but anyone can freely utilize it under the [MIT License](LICENSE.md).
 
+## Building Status
+
+CI/CD coming soon!
+
 ## Works in Progress
 
 ### To The First Releases
