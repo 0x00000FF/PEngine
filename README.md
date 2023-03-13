@@ -1,2 +1,3 @@
 # PEngine
-Reaaaaallly delayed, supposed to be rich-featured contents management system for my own blogging purposes
+
+PEngine is a content management system for optimized blogging experience.
