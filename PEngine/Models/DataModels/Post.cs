@@ -11,7 +11,7 @@ public class Post
     
     public string Title { get; set; }
     public string Content { get; set; }
-    public string Path { get; set; }
+    public string Category { get; set; }
     public string Tag { get; set; }
     
     public bool SystemPost { get; set; }
@@ -21,9 +21,8 @@ public class Post
     public string? EncryptionSalt { get; set; }
     public string? EncryptionMethod { get; set; }
 
-    public DateTimeOffset WrittenAt { get; set; }
-    public DateTimeOffset ModifiedAt { get; set; }
+    public DateTimeOffset WrittenAt { get; set; } = DateTimeOffset.Now;
+    public DateTimeOffset? ModifiedAt { get; set; }
     
-    public int ReadCount { get; set; }
-    
+    public uint ReadCount { get; set; }
 }

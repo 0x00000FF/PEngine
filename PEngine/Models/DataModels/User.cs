@@ -9,14 +9,12 @@ public class User
     
     public string Username { get; set; }
     public string Password { get; set; }
+    public string PasswordSalt { get; set; }
 
+    public Guid? Profile { get; set; }
     public string Name { get; set; }
+    public string Email { get; set; }
+    public string Bio { get; set; }
 
-    public User(string username, string password, string name)
-    {
-        Id = Guid.NewGuid();
-        Username = username;
-        Password = password;
-        Name = name;
-    }
+    public string? SNSHandles { get; set; }
 }
