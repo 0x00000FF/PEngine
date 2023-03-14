@@ -4,6 +4,9 @@ PEngine is a content management system for optimized blogging experience. This p
 
 ## Building Status
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/8cebb90e866d4b09a170bd44f5785bd0)](https://www.codacy.com/gh/0x00000FF/PEngine/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=0x00000FF/PEngine&amp;utm_campaign=Badge_Grade)
+<a href="https://codeclimate.com/github/0x00000FF/PEngine/maintainability"><img src="https://api.codeclimate.com/v1/badges/4a22cd9f14f50815ce53/maintainability" /></a>
+
 CI/CD coming soon!
 
 ## Works in Progress
