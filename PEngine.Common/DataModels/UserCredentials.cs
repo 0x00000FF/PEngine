@@ -1,4 +1,4 @@
-namespace PEngine.Models.DataModels;
+namespace PEngine.Common.DataModels;
 
 public class UserCredentials
 {

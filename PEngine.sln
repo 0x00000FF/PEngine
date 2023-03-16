@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PEngine", "PEngine\PEngine.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEngine.NUnit", "PEngine.NUnit\PEngine.NUnit.csproj", "{180A3857-B87C-4A9C-820B-3CC1D98D66FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEngine.Common", "PEngine.Common\PEngine.Common.csproj", "{70A939B1-83D3-4C5F-86AC-3EA42638AAA5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{180A3857-B87C-4A9C-820B-3CC1D98D66FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{180A3857-B87C-4A9C-820B-3CC1D98D66FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{180A3857-B87C-4A9C-820B-3CC1D98D66FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70A939B1-83D3-4C5F-86AC-3EA42638AAA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70A939B1-83D3-4C5F-86AC-3EA42638AAA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70A939B1-83D3-4C5F-86AC-3EA42638AAA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70A939B1-83D3-4C5F-86AC-3EA42638AAA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

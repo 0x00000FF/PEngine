@@ -21,4 +21,8 @@
     <PackageReference Include="StackExchange.Redis" Version="2.6.96" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PEngine.Common\PEngine.Common.csproj" />
+  </ItemGroup>
+
 </Project>

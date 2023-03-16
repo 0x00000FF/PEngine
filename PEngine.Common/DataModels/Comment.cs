@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace PEngine.Models.DataModels;
+namespace PEngine.Common.DataModels;
 
 public class Comment
 {

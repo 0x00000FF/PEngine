@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
 
-namespace PEngine.Models.DataModels;
+namespace PEngine.Common.DataModels;
 
 public class Attachment
 {

@@ -1,9 +1,10 @@
 ﻿@page "/login"
+@using PEngine.Models
 
 <div class="login-wrapper">
     <h1>PEngine Login</h1>
 
-    <EditForm class="login-option classic-login" Model="LoginModel">
+    <EditForm class="login-option classic-login" Model="_loginModel">
         <h3>With Username/Password</h3>
         <p>Classical way to access into PEngine.</p>
         <label for="usernameInput">Username</label>
@@ -12,7 +13,7 @@
         <label for="passwordInput">Password</label>
         <input type="password" id="passwordInput" name="password" placeholder="********" />
 
-        <button><i class="fas fa-lock"></i> LOGIN</button>
+        <button @onclick="HandleClassicAuth"><i class="fas fa-lock"></i> LOGIN</button>
     </EditForm>
 
     <div class="login-option">
@@ -31,11 +32,29 @@
 </div>
 
 @code {
-    private Models.LoginRequest LoginModel;
+    private LoginRequest _loginModel;
 
     public Login()
     {
-        LoginModel = new();
+        _loginModel = new();
+    }
+
+    private void HandleClassicAuth()
+    {
+        if (_loginModel.IsValid())
+        {
+            
+        }
+    }
+
+    private void HandlePKIAuth()
+    {
+        
+    }
+
+    private void HandleFIDOAuth()
+    {
+        
     }
 
 }
