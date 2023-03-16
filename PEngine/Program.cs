@@ -53,9 +53,9 @@ namespace PEngine
         public static IServiceCollection ConfigureBackendServices(this IServiceCollection services)
         {
             services.AddSingleton<PostService>()
-                .AddSingleton<CommentService>()
-                .AddSingleton<AttachmentService>()
-                .AddSingleton<UserService>();
+                    .AddSingleton<CommentService>()
+                    .AddSingleton<AttachmentService>()
+                    .AddSingleton<UserService>();
 
             return services;
         }
@@ -75,10 +75,9 @@ namespace PEngine
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.ConfigureViewModels();
+            builder.Services.ConfigureViewModels()
+                            .ConfigureBackendServices();
             builder.Services.AddLogging();
-
-
 
             var app = builder.Build();
 
