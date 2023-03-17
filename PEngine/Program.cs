@@ -5,6 +5,9 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using PEngine.Persistance;
+using PEngine.Repositories;
 using PEngine.Services;
 
 namespace PEngine
@@ -49,21 +52,18 @@ namespace PEngine
                 Environment.Exit(-1);
             }
         }
-
+        
         public static IServiceCollection ConfigureBackendServices(this IServiceCollection services)
         {
-            services.AddSingleton<PostService>()
-                    .AddSingleton<CommentService>()
-                    .AddSingleton<AttachmentService>()
-                    .AddSingleton<UserService>();
-
-            return services;
+            return services.AddSingleton<PostService>()
+                            .AddSingleton<CommentService>()
+                            .AddSingleton<AttachmentService>()
+                            .AddSingleton<UserService>();
         }
         public static IServiceCollection ConfigureViewModels(this IServiceCollection services)
         {
-            services.AddScoped<MainLayoutViewModel>();
-
-            return services;
+            return services.AddScoped<IViewModel, MainLayoutViewModel>()
+                           .AddScoped<IViewModel, ExplorerViewModel>();
         }
 
         public static void Main(string[] args)
@@ -78,6 +78,7 @@ namespace PEngine
             builder.Services.ConfigureViewModels()
                             .ConfigureBackendServices();
             builder.Services.AddLogging();
+            builder.Services.AddSingleton<DatabaseContext>();
 
             var app = builder.Build();
 
