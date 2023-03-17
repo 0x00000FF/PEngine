@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 
 namespace PEngine.ViewModels
 {
-    public class MainLayoutViewModel
+    public class MainLayoutViewModel : IViewModel
     {
         private MainLayout? Layout { get; set; }
 
