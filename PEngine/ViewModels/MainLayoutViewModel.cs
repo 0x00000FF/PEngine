@@ -1,10 +1,11 @@
 ﻿using PEngine.Extensions;
 using PEngine.Shared;
 using System.Collections.Concurrent;
+using Microsoft.AspNetCore.Components;
 
 namespace PEngine.ViewModels
 {
-    public class MainLayoutViewModel : IViewModel
+    public class MainLayoutViewModel : IViewModel<MainLayout>
     {
         private MainLayout? Layout { get; set; }
 
@@ -49,9 +50,9 @@ namespace PEngine.ViewModels
             };
         }
 
-        public void Init(MainLayout layout)
+        public void Init(MainLayout view)
         {
-            Layout = layout;
+            Layout = view;
         }
 
         public void QueueTask(Action syncTask)

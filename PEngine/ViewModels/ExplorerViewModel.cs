@@ -1,13 +1,16 @@
+using Microsoft.AspNetCore.Components;
 using PEngine.Services;
+using PEngine.Shared;
 
 namespace PEngine.ViewModels;
 
-public class ExplorerViewModel : IViewModel
+public class ExplorerViewModel : IViewModel<ExplorerView>
 {
     private PostService? _service;
+    private ExplorerView? _explorer;
     
-    public void Init()
+    public void Init(ExplorerView view)
     {
-        throw new NotImplementedException();
+        _explorer = view;
     }
 }
