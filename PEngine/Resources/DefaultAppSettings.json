@@ -2,9 +2,9 @@
     "Locale": "en-US",
     "WebsiteTitle": "PEngine Blog",
     "Persistence": {
-        "Database": { "Service": "MySQL", "ConnectionString":  "" },
+        "Database": { "Service": "MySQL", "ConnectionString":  "Server=localhost;Port=32000;Database=penginedev;Uid=root;Pwd=penginedev;" },
         "ObjectStorage": { "Service":  "ConoHa", "ConnectionString":  "" },
-        "InMemDatabase": { "Service": "Redis", "ConnectionString": "" }
+        "InMemDatabase": { "Service": "Redis", "ConnectionString": "localhost:32001" }
     },
     "EnableMDD": true
 }

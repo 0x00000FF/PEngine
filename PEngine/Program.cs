@@ -62,8 +62,8 @@ namespace PEngine
         }
         public static IServiceCollection ConfigureViewModels(this IServiceCollection services)
         {
-            return services.AddScoped<IViewModel, MainLayoutViewModel>()
-                           .AddScoped<IViewModel, ExplorerViewModel>();
+            return services.AddScoped<MainLayoutViewModel>()
+                           .AddScoped<ExplorerViewModel>();
         }
 
         public static void Main(string[] args)

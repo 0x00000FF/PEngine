@@ -1,5 +1,38 @@
-<h3>ExplorerView</h3>
+@inject ExplorerViewModel vm
+
+<section class="explorer">
+    <div class="explorer-header">
+        <div></div>
+        <div>Title</div>
+        <div>Category</div>
+        <div>Date Created</div>
+        <div>Date Modified</div>
+        <div>Author</div>
+        <div>Size</div>
+    </div>
+    @for (var i = 0; i < 100; ++i) {
+        <div class="explorer-item" 
+             @onclick="() => OnEntryClick(this, null)"
+             @ondblclick="() => OnEntryDblClick(this, null)">
+        <div>
+            <input type="checkbox" />
+        </div>
+        <div><i class="fa-regular fa-file"></i> 제목을 여기에 입력</div>
+        <div>카테고리</div>
+        <div>@DateTime.Now</div>
+        <div>@DateTime.Now</div>
+        <div>허강준</div>
+        <div>294 KB</div>
+    </div>
+    }
+</section>
 
 @code {
-    
+
+    [Parameter]
+    public EventHandler OnEntryClick { get; set; }
+
+    [Parameter]
+    public EventHandler OnEntryDblClick { get; set; }
+
 }

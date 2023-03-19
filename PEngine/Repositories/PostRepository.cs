@@ -2,5 +2,9 @@
 {
     public class PostRepository : RepositoryBase
     {
+        public PostRepository()
+        {
+            return;
+        }
     }
 }

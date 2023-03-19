@@ -1,6 +1,9 @@
-﻿namespace PEngine.Repositories
+﻿using PEngine.Persistance;
+
+namespace PEngine.Repositories
 {
-    public class RepositoryBase
+    public abstract class RepositoryBase
     {
+        protected static readonly DatabaseContext Database = new DatabaseContext();
     }
 }
