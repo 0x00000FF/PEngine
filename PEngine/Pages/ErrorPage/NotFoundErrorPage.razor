@@ -1,9 +1,49 @@
-﻿<div class="error-page-wrapper">
+﻿@{
+    /* TODO: Make Custom Diagnostics Engine to make this page genuine */
+}
+
+<div class="error-page-wrapper">
     <div class="pronama-chan"></div>
     <div class="text-wrap">
         <h1>
-            <i class="fa-solid fa-link-slash"></i> Request Failure: <ruby>Not Found<rt>404</rt></ruby>.
+            <i class="fa-solid fa-link-slash"></i> Request Failure Has Been Reported!<br />
         </h1>
-        <p>Suspected to be an error? Please inquire with the site administrator.</p>
+        
+        <div class="error-report">
+            <h2>HTTP Status 404 : Not Found</h2>
+            
+            <h4>Request ID: @Guid.NewGuid()</h4>
+            
+            <div class="error-report-block">
+                <h4>Code View</h4>
+                <div class="error-report-code">
+                    <div>
+                        <span>1524</span>
+                        <p>// (... truncated)</p>
+                    </div>
+                    <div class="exception">
+                        <span>1525</span>
+                        <p>return View(model as GeneralViewModel);</p>
+                        <div> -- ViewNotFoundException</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="error-report-block">
+                <h4>Stack Trace</h4>
+                <div class="error-report-code">
+                    @foreach (var line in Stacktrace)
+                    {
+                        <p>@line</p>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <p>Suspected to be a glitch? Please inquire with the site administrator.</p>
     </div>
 </div>
+
+@code {
+    string[] Stacktrace = Environment.StackTrace.Split('\n')[1..25];
+}

@@ -1,9 +1,17 @@
 ﻿.error-page-wrapper {
     display: flex;
-    margin: 30px auto;
+    margin: 15px auto;
     color: #fff;
-    gap: 20px;
-    align-items: center;
+    gap: 40px;
+}
+
+.error-page-wrapper p {
+    margin: 20px 0;
+    font-size: 1.1em;
+}
+
+.error-page-wrapper h1 {
+    font-size: 1.5em;
 }
 
 .pronama-chan {
@@ -13,7 +21,37 @@
     background-size: cover;
 }
 
-.error-page-wrapper p {
-    margin: 20px 0;
-    font-size: 1.3em;
+.error-report {
+    margin: 30px 0;
+    max-width: 1000px;
+}
+
+.error-report h2 {
+    font-size: 1.5em;
+}
+
+.error-report h4 {
+    font-size: 1.1em;
+}
+
+.error-report-block {
+    margin: 25px 0;
+}
+
+.error-report-code {
+    background: #404040;
+    padding: 10px;
+    margin: 15px 0;
+    font-family: monospace;
+}
+
+.error-report-code > div {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.error-page-wrapper .error-report-code p {
+    margin: 3px 0;
+    font-size: 0.9em;
 }
