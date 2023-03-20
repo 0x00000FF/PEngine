@@ -1,17 +1,27 @@
 ﻿@inject NavigationManager navManager
 @inject MainLayoutViewModel vm
 
-<a @onclick="Navigate">@ChildContent</a>
+<a @onclick="HandleLinkClick">@ChildContent</a>
 
 @code {
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
+    public Func<Task>? OnClickAsync { get; set; }
+
+    [Parameter]
     public string Href { get; set; } = "";
 
-    private void Navigate()
+    private async Task HandleLinkClick()
     {
+        if (OnClickAsync is not null)
+        {
+            await OnClickAsync.Invoke();
+        }
+        
+        if (string.IsNullOrEmpty(Href)) return;
+        
         vm.QueueTask(() =>
         {
             // Just for testing
