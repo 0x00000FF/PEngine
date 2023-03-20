@@ -12,8 +12,8 @@
     </div>
     @for (var i = 0; i < 100; ++i) {
         <div class="explorer-item" 
-             @onclick="() => OnEntryClick(this, null)"
-             @ondblclick="() => OnEntryDblClick(this, null)">
+             @onclick="() => OnEntryClick?.Invoke(this, null)"
+             @ondblclick="() => OnEntryDblClick?.Invoke(this, null)">
         <div>
             <input type="checkbox" />
         </div>
@@ -30,9 +30,9 @@
 @code {
 
     [Parameter]
-    public EventHandler OnEntryClick { get; set; }
+    public EventHandler? OnEntryClick { get; set; }
 
     [Parameter]
-    public EventHandler OnEntryDblClick { get; set; }
+    public EventHandler? OnEntryDblClick { get; set; }
 
 }
