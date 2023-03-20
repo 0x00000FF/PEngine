@@ -47,7 +47,10 @@
             <Loader  />
         }
 
-        <Pronama />
+        @if (IsPronamaEnabled)
+        {
+            <Pronama />
+        }
     </main>
     <footer>
         @CurrentStatusMessage
@@ -56,6 +59,7 @@
 
 @code
 {
+    public bool IsPronamaEnabled { get; set; } = true;
     public bool IsBusy => vm.IsBusy;
     public string CurrentStatusMessage = "Ready";
 

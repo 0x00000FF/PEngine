@@ -2,6 +2,7 @@
 using PEngine.Shared;
 using System.Collections.Concurrent;
 using Microsoft.AspNetCore.Components;
+using PEngine.Utilities;
 
 namespace PEngine.ViewModels
 {
@@ -15,6 +16,14 @@ namespace PEngine.ViewModels
         private event Action<MainLayout?> OnTaskCompleted;
 
         public bool IsBusy => !TaskQueue.IsEmpty;
+
+        public void SetPronamaEnabled(bool enabled)
+        {
+            if (Layout is null) return;
+            
+            Layout.IsPronamaEnabled = enabled;
+            Layout.RequestUpdate();
+        }
 
         public MainLayoutViewModel()
         {

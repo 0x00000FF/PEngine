@@ -1,4 +1,6 @@
-﻿@{
+﻿@implements IDisposable
+@inject MainLayoutViewModel mvm
+@{
     /* TODO: Make Custom Diagnostics Engine to make this page genuine */
 }
 
@@ -46,4 +48,19 @@
 
 @code {
     string[] Stacktrace = Environment.StackTrace.Split('\n')[1..25];
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            mvm.SetPronamaEnabled(false);
+        }
+        
+        base.OnAfterRender(firstRender);
+    }
+
+    public void Dispose()
+    {
+        mvm.SetPronamaEnabled(true);
+    }
 }
