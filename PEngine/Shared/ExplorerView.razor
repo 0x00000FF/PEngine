@@ -1,3 +1,4 @@
+@using PEngine.ComponentModels
 @inject ExplorerViewModel vm
 
 <section class="explorer">
@@ -28,7 +29,6 @@
 </section>
 
 @code {
-
     [Parameter]
     public EventHandler? OnEntryClick { get; set; }
 
@@ -36,24 +36,14 @@
     public EventHandler? OnEntryDblClick { get; set; }
 
     // TODO: separate ExplorerItem model
-    public List<ExplorerItem> ContainingData;
-    ExplorerItem? SelectedItem = null;
-
-    public class ExplorerItem
-    {
-        public bool Selected { get; set; }
-    }
-
+    public readonly List<IExplorerItem> ContainingData;
+    
+    IExplorerItem? SelectedItem = null;
+    
     public ExplorerView()
     {
         ContainingData = new ();
 
-        // add sample items 
-        for (var i = 0; i < 1024; ++i)
-        {
-            ContainingData.Add(new());
-        }
-        
         OnEntryClick += (s, e) =>
         {
             if (SelectedItem is not null)
@@ -63,6 +53,14 @@
 
             (s as ExplorerItem).Selected = true;
             SelectedItem = s as ExplorerItem;
+        };
+
+        OnEntryDblClick += (s, e) =>
+        {
+            if (SelectedItem is not null)
+            {
+                SelectedItem.Selected = false;
+            }
         };
     }
 
