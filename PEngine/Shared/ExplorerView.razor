@@ -11,10 +11,10 @@
         <div>Author</div>
         <div>Size</div>
     </div>
-    @foreach (var item in ContainingData) {
-        <div class="explorer-item @(item.Selected ? "selected" : "")"
-             @onclick="() => OnEntryClick?.Invoke(item, null)"
-             @ondblclick="() => OnEntryDblClick?.Invoke(item, null)">
+    @foreach (var item in _containingData) {
+        <div class="explorer-item @(item.IsSelected ? "selected" : "")"
+             @onclick="() => OnEntryClick?.Invoke(item)"
+             @ondblclick="() => OnEntryDblClick?.Invoke(item)">
         <div>
             <input type="checkbox" />
         </div>
@@ -30,38 +30,44 @@
 
 @code {
     [Parameter]
-    public EventHandler? OnEntryClick { get; set; }
+    public Action<IExplorerItem>? OnEntryClick { get; set; }
 
     [Parameter]
-    public EventHandler? OnEntryDblClick { get; set; }
-
-    // TODO: separate ExplorerItem model
-    public readonly List<IExplorerItem> ContainingData;
+    public Action<IExplorerItem>? OnEntryDblClick { get; set; }
     
-    IExplorerItem? SelectedItem = null;
+    private readonly List<IExplorerItem> _containingData;
+    private IExplorerItem? _selectedItem = null;
     
     public ExplorerView()
     {
-        ContainingData = new ();
+        _containingData = new ();
+        
+        OnEntryClick += ExplorerViewItemOnClick;
+    }
 
-        OnEntryClick += (s, e) =>
+    public async Task Add(IExplorerItem item)
+    {
+        _containingData.Add(item);
+        
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public async Task AddRange(IEnumerable<IExplorerItem> enumerable)
+    {
+        _containingData.AddRange(enumerable);
+        
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void ExplorerViewItemOnClick(IExplorerItem item)
+    {
+        if (_selectedItem is not null)
         {
-            if (SelectedItem is not null)
-            {
-                SelectedItem.Selected = false;
-            }
+            _selectedItem.IsSelected = false;
+        }
 
-            (s as ExplorerItem).Selected = true;
-            SelectedItem = s as ExplorerItem;
-        };
-
-        OnEntryDblClick += (s, e) =>
-        {
-            if (SelectedItem is not null)
-            {
-                SelectedItem.Selected = false;
-            }
-        };
+        item.IsSelected = true;
+        _selectedItem = item;
     }
 
 }

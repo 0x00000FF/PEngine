@@ -1,17 +1,24 @@
 ﻿@page "/"
-@inject NavigationManager navManager
+
+@using PEngine.ComponentModels
+
 @inject MainLayoutViewModel mvm
 
 <PageTitle>PEngine Main</PageTitle>
 
-<ExplorerView />
+<ExplorerView @ref="_view" />
 
 @code{
-    private void NavigateToPost(int postId)
+    private ExplorerView? _view;
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        mvm.QueueTask(() =>
-        {
-            navManager.NavigateTo($"/post/{postId}");
-        });
+        _view?.Add(new PostListItem())
+            .ConfigureAwait(false)
+            .GetAwaiter()
+            .GetResult();
+        
+        return base.OnAfterRenderAsync(firstRender);
     }
+
 }
