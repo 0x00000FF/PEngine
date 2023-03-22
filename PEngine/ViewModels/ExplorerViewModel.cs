@@ -7,7 +7,6 @@ namespace PEngine.ViewModels;
 
 public class ExplorerViewModel : IViewModel<ExplorerView>
 {
-    private PostService? _service;
     private ExplorerView? _explorer;
     
     public void Init(ExplorerView view)
