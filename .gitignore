@@ -1,3 +1,6 @@
+# MacOS Garbages
+.DS_Store
+
 # intelliJ, Rider, ...
 .idea
 
