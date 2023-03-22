@@ -10,10 +10,10 @@
         <div>Author</div>
         <div>Size</div>
     </div>
-    @for (var i = 0; i < 100; ++i) {
-        <div class="explorer-item" 
-             @onclick="() => OnEntryClick?.Invoke(this, null)"
-             @ondblclick="() => OnEntryDblClick?.Invoke(this, null)">
+    @foreach (var item in ContainingData) {
+        <div class="explorer-item @(item.Selected ? "selected" : "")"
+             @onclick="() => OnEntryClick?.Invoke(item, null)"
+             @ondblclick="() => OnEntryDblClick?.Invoke(item, null)">
         <div>
             <input type="checkbox" />
         </div>
@@ -34,5 +34,36 @@
 
     [Parameter]
     public EventHandler? OnEntryDblClick { get; set; }
+
+    // TODO: separate ExplorerItem model
+    public List<ExplorerItem> ContainingData;
+    ExplorerItem? SelectedItem = null;
+
+    public class ExplorerItem
+    {
+        public bool Selected { get; set; }
+    }
+
+    public ExplorerView()
+    {
+        ContainingData = new ();
+
+        // add sample items 
+        for (var i = 0; i < 1024; ++i)
+        {
+            ContainingData.Add(new());
+        }
+        
+        OnEntryClick += (s, e) =>
+        {
+            if (SelectedItem is not null)
+            {
+                SelectedItem.Selected = false;
+            }
+
+            (s as ExplorerItem).Selected = true;
+            SelectedItem = s as ExplorerItem;
+        };
+    }
 
 }

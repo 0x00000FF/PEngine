@@ -51,8 +51,13 @@
 
 .explorer-item {
     color: #fff;
+    cursor: pointer;
 }
 
 .explorer-item:hover {
     background-color: #606060;
+}
+
+.explorer-item.selected {
+    background-color: #808080;
 }
