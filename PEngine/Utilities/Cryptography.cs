@@ -71,6 +71,16 @@ public static class Cryptography
         return symmetricAlgorithm.DecryptCbc(ciphertext, iv);
     }
 
+    public static byte[] EncryptAsymmetric()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static byte[] DecryptAsymmetric()
+    {
+        throw new NotImplementedException();
+    }
+
     public static byte[] Sign(this byte[] data, byte[] key)
     {
         var defaultRsa = RSA.Create();
