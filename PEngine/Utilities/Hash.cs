@@ -38,4 +38,14 @@ public static class Hash
     // TODO: Hmac
     
     // TODO: Password
+    public static string MakePassword(string password, string salt)
+    {
+        var passwordBytes = password.AsBytes();
+        var saltBytes = salt.AsBase64Bytes();
+        var iterations = 310000;
+        
+        return Rfc2898DeriveBytes.Pbkdf2(passwordBytes, saltBytes, iterations, 
+                                    HashAlgorithmName.SHA512, 64)
+                                  .AsBase64();
+    }
 }
