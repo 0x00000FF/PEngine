@@ -1,8 +1,18 @@
 ﻿@page "/login"
+@using PEngine.Services
+
+@inject MainLayoutViewModel mvm
+@inject UserService service
+@inject NavigationManager navManager
 
 <div class="login-wrapper">
     <h1>PEngine Login</h1>
 
+    @if (ErrorSet)
+    {
+        <div>@Error</div>
+    }
+    
     <EditForm class="login-option classic-login" Model="_loginModel">
         <h3>With Username/Password</h3>
         <p>Classical way to access into PEngine.</p>
@@ -33,6 +43,11 @@
 @code {
     private LoginRequest _loginModel;
 
+    [Parameter]
+    public string? Error { get; set; }
+    
+    public bool ErrorSet => !string.IsNullOrEmpty(Error);
+
     public Login()
     {
         _loginModel = new();
@@ -40,10 +55,26 @@
 
     private void HandleClassicAuth()
     {
-        if (_loginModel.IsValid())
+        mvm.QueueTask(async () =>
         {
+            var validState = _loginModel.IsValid();
             
-        }
+            if (!validState.IsSuccess)
+            {
+                Error = validState.Message;
+                await InvokeAsync(StateHasChanged);
+
+                return;
+            }
+        
+            var user = await service.LoginAsync(_loginModel);
+
+            if (user is null)
+            {
+                
+            }
+        });
+        
     }
 
     private void HandlePKIAuth()
