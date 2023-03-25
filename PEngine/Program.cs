@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.EntityFrameworkCore;
 using PEngine.Persistance;
 using PEngine.Repositories;
@@ -52,13 +53,18 @@ namespace PEngine
                 Environment.Exit(-1);
             }
         }
+
+        public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
+        {
+            return services.AddSingleton<UserRepository>();
+        }
         
         public static IServiceCollection ConfigureBackendServices(this IServiceCollection services)
         {
-            return services.AddSingleton<PostService>()
-                            .AddSingleton<CommentService>()
-                            .AddSingleton<AttachmentService>()
-                            .AddSingleton<UserService>();
+            return services.AddScoped<PostService>()
+                           .AddScoped<CommentService>()
+                           .AddScoped<AttachmentService>()
+                           .AddScoped<UserService>();
         }
         public static IServiceCollection ConfigureViewModels(this IServiceCollection services)
         {
@@ -72,11 +78,18 @@ namespace PEngine
 
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddSession();
+            
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.ConfigureViewModels()
-                            .ConfigureBackendServices();
+
+            builder.Services
+                .ConfigureRepositories()
+                .ConfigureViewModels()
+                .ConfigureBackendServices();
+            
             builder.Services.AddLogging();
             builder.Services.AddSingleton<DatabaseContext>();
 
@@ -92,6 +105,7 @@ namespace PEngine
 
             app.UseHttpsRedirection();
 
+            app.UseSession();
             app.UseStaticFiles();
 
             app.UseRouting();
