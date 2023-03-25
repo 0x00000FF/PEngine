@@ -5,11 +5,11 @@ namespace PEngine.Persistance;
 
 public class DatabaseContext : DbContext
 {
-    private DbSet<Attachment>? Attachments { get; set; }
-    private DbSet<Comment>? Comments { get; set; }
-    private DbSet<Post>? Posts { get; set; }
-    private DbSet<User>? Users { get; set; }
-    private DbSet<UserCredentials>? UserCredentials { get; set; }
+    public DbSet<Attachment>? Attachments { get; set; }
+    public DbSet<Comment>? Comments { get; set; }
+    public DbSet<Post>? Posts { get; set; }
+    public DbSet<User>? Users { get; set; }
+    public DbSet<UserCredentials>? UserCredentials { get; set; }
 
     public DatabaseContext()
     {
