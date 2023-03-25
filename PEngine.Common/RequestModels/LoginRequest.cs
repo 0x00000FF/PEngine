@@ -7,9 +7,9 @@
 
         public byte[] Nonce { get; set; } = Array.Empty<byte>();
 
-        public bool IsValid()
+        public ValidationState IsValid()
         {
-            throw new NotImplementedException();
+            return ValidationState.Failed("test");
         }
     }
 }
