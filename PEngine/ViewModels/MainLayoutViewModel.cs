@@ -73,15 +73,22 @@ namespace PEngine.ViewModels
             });
         }
 
-        public void QueueTask(Func<Task> asyncTask)
+        public void QueueTask(Func<Task> asyncTask, Func<Task>? whenFailed = null)
         {
-            Func<Task> wrappedTask = async () =>
+            try
             {
-                await asyncTask();
-                OnTaskCompleted(Layout);
-            };
+                Func<Task> wrappedTask = async () =>
+                {
+                    await asyncTask();
+                    OnTaskCompleted(Layout);
+                };
 
-            OnTaskEnqueueRequested(Layout, wrappedTask);
+                OnTaskEnqueueRequested(Layout, wrappedTask);
+            }
+            catch (Exception e)
+            {
+                whenFailed?.Invoke().Wait();
+            }
         }
 
     }
