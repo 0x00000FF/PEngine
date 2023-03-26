@@ -36,7 +36,16 @@ public static class Hash
     }
     
     // TODO: Hmac
-    
+    public static byte[] Hmac(this byte[] data, string key)
+    {
+        return Hmac(data, key.AsBytes());
+    }
+
+    public static byte[] Hmac(this byte[] data, byte[] key)
+    {
+        return HMACSHA512.HashData(key, data);
+    }
+
     // TODO: Password
     public static string MakePassword(string password, string salt)
     {
