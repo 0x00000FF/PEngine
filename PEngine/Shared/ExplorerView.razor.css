@@ -1,43 +1,52 @@
 .explorer {
     background: #202020;
+    min-height: 100%;
 }
 
-.explorer > div  {
+.explorer-pane {
+    height: calc(100vh - 100px);
+}
+
+.explorer .explorer-header,
+.explorer .explorer-item {
     display: flex;
     align-items: center;
     height: 40px;
     border-bottom: 1px solid #cdc;
 }
 
-.explorer > div > div {
+.explorer .explorer-header > div,
+.explorer .explorer-pane .explorer-item > div{
     padding: 0 15px;
 }
 
-.explorer > div > div:nth-child(2) {
-    width: 40px;
-}
-
-.explorer > div > div:nth-child(2) {
+.explorer .explorer-header > div:nth-child(2),
+.explorer .explorer-pane .explorer-item > div:nth-child(2) {
     width: 40%;
 }
 
-.explorer > div > div:nth-child(3) {
+.explorer .explorer-header > div:nth-child(3),
+.explorer .explorer-pane .explorer-item > div:nth-child(3) {
     width: 10%;
 }
 
-.explorer > div > div:nth-child(4) {
+.explorer .explorer-header > div:nth-child(4),
+.explorer .explorer-pane .explorer-item > div:nth-child(4) {
     width: 180px;
 }
 
-.explorer > div > div:nth-child(5) {
+.explorer .explorer-header > div:nth-child(5),
+.explorer .explorer-pane .explorer-item > div:nth-child(5) {
     width: 180px;
 }
 
-.explorer > div > div:nth-child(6) {
+.explorer .explorer-header > div:nth-child(6),
+.explorer .explorer-pane .explorer-item > div:nth-child(6) {
     width: 100px;
 }
 
-.explorer > div > div:nth-child(7) {
+.explorer .explorer-header > div:nth-child(7) ,
+.explorer .explorer-pane .explorer-item > div:nth-child(7){
     width: calc(50% - 500px);
 }
 

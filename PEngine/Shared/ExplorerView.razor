@@ -11,24 +11,30 @@
         <div>Author</div>
         <div>Size</div>
     </div>
+    <div class="explorer-pane" @onclick="() => OnPaneClick?.Invoke()">
     @foreach (var item in _containingData) {
         <div class="explorer-item @(item.IsSelected ? "selected" : "")"
-             @onclick="() => OnEntryClick?.Invoke(item)"
-             @ondblclick="() => OnEntryDblClick?.Invoke(item)">
-        <div>
-            <input type="checkbox" />
+                 @onclick:stopPropagation="true"
+                 @onclick="() => OnEntryClick?.Invoke(item)"
+                 @ondblclick="() => OnEntryDblClick?.Invoke(item)">
+            <div>
+                <input type="checkbox" />
+            </div>
+            <div><i class="fa-regular fa-file"></i> 제목을 여기에 입력</div>
+            <div>카테고리</div>
+            <div>@DateTime.Now</div>
+            <div>@DateTime.Now</div>
+            <div>허강준</div>
+            <div>294 KB</div>
         </div>
-        <div><i class="fa-regular fa-file"></i> 제목을 여기에 입력</div>
-        <div>카테고리</div>
-        <div>@DateTime.Now</div>
-        <div>@DateTime.Now</div>
-        <div>허강준</div>
-        <div>294 KB</div>
-    </div>
     }
+    </div>
 </section>
 
 @code {
+    [Parameter]
+    public Action? OnPaneClick { get; set; }
+
     [Parameter]
     public Action<IExplorerItem>? OnEntryClick { get; set; }
 
@@ -41,7 +47,8 @@
     public ExplorerView()
     {
         _containingData = new ();
-        
+
+        OnPaneClick += ExplorerViewPaneOnClick;
         OnEntryClick += ExplorerViewItemOnClick;
     }
 
@@ -57,6 +64,16 @@
         _containingData.AddRange(enumerable);
         
         await InvokeAsync(StateHasChanged);
+    }
+
+    private void ExplorerViewPaneOnClick()
+    {
+        if (_selectedItem is not null)
+        {
+            _selectedItem.IsSelected = false;
+        }
+
+        _selectedItem = null;
     }
 
     private void ExplorerViewItemOnClick(IExplorerItem item)
