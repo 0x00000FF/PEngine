@@ -116,7 +116,17 @@ footer .current-state {
     margin-right: auto;
 }
 
+footer .current-version a::before {
+    content: 'Git';
+    margin-right: 5px;
+}
+
 footer .current-version a {
+    display: block;
     color: inherit;
     text-decoration: none;
+    max-width: 130px;
+    text-wrap: none;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
 }
