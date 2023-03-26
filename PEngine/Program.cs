@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using PEngine.Persistance;
 using PEngine.Repositories;
 using PEngine.Services;
+using PEngine.States;
 
 namespace PEngine
 {
@@ -54,6 +55,10 @@ namespace PEngine
             }
         }
 
+        public static IServiceCollection ConfigureStateModels(this IServiceCollection services)
+        {
+            return services.AddScoped<UserContext>();
+        }
         public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
         {
             return services.AddSingleton<UserRepository>();
@@ -86,6 +91,7 @@ namespace PEngine
             builder.Services.AddServerSideBlazor();
 
             builder.Services
+                .ConfigureStateModels()
                 .ConfigureRepositories()
                 .ConfigureViewModels()
                 .ConfigureBackendServices();
