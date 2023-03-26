@@ -16,6 +16,8 @@ namespace PEngine
 {
     public static class Program
     {
+        public static string? CurrentAssemblyPath { get; }
+        public static string CurrentGitHash { get; }
         public static IConfiguration? WebsiteConfiguration { get; set; }
 
         private static readonly DirectoryInfo PEngineRoot;
@@ -27,6 +29,12 @@ namespace PEngine
         static Program()
         {
             PEngineRoot = new DirectoryInfo(Environment.CurrentDirectory);
+            CurrentAssemblyPath = new DirectoryInfo(Assembly.GetExecutingAssembly().Location).Parent?.FullName;
+
+            if (CurrentAssemblyPath is not null)
+            {
+                CurrentGitHash = File.ReadAllText(CurrentAssemblyPath + "/githash.txt");
+            }
         }
 
         private static void LoadConfiguration()

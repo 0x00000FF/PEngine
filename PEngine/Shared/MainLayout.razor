@@ -56,7 +56,14 @@
         }
     </main>
     <footer>
-        @CurrentStatusMessage
+        <div class="current-state">
+            @CurrentStatusMessage
+        </div>
+        <div class="current-version">
+            <a target="_blank" href="https://github.com/0x00000ff/PEngine/commit/@Program.CurrentGitHash">
+                @Program.CurrentGitHash
+            </a>
+        </div>
     </footer>
 </div>
 

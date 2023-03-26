@@ -26,4 +26,8 @@
     <ProjectReference Include="..\PEngine.Common\PEngine.Common.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="git log --pretty=format:'%H' -n 1 &gt; $(OutDir)/githash.txt" />
+  </Target>
+
 </Project>
