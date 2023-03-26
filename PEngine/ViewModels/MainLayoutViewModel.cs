@@ -1,28 +1,36 @@
 ﻿using PEngine.Extensions;
 using PEngine.Shared;
 using System.Collections.Concurrent;
+using PEngine.States;
 
 namespace PEngine.ViewModels
 {
     public class MainLayoutViewModel : IViewModel<MainLayout>
     {
-        private MainLayout? Layout { get; set; }
+        private MainLayout? _layout;
+        private UserContext? _userContext;
 
-        private ConcurrentQueue<Func<Task>> TaskQueue { get; set; }
+        private ConcurrentQueue<Func<Task>> TaskQueue { get; }
 
         private event Action<MainLayout?, Func<Task>> OnTaskEnqueueRequested;
         private event Action<MainLayout?> OnTaskCompleted;
 
+        public bool IsAuthenticated => _userContext?.ContextValid ?? false;
         public bool IsBusy => !TaskQueue.IsEmpty;
 
         public void SetPronamaEnabled(bool enabled)
         {
-            if (Layout is null) return;
+            if (_layout is null) return;
             
-            Layout.IsPronamaEnabled = enabled;
-            Layout.RequestUpdate();
+            _layout.IsPronamaEnabled = enabled;
+            _layout.RequestUpdate();
         }
 
+        public MainLayoutViewModel(UserContext context) : this()
+        {
+            _userContext = context;
+        }
+        
         public MainLayoutViewModel()
         {
             TaskQueue = new ConcurrentQueue<Func<Task>>();
@@ -59,7 +67,7 @@ namespace PEngine.ViewModels
 
         public void Init(MainLayout view)
         {
-            Layout = view;
+            _layout = view;
         }
 
         public void QueueTask(Action syncTask)
@@ -80,10 +88,10 @@ namespace PEngine.ViewModels
                 Func<Task> wrappedTask = async () =>
                 {
                     await asyncTask();
-                    OnTaskCompleted(Layout);
+                    OnTaskCompleted(_layout);
                 };
 
-                OnTaskEnqueueRequested(Layout, wrappedTask);
+                OnTaskEnqueueRequested(_layout, wrappedTask);
             }
             catch (Exception e)
             {
