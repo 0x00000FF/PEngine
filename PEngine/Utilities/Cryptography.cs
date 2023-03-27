@@ -46,8 +46,10 @@ public static class Cryptography
         var defaultAes = Aes.Create("AES-256");
 
         if (defaultAes is null)
+        {
             return Array.Empty<byte>();
-        
+        }
+
         return EncryptSymmetric(defaultAes, plaintext, key, iv);
     }
 

@@ -7,7 +7,7 @@ namespace PEngine.States;
 
 public class UserContext
 {
-    public const string TOKEN_NAME = "_pengine_context_token";
+    public static readonly string TOKEN_NAME = "_pengine_context_token";
     
     public IPAddress AuthenticatedRemoteAddress { get; private set; } = null!;
     public IPAddress? RemoteAddress { get; private set; } = null!;

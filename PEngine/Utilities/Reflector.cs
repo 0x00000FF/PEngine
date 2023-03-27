@@ -12,7 +12,9 @@ namespace PEngine.Utilities
                                 .FirstOrDefault(m => m.Name == name);
 
             if (method is null)
+            {
                 throw new InvalidOperationException();
+            }
 
             return method.CreateDelegate<D>(target);
         }
