@@ -17,10 +17,12 @@
         <h3>With Username/Password</h3>
         <p>Classical way to access into PEngine.</p>
         <label for="usernameInput">Username</label>
-        <input type="text" id="usernameInput" name="username" placeholder="Username Here..."/>
+        <input type="text" id="usernameInput" placeholder="Username Here..."
+               @bind-value="_loginModel.Username" />
 
         <label for="passwordInput">Password</label>
-        <input type="password" id="passwordInput" name="password" placeholder="********" />
+        <input type="password" id="passwordInput" placeholder="********"
+               @bind-value="_loginModel.Password" />
 
         <button @onclick="HandleClassicAuth"><i class="fas fa-lock"></i> LOGIN</button>
     </EditForm>
