@@ -34,7 +34,9 @@ public class UserContext
 
     private void ExpandSessionToken(string? token)
     {
-        if (token is null)
+        var obj = JsonConvert.DeserializeObject<UserContext>(token ?? "");
+
+        if (obj is null)
         {
             AuthenticatedRemoteAddress = IPAddress.None;
             RoleId = string.Empty;
@@ -44,8 +46,6 @@ public class UserContext
 
             return;
         }
-
-        var obj = JsonConvert.DeserializeObject<UserContext>(token);
 
         AuthenticatedRemoteAddress = obj.AuthenticatedRemoteAddress;
         RoleId = obj.RoleId;
