@@ -5,7 +5,12 @@ public class ValidationState
     public bool IsSuccess => string.IsNullOrEmpty(Message);
     public string? Message { get; }
 
-    public ValidationState(string? message = null)
+    public ValidationState()
+    {
+        
+    }
+
+    public ValidationState(string message)
     {
         Message = message;
     }

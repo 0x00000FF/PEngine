@@ -4,7 +4,7 @@ namespace PEngine.Services
 {
     public class PostService
     {
-        private RepositoryBase Repository;
+        private readonly RepositoryBase Repository;
         
         public PostService()
         {
