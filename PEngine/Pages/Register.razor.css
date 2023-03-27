@@ -1,0 +1,36 @@
+.register-wrapper {
+    padding: 15px 30px;
+    color: #fff;
+}
+
+::deep .register-option {
+    margin: 50px 0;
+    gap: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+::deep .register-option {
+    max-width: 500px;
+}
+::deep .register-option button,
+::deep .register-option input {
+    padding: 10px;
+    background: #505050;
+    color: inherit;
+    border: 0;
+    font-size: 1.2em;
+}
+
+::deep .register-option button,
+::deep .register-option input[type=button] {
+    margin-top: 10px;
+    background: #1010ff;
+    color: #fff;
+    cursor: pointer;
+}
+
+::deep .register-option button:hover,
+::deep .register-option input[type=button]:hover {
+    background: #3030ff;
+}

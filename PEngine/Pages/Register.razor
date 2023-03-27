@@ -1,0 +1,34 @@
+﻿@page "/register"
+@using PEngine.Services
+
+@inject MainLayoutViewModel mvm
+@inject UserService service
+@inject NavigationManager navManager
+
+<div class="register-wrapper">
+    <h1>Create User Account</h1>
+
+    <form class="register-option">
+        <label for="usernameInput">Username</label>
+        <input type="text" id="usernameInput" placeholder="Username Here..." />
+        
+        <label for="passwordInput">Password</label>
+        <input type="password" id="passwordInput" />
+        
+        <label for="passwordConfirmInput">Password Confirm</label>
+        <input type="password" id="passwordConfirmInput" />
+        
+        <label for="nameInput">Name</label>
+        <input type="text" id="nameInput" placeholder="John Doe"/>
+        
+        <label for="emailInput">Email</label>
+        <input type="email" id="emailInput" placeholder="example@@example.com"/>
+
+        <button><i class="fas fa-check"></i> CREATE ACCOUNT</button>
+    </form>
+
+</div>
+
+@code {
+ 
+}
