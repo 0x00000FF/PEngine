@@ -20,8 +20,11 @@ namespace PEngine.ViewModels
 
         public void SetPronamaEnabled(bool enabled)
         {
-            if (_layout is null) return;
-            
+            if (_layout is null)
+            {
+                return;
+            }
+
             _layout.IsPronamaEnabled = enabled;
             _layout.RequestUpdate();
         }
@@ -81,7 +84,12 @@ namespace PEngine.ViewModels
             });
         }
 
-        public void QueueTask(Func<Task> asyncTask, Func<Task>? whenFailed = null)
+        public void QueueTask(Func<Task> asyncTask)
+        {
+            QueueTask(asyncTask, null);
+        }
+        
+        public void QueueTask(Func<Task> asyncTask, Func<Task>? whenFailed)
         {
             try
             {
@@ -93,7 +101,7 @@ namespace PEngine.ViewModels
 
                 OnTaskEnqueueRequested(_layout, wrappedTask);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 whenFailed?.Invoke().Wait();
             }
