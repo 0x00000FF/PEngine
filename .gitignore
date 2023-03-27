@@ -1,6 +1,9 @@
 # MacOS Garbages
 .DS_Store
 
+# per-user settings
+*.DotSettings.user
+
 # intelliJ, Rider, ...
 .idea
 
