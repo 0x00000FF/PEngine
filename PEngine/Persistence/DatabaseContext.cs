@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using PEngine.Common.DataModels;
 
-namespace PEngine.Persistance;
+namespace PEngine.Persistence;
 
 public class DatabaseContext : DbContext
 {
@@ -10,15 +10,11 @@ public class DatabaseContext : DbContext
     public DbSet<Post>? Posts { get; set; }
     public DbSet<User>? Users { get; set; }
     public DbSet<UserCredentials>? UserCredentials { get; set; }
-
-    public DatabaseContext()
-    {
-        
-    }
+    
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var connString = Program.WebsiteConfiguration?.GetConnectionString("Database");
+        var connString = Program.WebsiteConfiguration?["Persistence:Database:ConnectionString"];
         optionsBuilder.UseMySql(ServerVersion.AutoDetect(connString));
         
         base.OnConfiguring(optionsBuilder);
