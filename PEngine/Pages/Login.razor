@@ -76,6 +76,8 @@
                 Error = "Login Failed: No such credentials!";
                 await InvokeAsync(StateHasChanged);
             }
+
+            navManager.NavigateTo("/");
         });
         
     }
