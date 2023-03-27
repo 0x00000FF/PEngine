@@ -1,155 +1,155 @@
 ﻿article {
-    padding: 30px calc(50% - 575px) 32px calc(50% - 575px);
-    padding-bottom: 32px;
-    background-color: #F9FBFF;
+  padding: 30px calc(50% - 575px) 32px calc(50% - 575px);
+  padding-bottom: 32px;
+  background-color: #F9FBFF;
 }
 
 .title {
-    font-size: 2em;
+  font-size: 2em;
 }
 
 .article-metadata {
-    margin: 15px 0;
+  margin: 15px 0;
 }
 
 .article-metadata ul {
-    display: flex;
-    list-style: none;
-    gap: 20px;
+  display: flex;
+  list-style: none;
+  gap: 20px;
 }
 
 .article-toc {
-    margin: 40px 0;
+  margin: 40px 0;
 }
 
 .article-toc ol {
-    margin-left: 30px;
+  margin-left: 30px;
 }
 
 .article-toc ol li {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .article-body {
-    margin: 30px 0;
+  margin: 30px 0;
 }
 
 .article-body * {
-    line-height: 1.5em;
-    margin-bottom: 10px;
+  line-height: 1.5em;
+  margin-bottom: 10px;
 }
 
 .article-signature {
-    display: flex;
-    gap: 15px;
-    max-width: 800px;
-    margin: 50px auto 50px auto;
+  display: flex;
+  gap: 15px;
+  max-width: 800px;
+  margin: 50px auto 50px auto;
 }
 
 .article-signature img {
-    height: 80px;
-    width: 80px;
-    border: 1px solid #000;
+  height: 80px;
+  width: 80px;
+  border: 1px solid #000;
 }
 
 .article-signature p {
-    margin: 10px 0;
-    max-width: calc(800px - 90px);
+  margin: 10px 0;
+  max-width: calc(800px - 90px);
 }
 
 .article-signature address {
-    text-align: right;
+  text-align: right;
 }
 
 .comment {
-    margin: 0 0 20px 0;
+  margin: 0 0 20px 0;
 }
 
 .comment .comment-toggle {
-    display: none;
+  display: none;
 }
 
 .comment .comment-toggle + label {
-    color: #33f;
-    cursor: pointer;
+  color: #33f;
+  cursor: pointer;
 }
 
 .comment .comment-toggle + label:hover {
-    text-decoration: underline;
-    transition: .6s;
+  text-decoration: underline;
+  transition: .6s;
 }
 
 .comment .comment-toggle + label + .comment-trail {
-    display: none;
+  display: none;
 }
 
 .comment .comment-toggle:checked + label + .comment-trail {
-    display: block;
+  display: block;
 }
 
 .comment-trail {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
 }
 
 .comment-item {
-    display: flex;
-    gap: 20px;
-    width:500px;
-    margin: 30px 0;
+  display: flex;
+  gap: 20px;
+  width:500px;
+  margin: 30px 0;
 }
 
 .comment-item.reply {
-    margin-left: auto;
+  margin-left: auto;
 }
 
 .comment-item .comment-author-profile {
-    height: 50px;
-    width: 50px;
-    background: #aaa;
-    border-radius: 25px;
+  height: 50px;
+  width: 50px;
+  background: #aaa;
+  border-radius: 25px;
 }
 
 .comment-item .comment-item-wrap {
-    width: 450px;
+  width: 450px;
 }
 
 .comment-item .comment-metadata {
-    display: flex;
-    gap: 30px;
+  display: flex;
+  gap: 30px;
 }
 
 .comment-item .comment-metadata h4 {
-    width: 100%;
-    padding: 0 15px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+  width: 100%;
+  padding: 0 15px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .comment-item.reply .comment-metadata h4 {
-    text-align: right;
+  text-align: right;
 }
 
 .comment-item .comment-timestamp {
-    color: #777;
+  color: #777;
 }
 
 .comment-item .comment-body {
-    margin: 10px 0;
-    line-height: 1.4em;
-    border-radius: 20px;
-    border: 1px dashed #ccc;
-    padding: 15px;
+  margin: 10px 0;
+  line-height: 1.4em;
+  border-radius: 20px;
+  border: 1px dashed #ccc;
+  padding: 15px;
 }
 
 .comment-item.reply .comment-body {
-    background: #444;
-    color: #fff;
+  background: #444;
+  color: #fff;
 }
 
 .comment-item .comment-misc {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }

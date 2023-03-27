@@ -1,72 +1,72 @@
 .explorer {
-    background: #202020;
-    min-height: 100%;
+  background: #202020;
+  min-height: 100%;
 }
 
 .explorer-pane {
-    height: calc(100vh - 100px);
+  height: calc(100vh - 100px);
 }
 
 .explorer .explorer-header,
 .explorer .explorer-item {
-    display: flex;
-    align-items: center;
-    height: 40px;
-    border-bottom: 1px solid #cdc;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  border-bottom: 1px solid #cdc;
 }
 
 .explorer .explorer-header > div,
 .explorer .explorer-pane .explorer-item > div{
-    padding: 0 15px;
+  padding: 0 15px;
 }
 
 .explorer .explorer-header > div:nth-child(2),
 .explorer .explorer-pane .explorer-item > div:nth-child(2) {
-    width: 40%;
+  width: 40%;
 }
 
 .explorer .explorer-header > div:nth-child(3),
 .explorer .explorer-pane .explorer-item > div:nth-child(3) {
-    width: 10%;
+  width: 10%;
 }
 
 .explorer .explorer-header > div:nth-child(4),
 .explorer .explorer-pane .explorer-item > div:nth-child(4) {
-    width: 180px;
+  width: 180px;
 }
 
 .explorer .explorer-header > div:nth-child(5),
 .explorer .explorer-pane .explorer-item > div:nth-child(5) {
-    width: 180px;
+  width: 180px;
 }
 
 .explorer .explorer-header > div:nth-child(6),
 .explorer .explorer-pane .explorer-item > div:nth-child(6) {
-    width: 100px;
+  width: 100px;
 }
 
 .explorer .explorer-header > div:nth-child(7) ,
 .explorer .explorer-pane .explorer-item > div:nth-child(7){
-    width: calc(50% - 500px);
+  width: calc(50% - 500px);
 }
 
 .explorer-header {
-    background: #bbb;
+  background: #bbb;
 }
 
 .explorer-header > div:not(:last-child) {
-    border-right: 1px solid #ddd;
+  border-right: 1px solid #ddd;
 }
 
 .explorer-item {
-    color: #fff;
-    cursor: pointer;
+  color: #fff;
+  cursor: pointer;
 }
 
 .explorer-item:hover {
-    background-color: #606060;
+  background-color: #606060;
 }
 
 .explorer-item.selected {
-    background-color: #808080;
+  background-color: #808080;
 }

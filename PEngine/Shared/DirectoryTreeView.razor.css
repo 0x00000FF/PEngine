@@ -1,52 +1,52 @@
 ﻿
 .tree {
-    list-style: none;
+  list-style: none;
 }
 
 .tree .item {
-    margin-left: 10px;
-    margin-bottom: 5px;
+  margin-left: 10px;
+  margin-bottom: 5px;
 }
 
 .tree .item a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .tree .item label::before {
-    display: inline-block;
-    content: ' ';
-    width: 15px;
-    text-align: center;
-    padding-right: 5px;
-    margin: 0;
+  display: inline-block;
+  content: ' ';
+  width: 15px;
+  text-align: center;
+  padding-right: 5px;
+  margin: 0;
 }
 
 .tree .item input {
-    display: none;
+  display: none;
 }
 
 .tree .item input + label::before {
-    content: '+';
+  content: '+';
 }
 
 .tree .item input + label + ul {
-    display: none;
+  display: none;
 }
 
 .tree .item input:checked + label::before {
-    content: '−';
+  content: '−';
 }
 
 .tree .item input:checked + label + ul {
-    display: block;
+  display: block;
 }
 
 .tree .item label {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .tree .item .tree {
-    margin-left: 20px;
-    margin-top: 5px;
+  margin-left: 20px;
+  margin-top: 5px;
 }

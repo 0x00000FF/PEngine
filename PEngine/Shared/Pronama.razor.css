@@ -1,40 +1,40 @@
 ﻿#pronamaChan {
-    position: fixed;
-    bottom: 45px;
-    right: 120px;
-    opacity: .7;
-    z-index: 10;
+  position: fixed;
+  bottom: 45px;
+  right: 120px;
+  opacity: .7;
+  z-index: 10;
 }
 
 #pronamaChan i {
-    display: block;
-    height: 200px;
-    width: 130px;
-    background: url("img/pronama-figure.png") no-repeat;
-    background-size: cover;
+  display: block;
+  height: 200px;
+  width: 130px;
+  background: url("img/pronama-figure.png") no-repeat;
+  background-size: cover;
 }
 
 #pronamaChan i:hover {
-    background-image: url("img/pronama-figure-hover.png")
+  background-image: url("img/pronama-figure-hover.png")
 }
 
 #mikumoChan {
-    position: fixed;
-    bottom: 45px;
-    right: 30px;
-    opacity: .8;
-    z-index: 10;
+  position: fixed;
+  bottom: 45px;
+  right: 30px;
+  opacity: .8;
+  z-index: 10;
 }
 
 #mikumoChan i {
-    display: block;
-    height: 190px;
-    width: 130px;
-    background: url("img/conoha-figure.png") no-repeat;
-    background-size: cover;
+  display: block;
+  height: 190px;
+  width: 130px;
+  background: url("img/conoha-figure.png") no-repeat;
+  background-size: cover;
 }
 
 #mikumoChan i:hover {
-    background-image: url("img/conoha-figure-hover.png");
+  background-image: url("img/conoha-figure-hover.png");
 }
 

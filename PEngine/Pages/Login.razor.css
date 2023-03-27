@@ -1,36 +1,36 @@
 ﻿.login-wrapper {
-    padding: 15px 30px;
-    color: #fff;
+  padding: 15px 30px;
+  color: #fff;
 }
 
 ::deep .login-option {
-    margin: 50px 0;
-    gap: 15px;
-    display: flex;
-    flex-direction: column;
+  margin: 50px 0;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 ::deep .login-option {
-    max-width: 500px;
+  max-width: 500px;
 }
 ::deep .login-option button,
 ::deep .login-option input {
-    padding: 10px;
-    background: #505050;
-    color: inherit;
-    border: 0;
-    font-size: 1.2em;
+  padding: 10px;
+  background: #505050;
+  color: inherit;
+  border: 0;
+  font-size: 1.2em;
 }
 
 ::deep .login-option button,
 ::deep .login-option input[type=button] {
-    margin-top: 10px;
-    background: #1010ff;
-    color: #fff;
-    cursor: pointer;
+  margin-top: 10px;
+  background: #1010ff;
+  color: #fff;
+  cursor: pointer;
 }
 
 ::deep .login-option button:hover,
 ::deep .login-option input[type=button]:hover {
-    background: #3030ff;
+  background: #3030ff;
 }
