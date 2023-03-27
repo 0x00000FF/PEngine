@@ -9,7 +9,17 @@
 
         public ValidationState IsValid()
         {
-            return ValidationState.Failed("test");
+            if (string.IsNullOrEmpty(Username?.Trim()))
+            {
+                return ValidationState.Failed("Username is not valid.");
+            }
+
+            if (string.IsNullOrEmpty(Password?.Trim()))
+            {
+                return ValidationState.Failed("Password is not valid.");
+            }
+
+            return ValidationState.Success;
         }
     }
 }
