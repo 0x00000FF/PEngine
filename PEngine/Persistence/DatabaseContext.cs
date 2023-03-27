@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PEngine.Common.DataModels;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace PEngine.Persistence;
 
@@ -10,12 +11,17 @@ public class DatabaseContext : DbContext
     public DbSet<Post>? Posts { get; set; }
     public DbSet<User>? Users { get; set; }
     public DbSet<UserCredentials>? UserCredentials { get; set; }
-    
+
+    public DatabaseContext()
+    {
+        Database.EnsureCreated();
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         var connString = Program.WebsiteConfiguration?["Persistence:Database:ConnectionString"];
-        optionsBuilder.UseMySql(ServerVersion.AutoDetect(connString));
+        optionsBuilder.UseMySql(connString, 
+            ServerVersion.Create(Version.Parse("8.0"), ServerType.MySql));
         
         base.OnConfiguring(optionsBuilder);
     }
