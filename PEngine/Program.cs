@@ -85,7 +85,11 @@ namespace PEngine
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddSession();
+            builder.Services.AddSession(options =>
+            {
+                options.Cookie.Name = UserContext.TOKEN_COOKIE;
+                options.Cookie.IsEssential = true;
+            });
             
             // Add services to the container.
             builder.Services.AddRazorPages();

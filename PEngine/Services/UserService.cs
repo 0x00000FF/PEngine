@@ -26,7 +26,7 @@ public class UserService
 
         if (user is not null)
         {
-            
+            _context.BeginUserContext(user);
         }
         
         return new ServiceResponse() { Success = user is not null, Payload = user };
