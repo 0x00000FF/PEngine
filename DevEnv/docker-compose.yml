@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  pengine-rdbms:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=penginedev
+      - MYSQL_DATABASE=pengine
+      - MYSQL_USER=pengine
+      - MYSQL_PASSWORD=penginedev
+    ports:
+      - "32000:3306"
+  pengine-redis:
+    image: redis:7-alpine
+    ports:
+      - "32100:6379"
