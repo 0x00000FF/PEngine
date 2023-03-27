@@ -10,7 +10,7 @@
 
     @if (ErrorSet)
     {
-        <div>@Error</div>
+        <div class="login-error">@Error</div>
     }
     
     <EditForm class="login-option classic-login" Model="_loginModel">
@@ -71,9 +71,10 @@
         
             var user = await service.LoginAsync(_loginModel);
 
-            if (user is null)
+            if (user is null || !user.Success)
             {
-                
+                Error = "Login Failed: No such credentials!";
+                await InvokeAsync(StateHasChanged);
             }
         });
         
