@@ -10,15 +10,16 @@ public class Comment : ControlledObject
 
     public Guid? Writer { get; set; }
 
-    public string Name { get; set; }
+    [Required]
+    public string Name { get; set; } = null!;
     public string? Email { get; set; }
     
-    public string Content { get; set; }
+    [Required]
+    public string Content { get; set; } = null!;
 
     public bool Encrypted { get; set; }
     public string? EncryptionSalt { get; set; }
     public string? EncryptionMethod { get; set; }
 
     public int? ReplyOf { get; set; }
-    public DateTimeOffset WrittenAt { get; set; } = DateTimeOffset.Now;
 }

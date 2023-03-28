@@ -10,7 +10,7 @@ namespace PEngine
     public static class Program
     {
         public static string? CurrentAssemblyPath { get; }
-        public static string CurrentGitHash { get; }
+        public static string? CurrentGitHash { get; }
         public static IConfiguration? WebsiteConfiguration { get; set; }
 
         private static readonly DirectoryInfo PEngineRoot;

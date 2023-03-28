@@ -26,7 +26,7 @@ public class Post : ControlledObject
     [NotMapped]
     public List<string> TagList
     {
-        get => JsonConvert.DeserializeObject<List<string>>(Tag) ?? new List<string>();
+        get => JsonConvert.DeserializeObject<List<string>>(Tag ?? "") ?? new List<string>();
         set => Tag = JsonConvert.SerializeObject(value);
     }
     
