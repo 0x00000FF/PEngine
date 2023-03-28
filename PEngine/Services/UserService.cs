@@ -4,6 +4,7 @@ using PEngine.Common.DataModels;
 using PEngine.Common.RequestModels;
 using PEngine.Repositories;
 using PEngine.States;
+using PEngine.Utilities;
 
 namespace PEngine.Services;
 
@@ -18,7 +19,25 @@ public class UserService
         _repository = repository;
     }
 
-    public async Task<ServiceResponse?> LoginAsync(LoginRequest request)
+    public async Task<ServiceResponse> RegisterAsync(UserRegisterRequest request)
+    {
+        var newUser = new User
+        {
+            Username = request.Username,
+            Password = request.Password,
+            Name = request.Name,
+            Email = request.Email
+        };
+        var registerResult = await _repository.CreateUser(newUser);
+
+        return new ServiceResponse()
+        {
+            Success = registerResult,
+            Payload = registerResult ? newUser.Id : null
+        };
+    }
+
+    public async Task<ServiceResponse> LoginAsync(LoginRequest request)
     {
         var user = await _repository.FromUsernameAndPassword(
             request.Username?.Trim() ?? string.Empty, 
