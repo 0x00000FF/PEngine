@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using PEngine.Common.Utilities;
 
 namespace PEngine.Common.DataModels;
 
@@ -18,7 +19,18 @@ public class User
     public string Username { get; set; } = null!;
 
     [Required]
-    public string Password { get; set; } = null!;
+    private string PasswordHash { get; set; } = null!;
+
+    [NotMapped]
+    public string Password
+    {
+        get => PasswordHash;
+        set
+        {
+            PasswordSalt = Cryptography.Random(32).AsBase64();
+            PasswordHash = Hash.MakePassword(value, PasswordSalt);
+        }
+    }
 
     [Required]
     public string PasswordSalt { get; set; } = null!;
