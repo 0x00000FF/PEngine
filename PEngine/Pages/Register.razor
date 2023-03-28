@@ -8,7 +8,7 @@
 <div class="register-wrapper">
     <h1>Create User Account</h1>
 
-    <form class="register-option">
+    <EditForm class="register-option" Model="_request">
         <label for="usernameInput">Username</label>
         <input type="text" id="usernameInput" placeholder="Username Here..." />
         
@@ -25,10 +25,10 @@
         <input type="email" id="emailInput" placeholder="example@@example.com"/>
 
         <button><i class="fas fa-check"></i> CREATE ACCOUNT</button>
-    </form>
+    </EditForm>
 
 </div>
 
 @code {
- 
+    private UserRegisterRequest _request = new();
 }
