@@ -1,5 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace PEngine.Common.DataModels;
 
@@ -29,5 +31,14 @@ public class User
     public string Email { get; set; } = null!;
     public string? Bio { get; set; }
 
-    public string? SNSHandles { get; set; }
+    private string Roles { get; set; } = null!;
+
+    [NotMapped]
+    public List<Guid>? RoleList
+    {
+        get => JsonConvert.DeserializeObject<List<Guid>>(Roles) ?? new List<Guid>{};
+        set => Roles = JsonConvert.SerializeObject(value);
+    }
+
+    public string? SnsHandles { get; set; }
 }
