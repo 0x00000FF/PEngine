@@ -1,5 +1,6 @@
 using PEngine.ViewModels;
 using System.Reflection;
+using PEngine.Middlewares;
 using PEngine.Persistence;
 using PEngine.Repositories;
 using PEngine.Services;
@@ -116,6 +117,8 @@ namespace PEngine
 
             app.UseHttpsRedirection();
 
+            app.UseMiddleware<VisitorMiddleware>();
+            
             app.UseSession();
             app.UseStaticFiles();
 
