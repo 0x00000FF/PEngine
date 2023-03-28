@@ -37,8 +37,5 @@ public class Post : ControlledObject
     public string? EncryptionSalt { get; set; }
     public string? EncryptionMethod { get; set; }
 
-    public DateTimeOffset WrittenAt { get; set; } = DateTimeOffset.Now;
-    public DateTimeOffset? ModifiedAt { get; set; }
-    
     public uint ReadCount { get; set; }
 }
