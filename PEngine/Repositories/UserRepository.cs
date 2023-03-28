@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PEngine.Common.DataModels;
+using PEngine.Common.Utilities;
 using PEngine.Utilities;
 
 namespace PEngine.Repositories;
@@ -13,9 +14,10 @@ public class UserRepository : RepositoryBase
         _users = Database.Users ?? throw new NullReferenceException("User DbSet cannot be null");
     }
 
-    public User? CreateUser(User newUser)
+    public async Task<bool> CreateUser(User newUser)
     {
-        return null;
+        _users.Add(newUser);
+        return await Database.SaveChangesAsync() > 0;
     }
     
     public async Task<User?> FromUsernameAndPassword(string username, string password)
