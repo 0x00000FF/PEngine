@@ -1,7 +1,6 @@
-using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 
-namespace PEngine.Utilities;
+namespace PEngine.Common.Utilities;
 
 public static class Hash
 {

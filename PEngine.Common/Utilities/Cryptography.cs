@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
-namespace PEngine.Utilities;
+namespace PEngine.Common.Utilities;
 
 public static class Cryptography
 {
