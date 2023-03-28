@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using PEngine.Common.Misc;
 
 namespace PEngine.Common.DataModels;
 
-public class Comment
+public class Comment : ControlledObject
 {
     [Key]
     public int Id { get; set; }

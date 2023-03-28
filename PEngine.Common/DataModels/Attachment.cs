@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net.Mime;
+using PEngine.Common.Misc;
 
 namespace PEngine.Common.DataModels;
 
-public class Attachment
+public class Attachment : ControlledObject
 {
     [Key] 
     public Guid Id { get; set; }
@@ -16,9 +17,6 @@ public class Attachment
     public long Size { get; set; }
 
     public bool Streamable { get; set; }
-    
-    public DateTimeOffset UploadedAt { get; set; } = DateTimeOffset.Now;
-    public DateTimeOffset? ExpiredAt { get; set; }
 
     public Guid UploadedBy { get; set; }
 }

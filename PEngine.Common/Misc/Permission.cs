@@ -4,15 +4,15 @@ public enum Permission
 {
     NoPerm = 0,
     
-    OtherX = 1,
-    OtherW = 2,
-    OtherR = 4,
+    OtherX = 0x001,
+    OtherW = 0x002,
+    OtherR = 0x004,
     
-    RoleX = 8,
-    RoleW = 16,
-    RoleR = 32,
+    RoleX = 0x008,
+    RoleW = 0x010,
+    RoleR = 0x020,
     
-    OwnerX = 64,
-    OwnerW = 128,
-    OwnerR = 256
+    OwnerX = 0x040,
+    OwnerW = 0x080,
+    OwnerR = 0x100
 }
