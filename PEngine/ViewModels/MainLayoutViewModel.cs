@@ -34,7 +34,7 @@ namespace PEngine.ViewModels
         {
             _userContext = context;
         }
-        
+
         public MainLayoutViewModel()
         {
             TaskQueue = new ConcurrentQueue<Func<Task>>();
@@ -76,59 +76,54 @@ namespace PEngine.ViewModels
 
         public void QueueTask(Action syncTask)
         {
-            QueueTask(syncTask, (Action?) null);
+            QueueTask(syncTask, (Action<PEngineException>?) null);
         }
 
-        public void QueueTask(Action syncTask, Action? whenFailedSync)
+        public void QueueTask(Action syncTask, Action<PEngineException>? whenFailedSync)
         {
-            QueueTask(() => Task.Run(syncTask), 
-            () => Task.Run(whenFailedSync!));
+            QueueTask(() => Task.Run(syncTask),
+            ex => Task.Run(() => whenFailedSync?.Invoke(ex)));
         }
-        
+
         public void QueueTask(Func<Task> asyncTask)
         {
             QueueTask(asyncTask, null);
         }
-        
-        public void QueueTask(Func<Task> asyncTask, Action whenFailedSync)
+
+        public void QueueTask(Func<Task> asyncTask, Action<PEngineException> whenFailedSync)
         {
-            QueueTask(asyncTask, () => Task.Run(whenFailedSync));
+            QueueTask(asyncTask,
+                ex => Task.Run(() => whenFailedSync?.Invoke(ex)));
         }
-        
-        public void QueueTask(Action syncTask, Func<Task> whenFailed)
+
+        public void QueueTask(Action syncTask, Func<PEngineException, Task> whenFailed)
         {
             QueueTask(() => Task.Run(syncTask), whenFailed);
         }
-        
-        public void QueueTask(Func<Task> asyncTask, Func<Task>? whenFailed)
+
+        public void QueueTask(Func<Task> asyncTask, Func<PEngineException, Task>? whenFailed)
         {
-            try
+            Func<Task> taskHandler = async () =>
             {
-                Func<Task> wrappedTask = async () =>
+                var spawnedTask = asyncTask();
+
+                try
                 {
-                    var spawnedTask = asyncTask();
-
-                    try
+                    await spawnedTask;
+                }
+                finally
+                {
+                    if (spawnedTask.IsFaulted)
                     {
-                        await spawnedTask;
+                        var exception = new PEngineException(spawnedTask.Exception);
+                        whenFailed?.Invoke(exception).Wait();
                     }
-                    finally
-                    {
-                        if (spawnedTask.IsFaulted)
-                        {
-                            whenFailed?.Invoke().Wait();
-                        }
 
-                        OnTaskCompleted(_layout);
-                    }
-                };
+                    OnTaskCompleted(_layout);
+                }
+            };
 
-                OnTaskEnqueueRequested(_layout, wrappedTask);
-            }
-            catch (PEngineException ex)
-            {
-                whenFailed?.Invoke().Wait();
-            }
+            OnTaskEnqueueRequested(_layout, taskHandler);
         }
 
     }
