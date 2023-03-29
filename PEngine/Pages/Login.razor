@@ -25,6 +25,7 @@
                @bind-value="_loginModel.Password" />
 
         <button @onclick="HandleClassicAuth"><i class="fas fa-lock"></i> LOGIN</button>
+        <button @onclick="HandleCreateNew"><i class="fas fa-plus"></i> CREATE NEW</button>
     </EditForm>
 
     <div class="login-option">
@@ -55,6 +56,14 @@
         _loginModel = new();
     }
 
+    public void HandleCreateNew()
+    {
+        mvm.QueueTask(() =>
+        {
+            navManager.NavigateTo("/register");
+        });
+    }
+    
     private void HandleClassicAuth()
     {
         mvm.QueueTask(async () =>
@@ -71,13 +80,20 @@
         
             var user = await service.LoginAsync(_loginModel);
 
-            if (user is null || !user.Success)
+            if (!user.Success)
             {
                 Error = "Login Failed: No such credentials!";
+                
                 await InvokeAsync(StateHasChanged);
+                return;
             }
 
             navManager.NavigateTo("/");
+        }, 
+        async () =>
+        {
+            Error = "Unknown Error Occurred...";
+            await InvokeAsync(StateHasChanged);
         });
         
     }
