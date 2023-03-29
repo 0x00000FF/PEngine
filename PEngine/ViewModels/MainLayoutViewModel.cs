@@ -1,6 +1,7 @@
 ﻿using PEngine.Extensions;
 using PEngine.Shared;
 using System.Collections.Concurrent;
+using PEngine.Exceptions;
 using PEngine.States;
 
 namespace PEngine.ViewModels
@@ -75,18 +76,28 @@ namespace PEngine.ViewModels
 
         public void QueueTask(Action syncTask)
         {
-            QueueTask(() =>
-            {
-                var asynchronizedTask = new Task(syncTask);
-                asynchronizedTask.Start();
-
-                return asynchronizedTask;
-            });
+            QueueTask(syncTask, (Action?) null);
         }
 
+        public void QueueTask(Action syncTask, Action? whenFailedSync)
+        {
+            QueueTask(() => Task.Run(syncTask), 
+            () => Task.Run(whenFailedSync!));
+        }
+        
         public void QueueTask(Func<Task> asyncTask)
         {
             QueueTask(asyncTask, null);
+        }
+        
+        public void QueueTask(Func<Task> asyncTask, Action whenFailedSync)
+        {
+            QueueTask(asyncTask, () => Task.Run(whenFailedSync));
+        }
+        
+        public void QueueTask(Action syncTask, Func<Task> whenFailed)
+        {
+            QueueTask(() => Task.Run(syncTask), whenFailed);
         }
         
         public void QueueTask(Func<Task> asyncTask, Func<Task>? whenFailed)
@@ -95,13 +106,26 @@ namespace PEngine.ViewModels
             {
                 Func<Task> wrappedTask = async () =>
                 {
-                    await asyncTask();
-                    OnTaskCompleted(_layout);
+                    var spawnedTask = asyncTask();
+
+                    try
+                    {
+                        await spawnedTask;
+                    }
+                    finally
+                    {
+                        if (spawnedTask.IsFaulted)
+                        {
+                            whenFailed?.Invoke().Wait();
+                        }
+
+                        OnTaskCompleted(_layout);
+                    }
                 };
 
                 OnTaskEnqueueRequested(_layout, wrappedTask);
             }
-            catch (Exception)
+            catch (PEngineException ex)
             {
                 whenFailed?.Invoke().Wait();
             }
