@@ -105,6 +105,8 @@ namespace PEngine
             builder.Services.AddLogging();
             builder.Services.AddSingleton<DatabaseContext>();
 
+            builder.Services.AddSingleton<VisitorMiddleware>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
