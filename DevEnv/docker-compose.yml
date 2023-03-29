@@ -8,6 +8,8 @@ services:
       - MYSQL_DATABASE=pengine
       - MYSQL_USER=pengine
       - MYSQL_PASSWORD=penginedev
+    volumes:
+      - "./.dev-mysql:/var/lib/mysql"
     ports:
       - "32000:3306"
   pengine-redis:

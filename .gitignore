@@ -26,3 +26,6 @@ wwwroot/style.css
 
 # default data directory
 PData
+
+# devenv related dir/files
+.dev-mysql
