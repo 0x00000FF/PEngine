@@ -31,6 +31,6 @@ public class UserRepository : RepositoryBase
         }
         
         var digest = Hash.MakePassword(password, preAuth.PasswordSalt);
-        return await _users.FirstOrDefaultAsync(u => u.Username == username && u.Password == digest);
+        return await _users.FirstOrDefaultAsync(u => u.Username == username && u.PasswordHash == digest);
     }
 }

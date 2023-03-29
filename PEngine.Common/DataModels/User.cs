@@ -19,7 +19,7 @@ public class User
     public string Username { get; set; } = null!;
 
     [Required]
-    private string PasswordHash { get; set; } = null!;
+    public string PasswordHash { get; set; } = null!;
 
     [NotMapped]
     public string Password
