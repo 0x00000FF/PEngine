@@ -1,0 +1,10 @@
+@inject PEngine.States.UserContext Context
+
+@if (Context.ContextValid)
+{
+    
+}
+else
+{
+    <AsyncNavLink Href="/login">Login</AsyncNavLink>
+}
