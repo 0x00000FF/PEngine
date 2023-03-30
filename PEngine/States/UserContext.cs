@@ -104,7 +104,7 @@ public class UserContext
 
     private byte[] CalculateContextHmac()
     {
-        return AuthenticatedRemoteAddress.ToString()
+        return AuthenticatedRemoteAddress.AsBase64()
             .AsBytes().Digest()
             .Digest(RoleList?.Select(g => g.ToString())
                              .Aggregate( (s1, s2) => s1.AsBytes().Digest(s2).AsBase64() )
