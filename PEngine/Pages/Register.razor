@@ -12,19 +12,19 @@
         <label for="usernameInput">Username</label>
         <input type="text" id="usernameInput" placeholder="Username Here..."
                @bind-value="_request.Username" />
-        
+
         <label for="passwordInput">Password</label>
-        <input type="password" id="passwordInput" 
+        <input type="password" id="passwordInput"
                @bind-value="_request.Password" />
-        
+
         <label for="passwordConfirmInput">Password Confirm</label>
-        <input type="password" id="passwordConfirmInput" 
+        <input type="password" id="passwordConfirmInput"
                @bind-value="_request.PasswordConfirm" />
-        
+
         <label for="nameInput">Name</label>
         <input type="text" id="nameInput" placeholder="John Doe"
                @bind-value="_request.Name" />
-        
+
         <label for="emailInput">Email</label>
         <input type="email" id="emailInput" placeholder="example@@example.com"
                @bind-value="_request.Email" />
@@ -39,10 +39,10 @@
 
     private void HandleRegister()
     {
-        mvm.QueueTask(async () =>
+        mvm.BusyLoad(async () =>
         {
             var result = await service.RegisterAsync(_request);
-            
+
             if (result.Success)
             {
                 navManager.NavigateTo("/login");

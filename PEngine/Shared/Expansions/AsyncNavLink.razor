@@ -19,13 +19,13 @@
         {
             await OnClickAsync.Invoke();
         }
-        
+
         if (string.IsNullOrEmpty(Href)) return;
-        
-        vm.QueueTask(() =>
+
+        vm.BusyLoad(async () =>
         {
             // Just for testing
-            Thread.Sleep(500);
+            await Task.Delay(3000);
             navManager.NavigateTo(Href);
         });
     }

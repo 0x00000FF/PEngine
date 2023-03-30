@@ -12,7 +12,7 @@
     {
         <div class="login-error">@Error</div>
     }
-    
+
     <EditForm class="login-option classic-login" Model="_loginModel">
         <h3>With Username/Password</h3>
         <p>Classical way to access into PEngine.</p>
@@ -48,7 +48,7 @@
 
     [Parameter]
     public string? Error { get; set; }
-    
+
     public bool ErrorSet => !string.IsNullOrEmpty(Error);
 
     public Login()
@@ -58,18 +58,15 @@
 
     public void HandleCreateNew()
     {
-        mvm.QueueTask(() =>
-        {
-            navManager.NavigateTo("/register");
-        });
+        navManager.NavigateTo("/register");
     }
-    
+
     private void HandleClassicAuth()
     {
-        mvm.QueueTask(async () =>
+        mvm.BusyLoad(async () =>
         {
             var validState = _loginModel.IsValid();
-            
+
             if (!validState.IsSuccess)
             {
                 Error = validState.Message;
@@ -77,35 +74,35 @@
 
                 return;
             }
-        
+
             var user = await service.LoginAsync(_loginModel);
 
             if (!user.Success)
             {
                 Error = "Login Failed: No such credentials!";
-                
+
                 await InvokeAsync(StateHasChanged);
                 return;
             }
 
             navManager.NavigateTo("/");
-        }, 
-        async () =>
+        },
+        async (ex) =>
         {
             Error = "Unknown Error Occurred...";
             await InvokeAsync(StateHasChanged);
         });
-        
+
     }
 
     private void HandlePKIAuth()
     {
-        
+
     }
 
     private void HandleFIDOAuth()
     {
-        
+
     }
 
 }

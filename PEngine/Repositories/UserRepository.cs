@@ -19,7 +19,7 @@ public class UserRepository : RepositoryBase
         _users.Add(newUser);
         return await Database.SaveChangesAsync() > 0;
     }
-    
+
     public async Task<User?> FromUsernameAndPassword(string username, string password)
     {
         var preAuth = await _users.Select(u => new { u.Username, u.PasswordSalt })
@@ -29,7 +29,7 @@ public class UserRepository : RepositoryBase
         {
             return null;
         }
-        
+
         var digest = Hash.MakePassword(password, preAuth.PasswordSalt);
         return await _users.FirstOrDefaultAsync(u => u.Username == username && u.PasswordHash == digest);
     }
