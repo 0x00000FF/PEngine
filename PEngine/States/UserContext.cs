@@ -20,8 +20,8 @@ public class UserContext
     [JsonIgnore]
     public IResponseCookies Cookies { get; }
 
-    public uint AuthenticatedRemoteAddress { get; private set; }
-    public uint? RemoteAddress { get; private set; } = null!;
+    public byte[] AuthenticatedRemoteAddress { get; private set; } = null!;
+    public byte[]? RemoteAddress { get; private set; }
     public List<Guid>? RoleList { get; private set; }
     public Guid UserId { get; private set; }
     public string ContextHmac { get; private set; } = null!;
@@ -37,7 +37,7 @@ public class UserContext
             throw new InvalidOperationException();
         }
 
-        RemoteAddress = Convert.ToUInt32(accessor.HttpContext.Connection.RemoteIpAddress);
+        RemoteAddress = accessor.HttpContext.Connection.RemoteIpAddress?.GetAddressBytes();
 
         Cookies = accessor.HttpContext.Response.Cookies;
         Session = accessor.HttpContext.Session;
@@ -54,7 +54,7 @@ public class UserContext
             throw new InvalidDataException("User Context cannot be started when RemoteAddress is null.");
         }
 
-        AuthenticatedRemoteAddress = RemoteAddress ?? 0;
+        AuthenticatedRemoteAddress = RemoteAddress ?? Array.Empty<byte>();
         Expires = DateTimeOffset.Now.AddMinutes(10);
         RoleList = user.RoleList ?? new List<Guid>() { user.Id };
         UserId = user.Id;
@@ -66,7 +66,7 @@ public class UserContext
 
     public void ExitUserContext()
     {
-        AuthenticatedRemoteAddress = 0;
+        AuthenticatedRemoteAddress = Array.Empty<byte>();
 
         Session.Clear();
         Cookies.Delete(TOKEN_COOKIE);
@@ -78,7 +78,7 @@ public class UserContext
 
         if (obj is null)
         {
-            AuthenticatedRemoteAddress = 0;
+            AuthenticatedRemoteAddress = Array.Empty<byte>();
             UserId = Guid.Empty;
             ContextHmac = string.Empty;
             Expires = DateTimeOffset.MinValue;
@@ -104,8 +104,6 @@ public class UserContext
 
     private byte[] CalculateContextHmac()
     {
-
-
         return AuthenticatedRemoteAddress.ToString()
             .AsBytes().Digest()
             .Digest(RoleList?.Select(g => g.ToString())
@@ -119,7 +117,7 @@ public class UserContext
     private bool ContextValidInner()
     {
         if (RemoteAddress is null ||
-            !RemoteAddress.Equals(AuthenticatedRemoteAddress) ||
+            !RemoteAddress.SequenceEqual(AuthenticatedRemoteAddress) ||
             DateTimeOffset.Now > Expires)
         {
             return false;
