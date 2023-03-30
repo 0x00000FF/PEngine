@@ -12,7 +12,7 @@ public class UserService
 {
     private readonly UserContext _context;
     private readonly UserRepository _repository;
-    
+
     public UserService(UserContext context, UserRepository repository)
     {
         _context = context;
@@ -28,6 +28,10 @@ public class UserService
             Name = request.Name,
             Email = request.Email
         };
+
+        var newRole = newUser.Role;
+        newUser.RoleList.Add(newRole);
+
         var registerResult = await _repository.CreateUser(newUser);
 
         return new ServiceResponse()
@@ -40,14 +44,14 @@ public class UserService
     public async Task<ServiceResponse> LoginAsync(LoginRequest request)
     {
         var user = await _repository.FromUsernameAndPassword(
-            request.Username?.Trim() ?? string.Empty, 
+            request.Username?.Trim() ?? string.Empty,
             request.Password?.Trim() ?? string.Empty);
 
         if (user is not null)
         {
             _context.BeginUserContext(user);
         }
-        
+
         return new ServiceResponse() { Success = user is not null, Payload = user };
     }
 

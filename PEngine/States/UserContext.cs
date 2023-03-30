@@ -20,9 +20,9 @@ public class UserContext
     [JsonIgnore]
     public IResponseCookies Cookies { get; }
 
-    public IPAddress AuthenticatedRemoteAddress { get; private set; } = null!;
-    public IPAddress? RemoteAddress { get; private set; } = null!;
-    public Guid RoleId { get; private set; }
+    public uint AuthenticatedRemoteAddress { get; private set; }
+    public uint? RemoteAddress { get; private set; } = null!;
+    public List<Guid>? RoleList { get; private set; }
     public Guid UserId { get; private set; }
     public string ContextHmac { get; private set; } = null!;
     public DateTimeOffset Expires { get; private set; }
@@ -36,14 +36,14 @@ public class UserContext
         {
             throw new InvalidOperationException();
         }
-        
-        RemoteAddress = accessor.HttpContext.Connection.RemoteIpAddress;
+
+        RemoteAddress = Convert.ToUInt32(accessor.HttpContext.Connection.RemoteIpAddress);
 
         Cookies = accessor.HttpContext.Response.Cookies;
         Session = accessor.HttpContext.Session;
 
         var token = Session.GetString(TOKEN_NAME);
-        
+
         ExpandSessionToken(token);
     }
 
@@ -54,9 +54,9 @@ public class UserContext
             throw new InvalidDataException("User Context cannot be started when RemoteAddress is null.");
         }
 
-        AuthenticatedRemoteAddress = RemoteAddress;
+        AuthenticatedRemoteAddress = RemoteAddress ?? 0;
         Expires = DateTimeOffset.Now.AddMinutes(10);
-        RoleId = user.Role;
+        RoleList = user.RoleList ?? new List<Guid>() { user.Id };
         UserId = user.Id;
         ContextHmac = CalculateContextHmac().AsBase64();
 
@@ -66,7 +66,7 @@ public class UserContext
 
     public void ExitUserContext()
     {
-        AuthenticatedRemoteAddress = IPAddress.None;
+        AuthenticatedRemoteAddress = 0;
 
         Session.Clear();
         Cookies.Delete(TOKEN_COOKIE);
@@ -78,8 +78,7 @@ public class UserContext
 
         if (obj is null)
         {
-            AuthenticatedRemoteAddress = IPAddress.None;
-            RoleId = Guid.Empty;
+            AuthenticatedRemoteAddress = 0;
             UserId = Guid.Empty;
             ContextHmac = string.Empty;
             Expires = DateTimeOffset.MinValue;
@@ -88,7 +87,7 @@ public class UserContext
         }
 
         AuthenticatedRemoteAddress = obj.AuthenticatedRemoteAddress;
-        RoleId = obj.RoleId;
+        RoleList = obj.RoleList;
         UserId = obj.UserId;
         ContextHmac = obj.ContextHmac;
         Expires = obj.Expires;
@@ -105,9 +104,13 @@ public class UserContext
 
     private byte[] CalculateContextHmac()
     {
+
+
         return AuthenticatedRemoteAddress.ToString()
             .AsBytes().Digest()
-            .Digest(RoleId.ToString())
+            .Digest(RoleList?.Select(g => g.ToString())
+                             .Aggregate( (s1, s2) => s1.AsBytes().Digest(s2).AsBase64() )
+                    ?? "")
             .Digest(UserId.ToString())
             .Digest(BitConverter.GetBytes(Expires.UtcTicks))
             .Hmac("12345".AsBytes()); // TODO: replace hmac key with randomly-generated session key

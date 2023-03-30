@@ -12,8 +12,15 @@ public class User
     [Key]
     public Guid Id { get; set; }
 
-    [Required]
-    public Guid Role { get; set; } = Guid.Empty;
+    private string Roles { get; set; } = "[]";
+
+    [NotMapped]
+    public List<Guid>? RoleList
+    {
+        get => JsonConvert.DeserializeObject<List<Guid>>(Roles) ?? new List<Guid> { };
+        set => Roles = JsonConvert.SerializeObject(value);
+    }
+
 
     [Required]
     public string Username { get; set; } = null!;
@@ -43,14 +50,6 @@ public class User
     public string Email { get; set; } = null!;
     public string? Bio { get; set; }
 
-    private string Roles { get; set; } = null!;
-
-    [NotMapped]
-    public List<Guid>? RoleList
-    {
-        get => JsonConvert.DeserializeObject<List<Guid>>(Roles) ?? new List<Guid>{};
-        set => Roles = JsonConvert.SerializeObject(value);
-    }
 
     public string? SnsHandles { get; set; }
 }
