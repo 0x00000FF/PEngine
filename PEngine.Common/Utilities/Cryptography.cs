@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -12,7 +13,7 @@ public static class Cryptography
         {
             return Array.Empty<byte>();
         }
-        
+
         return RandomNumberGenerator.GetBytes(size);
     }
 
@@ -25,20 +26,20 @@ public static class Cryptography
     {
         return AsString(bytes, Encoding.UTF8);
     }
-    
+
     public static string AsString(this byte[] bytes, Encoding encoding)
     {
         return encoding.GetString(bytes);
     }
 
-    public static string AsBase64(this byte[] bytes)
+    public static string AsBase64(this byte[]? bytes)
     {
-        return Convert.ToBase64String(bytes);
+        return bytes is null ? "" : Convert.ToBase64String(bytes);
     }
 
-    public static byte[] AsBase64Bytes(this string str)
+    public static byte[] AsBase64Bytes(this string? str)
     {
-        return Convert.FromBase64String(str);
+        return str is null ? Array.Empty<byte>() : Convert.FromBase64String(str);
     }
 
     public static byte[] EncryptSymmetric(byte[] plaintext, byte[] key, byte[] iv)
@@ -73,14 +74,25 @@ public static class Cryptography
         return symmetricAlgorithm.DecryptCbc(ciphertext, iv);
     }
 
-    public static byte[] EncryptAsymmetric()
+    public static byte[] EncryptAsymmetric(string plaintext, byte[] pubkey)
     {
-        throw new NotImplementedException();
+        return EncryptAsymmetric(plaintext.AsBytes(), pubkey);
     }
 
-    public static byte[] DecryptAsymmetric()
+    public static byte[] EncryptAsymmetric(byte[] plaintext, byte[] pubKey)
     {
-        throw new NotImplementedException();
+        var defaultRsa = RSA.Create();
+        defaultRsa.ImportRSAPublicKey(pubKey, out _);
+
+        return defaultRsa.Encrypt(plaintext, RSAEncryptionPadding.OaepSHA512);
+    }
+
+    public static byte[] DecryptAsymmetric(byte[] ciphertext, byte[] priKey)
+    {
+        var defaultRsa = RSA.Create();
+        defaultRsa.ImportRSAPrivateKey(priKey, out _);
+
+        return defaultRsa.Decrypt(ciphertext, RSAEncryptionPadding.OaepSHA512);
     }
 
     public static byte[] Sign(this byte[] data, byte[] key)
