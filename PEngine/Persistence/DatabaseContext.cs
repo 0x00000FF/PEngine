@@ -4,7 +4,7 @@ using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace PEngine.Persistence;
 
-public class DatabaseContext : DbContext
+public sealed class DatabaseContext : DbContext
 {
     public DbSet<Attachment>? Attachments { get; set; }
     public DbSet<Comment>? Comments { get; set; }
