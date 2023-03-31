@@ -23,7 +23,7 @@ public class UserRepository : RepositoryBase
     public async Task<User?> FromUsernameAndPassword(string username, string password)
     {
         var preAuth = await _users.Select(u => new { u.Username, u.PasswordSalt })
-                                                  .FirstOrDefaultAsync();
+                                                  .FirstOrDefaultAsync(u => u.Username == username);
 
         if (preAuth is null)
         {
