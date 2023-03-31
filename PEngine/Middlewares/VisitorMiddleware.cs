@@ -18,6 +18,10 @@ public class VisitorMiddleware : IMiddleware
         var accessIp = context.Connection.RemoteIpAddress;
         var referer = context.Request.Headers.Referer;
 
+        if (!context.Session.Keys.Contains("Expired"))
+        {
+            context.Session.SetInt32("Expired", 0);
+        }
 
         return next(context);
     }

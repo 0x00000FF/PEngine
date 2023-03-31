@@ -86,6 +86,7 @@ namespace PEngine
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddHttpContextAccessor();
+            builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
             {
                 options.Cookie.Name = UserContext.TOKEN_COOKIE;
@@ -118,10 +119,10 @@ namespace PEngine
             }
 
             app.UseHttpsRedirection();
-
-            app.UseMiddleware<VisitorMiddleware>();
             
             app.UseSession();
+            app.UseMiddleware<VisitorMiddleware>();
+
             app.UseStaticFiles();
 
             app.UseRouting();
