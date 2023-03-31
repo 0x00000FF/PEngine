@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using PEngine.Common.DataModels;
 using PEngine.Common.Utilities;
 using PEngine.Utilities;
+using JsonConverter = System.Text.Json.Serialization.JsonConverter;
 
 namespace PEngine.States;
 
@@ -20,31 +21,56 @@ public class UserContext
     [JsonIgnore]
     public IResponseCookies Cookies { get; }
 
-    public byte[] AuthenticatedRemoteAddress { get; private set; } = null!;
-    public byte[]? RemoteAddress { get; private set; }
-    public List<Guid>? RoleList { get; private set; }
-    public Guid UserId { get; private set; }
-    public string ContextHmac { get; private set; } = null!;
-    public DateTimeOffset Expires { get; private set; }
+    public byte[] AuthenticatedRemoteAddress
+    {
+        get => Session.Get(nameof(AuthenticatedRemoteAddress)) ?? Array.Empty<byte>();
+        private set => Session.Set(nameof(AuthenticatedRemoteAddress), value);
+    }
+
+    public byte[]? RemoteAddress
+    {
+        get => Session.Get(nameof(AuthenticatedRemoteAddress)) ?? Array.Empty<byte>();
+        private set => Session.Set(nameof(RemoteAddress), value!);
+    }
+    
+    public List<Guid>? RoleList
+    {
+        get => JsonConvert.DeserializeObject<List<Guid>>(Session.GetString(nameof(RoleList)) ?? ""); 
+        private set => Session.SetString(nameof(RoleList), JsonConvert.SerializeObject(value));
+    }
+    
+    public Guid UserId
+    {
+        get => new(Session.GetString(nameof(UserId))!);
+        private set => Session.SetString(nameof(UserId), value.ToString()); 
+    }
+    
+    public string ContextHmac
+    {
+        get => Session.GetString(nameof(ContextHmac)) ?? "";
+        private set => Session.SetString(nameof(ContextHmac), value); 
+    }
+    
+    public DateTimeOffset Expires
+    {
+        get => DateTimeOffset.Parse(Session.GetString(nameof(Expires)) ?? "1970-01-01 00:00:00");
+        private set => Session.SetString(nameof(Expires), value.ToString());
+    }
 
     [JsonIgnore]
     public bool ContextValid => ContextValidInner();
 
     public UserContext(IHttpContextAccessor accessor)
     {
-        if (accessor.HttpContext is null)
+        if (accessor?.HttpContext is null)
         {
             throw new InvalidOperationException();
         }
-
-        RemoteAddress = accessor.HttpContext.Connection.RemoteIpAddress?.GetAddressBytes();
-
-        Cookies = accessor.HttpContext.Response.Cookies;
+        
         Session = accessor.HttpContext.Session;
-
-        var token = Session.GetString(TOKEN_NAME);
-
-        ExpandSessionToken(token);
+        Cookies = accessor.HttpContext.Response.Cookies;
+        
+        RemoteAddress = accessor.HttpContext.Connection.RemoteIpAddress?.GetAddressBytes();
     }
 
     public void BeginUserContext(User user)
@@ -54,14 +80,11 @@ public class UserContext
             throw new InvalidDataException("User Context cannot be started when RemoteAddress is null.");
         }
 
-        AuthenticatedRemoteAddress = RemoteAddress ?? Array.Empty<byte>();
-        Expires = DateTimeOffset.Now.AddMinutes(10);
+        AuthenticatedRemoteAddress = RemoteAddress;
+        Expires = DateTimeOffset.Now.AddHours(1);
         RoleList = user.RoleList ?? new List<Guid>() { user.Id };
         UserId = user.Id;
         ContextHmac = CalculateContextHmac().AsBase64();
-
-        var json = JsonConvert.SerializeObject(this);
-        Session.SetString(TOKEN_NAME, json);
     }
 
     public void ExitUserContext()
