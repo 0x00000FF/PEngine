@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Resources\DefaultAppSettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <PackageReference Include="StackExchange.Redis" Version="2.6.96" />
@@ -25,6 +21,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PEngine.Common\PEngine.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
