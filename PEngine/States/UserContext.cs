@@ -9,16 +9,11 @@ namespace PEngine.States;
 
 public class UserContext
 {
-    [JsonIgnore]
     public static readonly string TOKEN_NAME = "_pengine_context_token";
-
-    [JsonIgnore]
     public static readonly string TOKEN_COOKIE = "_PENGINE_SESS";
-
-    [JsonIgnore]
+    
     private ISession Session { get; }
-
-    [JsonIgnore]
+    
     public IResponseCookies Cookies { get; }
 
     public byte[] AuthenticatedRemoteAddress
@@ -56,8 +51,7 @@ public class UserContext
         get => DateTimeOffset.Parse(Session.GetString(nameof(Expires)) ?? "1970-01-01 00:00:00");
         private set => Session.SetString(nameof(Expires), value.ToString());
     }
-
-    [JsonIgnore]
+    
     public bool ContextValid => ContextValidInner();
 
     public UserContext(IHttpContextAccessor accessor)

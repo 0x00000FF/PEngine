@@ -1,5 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using PEngine.States
+@inherits LayoutComponentBase
 @inject MainLayoutViewModel vm
+@inject UserContext ctx
 
 <PageTitle>PEngine</PageTitle>
 
@@ -35,7 +37,7 @@
                 </form>
             </li>
             <li class="top-item">
-                <AuthLinkItem />
+                <AuthLinkItem IsAuthenticated="IsAuthenticated" />
             </li>
         </ul>
     </header>
@@ -71,6 +73,7 @@
 {
     public bool IsPronamaEnabled { get; set; } = true;
     public bool IsBusy => vm.IsBusy;
+    public bool IsAuthenticated => vm.IsAuthenticated;
     public string CurrentStatusMessage = "Ready";
 
     protected override void OnInitialized()
