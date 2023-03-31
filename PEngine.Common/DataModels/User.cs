@@ -10,17 +10,29 @@ namespace PEngine.Common.DataModels;
 public class User
 {
     [Key]
-    public Guid Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
-    private string Roles { get; set; } = "[]";
-
+    public string? Roles { get; set; }
+    
     [NotMapped]
     public List<Guid>? RoleList
     {
-        get => JsonConvert.DeserializeObject<List<Guid>>(Roles) ?? new List<Guid> { };
+        get
+        {
+            var list = JsonConvert.DeserializeObject<List<Guid>>(Roles ?? "");
+
+            if (list is null)
+            {
+                RoleList = new List<Guid> { Id };
+                Roles = JsonConvert.SerializeObject(RoleList);
+
+                list = RoleList;
+            }
+            
+            return list;
+        }
         set => Roles = JsonConvert.SerializeObject(value);
     }
-
 
     [Required]
     public string Username { get; set; } = null!;
