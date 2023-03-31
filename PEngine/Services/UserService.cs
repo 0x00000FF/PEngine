@@ -29,9 +29,6 @@ public class UserService
             Email = request.Email
         };
 
-        var newRole = newUser.Role;
-        newUser.RoleList.Add(newRole);
-
         var registerResult = await _repository.CreateUser(newUser);
 
         return new ServiceResponse()
