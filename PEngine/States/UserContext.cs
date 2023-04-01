@@ -1,9 +1,6 @@
-using System.Net;
 using Newtonsoft.Json;
 using PEngine.Common.DataModels;
 using PEngine.Common.Utilities;
-using PEngine.Utilities;
-using JsonConverter = System.Text.Json.Serialization.JsonConverter;
 
 namespace PEngine.States;
 
@@ -54,7 +51,7 @@ public class UserContext
     
     public bool ContextValid => ContextValidInner();
 
-    public UserContext(IHttpContextAccessor accessor)
+    public UserContext(IHttpContextAccessor? accessor)
     {
         if (accessor?.HttpContext is null)
         {
@@ -67,7 +64,7 @@ public class UserContext
         RemoteAddress = accessor.HttpContext.Connection.RemoteIpAddress?.GetAddressBytes();
     }
 
-    public void BeginUserContext(User user)
+    public async Task BeginUserContext(User user)
     {
         if (RemoteAddress is null)
         {
@@ -78,36 +75,18 @@ public class UserContext
         Expires = DateTimeOffset.Now.AddHours(1);
         RoleList = user.RoleList ?? new List<Guid>() { user.Id };
         UserId = user.Id;
-        ContextHmac = CalculateContextHmac().AsBase64();
+
+        var hmac = await CalculateContextHmac();
+        ContextHmac = hmac.AsBase64();
     }
 
-    public void ExitUserContext()
+    public async Task ExitUserContext()
     {
-        AuthenticatedRemoteAddress = Array.Empty<byte>();
-
-        Session.Clear();
-        Cookies.Delete(TOKEN_COOKIE);
-    }
-
-    private void ExpandSessionToken(string? token)
-    {
-        var obj = JsonConvert.DeserializeObject<UserContext>(token ?? "");
-
-        if (obj is null)
+        await Task.Run(() =>
         {
-            AuthenticatedRemoteAddress = Array.Empty<byte>();
-            UserId = Guid.Empty;
-            ContextHmac = string.Empty;
-            Expires = DateTimeOffset.MinValue;
-
-            return;
-        }
-
-        AuthenticatedRemoteAddress = obj.AuthenticatedRemoteAddress;
-        RoleList = obj.RoleList;
-        UserId = obj.UserId;
-        ContextHmac = obj.ContextHmac;
-        Expires = obj.Expires;
+            Session.Clear();
+            Cookies.Delete(TOKEN_COOKIE);
+        });
     }
 
     private void RefreshContext()
@@ -115,20 +94,20 @@ public class UserContext
         if (DateTimeOffset.Now > Expires.AddMinutes(-1))
         {
             Expires = Expires.AddMinutes(10);
-            ContextHmac = CalculateContextHmac().AsBase64();
+            ContextHmac = CalculateContextHmac().Result.AsBase64();
         }
     }
 
-    private byte[] CalculateContextHmac()
+    private async Task<byte[]> CalculateContextHmac()
     {
-        return AuthenticatedRemoteAddress.AsBase64()
-            .AsBytes().Digest()
-            .Digest(RoleList?.Select(g => g.ToString())
-                             .Aggregate( (s1, s2) => s1.AsBytes().Digest(s2).AsBase64() )
-                    ?? "")
+        var roleListDigest = RoleList?.Select(g => g.ToString())
+            .Aggregate((s1, s2) => s1.AsBytes().Digest(s2).AsBase64()) ?? "";
+        var hmac = await AuthenticatedRemoteAddress
+            .Digest(roleListDigest)
             .Digest(UserId.ToString())
-            .Digest(BitConverter.GetBytes(Expires.UtcTicks))
-            .Hmac("12345".AsBytes()); // TODO: replace hmac key with randomly-generated session key
+            .DigestAsync(BitConverter.GetBytes(Expires.UtcTicks));
+        
+        return hmac.Hmac("12345".AsBytes()); // TODO: replace hmac key with randomly-generated session key
     }
 
     private bool ContextValidInner()
@@ -142,7 +121,7 @@ public class UserContext
 
         RefreshContext();
 
-        return CalculateContextHmac()
+        return CalculateContextHmac().Result
             .SequenceEqual(ContextHmac.AsBase64Bytes());
     }
 }
