@@ -20,7 +20,11 @@ public static class Hash
     }
     public static byte[] Digest(this byte[] plaintext, byte[] appendingText)
     {
-        var sha = SHA512.Create();
+        return DigestAsync(plaintext, appendingText).Result;
+    }
+
+    public static async Task<byte[]> DigestAsync(this byte[] plaintext, byte[] appendingText)
+    {
         var buff = plaintext;
 
         if (buff.Length > plaintext.Length)
@@ -31,7 +35,13 @@ public static class Hash
             Array.Copy(appendingText, 0, buff, plaintext.Length, appendingText.Length);
         }
         
-        return sha.ComputeHash(buff);
+        return await new MemoryStream(buff).DigestAsync();
+    }
+
+    public static async Task<byte[]> DigestAsync(this Stream stream)
+    {
+        var sha = SHA512.Create();
+        return await sha.ComputeHashAsync(stream);
     }
     
     // TODO: Hmac
