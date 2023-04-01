@@ -5,9 +5,9 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PEngine", "PEngine\PEngine.csproj", "{A1877EDD-62E7-4BB7-AD39-A46CB6CB2BEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEngine.NUnit", "PEngine.NUnit\PEngine.NUnit.csproj", "{180A3857-B87C-4A9C-820B-3CC1D98D66FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PEngine.NUnit", "PEngine.NUnit\PEngine.NUnit.csproj", "{180A3857-B87C-4A9C-820B-3CC1D98D66FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEngine.Common", "PEngine.Common\PEngine.Common.csproj", "{70A939B1-83D3-4C5F-86AC-3EA42638AAA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PEngine.Common", "PEngine.Common\PEngine.Common.csproj", "{70A939B1-83D3-4C5F-86AC-3EA42638AAA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
