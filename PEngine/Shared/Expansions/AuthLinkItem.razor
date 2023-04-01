@@ -1,18 +1,34 @@
 @using PEngine.Services
+@using PEngine.States;
+@inject MainLayoutViewModel vm
+@inject NavigationManager navManager
 @inject UserService service
+@inject UserContext context
 
+<div class="auth-status-link">
 @if (_currentUser is null)
 {
-    <AsyncNavLink Href="/login">Login</AsyncNavLink>
+    <AsyncNavLink Href="/login" Class="login-button">
+       <i class="fa-solid fa-right-to-bracket"></i>
+        LOGIN
+    </AsyncNavLink>
 }
 else
 {
-    <AsyncNavLink Href="/my-page">@_currentUser.Name</AsyncNavLink>
+    <img class="user-profile" src="@_currentUser.Profile" />
+    <a class="user-name" @onclick="DoUsernameClick">@(_standbyConfirm ? $"LOGOUT?" : _currentUser.Name)</a>
+    <a class="logout-button" @onclick="DoLogout"><i class="fa-solid fa-right-from-bracket"></i></a>
 }
+</div>
 
 @code
 {
     private User? _currentUser;
+
+    private Task? _standbyTask;
+    private CancellationTokenSource? _standbyTaskSource;
+
+    private bool _standbyConfirm;
 
     [Parameter]
     public bool IsAuthenticated { get; set; }
@@ -24,7 +40,48 @@ else
             _currentUser = IsAuthenticated ? service.GetCurrentUser() : null;
             StateHasChanged();
         }
-        
+
         base.OnAfterRender(firstRender);
+    }
+
+    private void DoUsernameClick()
+    {
+        if (_standbyConfirm)
+        {
+            _standbyTaskSource?.Cancel();
+            return;
+        }
+
+        navManager.NavigateTo("/my-page");
+    }
+
+    private void DoLogout()
+    {
+        if (_standbyConfirm)
+        {
+
+            vm.BusyLoad(async () =>
+            {
+                context.ExitUserContext();
+                navManager.NavigateTo("/");
+            });
+        }
+        else
+        {
+            _standbyTaskSource = new CancellationTokenSource();
+            _standbyConfirm = true;
+
+            _standbyTask = Task.Run(async () =>
+            {
+                try
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(3), _standbyTaskSource.Token);
+                }
+                finally
+                {
+                    _standbyConfirm = false;
+                }
+            });
+        }
     }
 }

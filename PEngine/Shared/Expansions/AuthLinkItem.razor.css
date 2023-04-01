@@ -1,0 +1,51 @@
+﻿.auth-status-link {
+    display: flex;
+    height: 42px;
+    width: 220px;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+::deep .login-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 10px;
+    height: 42px;
+}
+
+::deep .login-button:hover {
+    background: #ccc;
+    color: #222;
+}
+
+.auth-status-link .user-profile {
+    height: 42px;
+    width: 42px;
+    background: #ccc;
+}
+
+::deep .user-name {
+    display: block;
+    width: 140px;
+    text-align: center;
+    padding: 0 15px;
+    margin-top: -2px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.logout-button {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 15px;
+}
+
+.logout-button:hover {
+    background: #ccc;
+    color: #222;
+}
