@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Primitives;
+using PEngine.States;
 
 namespace PEngine.Middlewares;
 
@@ -21,6 +22,13 @@ public class VisitorMiddleware : IMiddleware
         if (!context.Session.Keys.Contains("Expired"))
         {
             context.Session.SetInt32("Expired", 0);
+        }
+        else if (context.Session.GetInt32("Expired") == 1) 
+        {
+            context.Response.Cookies.Delete(UserContext.TOKEN_COOKIE);
+            context.Response.Redirect("/");
+
+            return Task.CompletedTask;
         }
 
         return next(context);

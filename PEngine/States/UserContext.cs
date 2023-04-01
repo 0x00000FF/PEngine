@@ -85,7 +85,7 @@ public class UserContext
         await Task.Run(() =>
         {
             Session.Clear();
-            Cookies.Delete(TOKEN_COOKIE);
+            Session.SetInt32("Expired", 1);
         });
     }
 
