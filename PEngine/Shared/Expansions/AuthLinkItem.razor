@@ -62,7 +62,7 @@ else
 
             vm.BusyLoad(async () =>
             {
-                context.ExitUserContext();
+                await service.RequestContextExit();
                 navManager.NavigateTo("/");
             });
         }
