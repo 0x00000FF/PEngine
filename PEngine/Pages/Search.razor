@@ -1,0 +1,11 @@
+﻿@page "/search/{Keyword?}"
+
+<PageTitle>Search : @Keyword</PageTitle>
+
+<ExplorerView />
+
+@code{
+    [Parameter]
+    public string? Keyword { get; set; }
+}
+

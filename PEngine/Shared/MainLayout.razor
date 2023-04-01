@@ -32,9 +32,7 @@
         </ul>
         <ul class="gnb right">
             <li class="top-item">
-                <form action="/search">
-                    <input type="text" name="query" placeholder="Search..."  />
-                </form>
+                <SearchInput />
             </li>
             <li class="user-authview">
                 <AuthLinkItem IsAuthenticated="IsAuthenticated" />
@@ -75,6 +73,7 @@
     public bool IsBusy => vm.IsBusy;
     public bool IsAuthenticated => vm.IsAuthenticated;
     public string CurrentStatusMessage = "Ready";
+
 
     protected override void OnInitialized()
     {

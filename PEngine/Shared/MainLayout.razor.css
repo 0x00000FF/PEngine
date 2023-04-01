@@ -34,7 +34,8 @@
   justify-content: center;
   height: 100%;
   width: 42px;
-  text-align: center;}
+  text-align: center;
+}
 
 ::deep .gnb .top-item > a {
   display: flex;
@@ -55,28 +56,6 @@
 ::deep .gnb .top-item a:active {
     background: #aaa;
     color: #222;
-}
-
-.gnb .top-item form input {
-  height: 41px;
-  padding: 0 10px;
-  width: 200px;
-  box-sizing: border-box;
-  background: #353535;
-  border: 0;
-}
-
-.gnb .top-item form input:hover {
-  background: #707070;
-}
-
-.gnb .top-item form input:hover::placeholder {
-  color: #000;
-}
-
-.gnb .top-item form input:focus {
-  background: #fff;
-  color: #000;
 }
 
 .gnb.right {

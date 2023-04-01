@@ -1,0 +1,18 @@
+﻿@inject MainLayoutViewModel vm
+@inject NavigationManager navManager
+
+<form @onsubmit="HandleSearch" @onsubmit:preventDefault="true">
+    <input type="text" name="Keyword" placeholder="Search..." @bind-value="SearchKeyword"/>
+</form>
+
+@code {
+    public string? SearchKeyword { get; set; }
+
+    private void HandleSearch()
+    {
+        vm.BusyLoad(async () =>
+        {
+            await Task.Run(() => navManager.NavigateTo($"/search/{SearchKeyword}"));
+        });
+    }
+}

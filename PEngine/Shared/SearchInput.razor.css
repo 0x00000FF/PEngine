@@ -1,0 +1,21 @@
+﻿form input {
+  height: 41px;
+  padding: 0 10px;
+  width: 200px;
+  box-sizing: border-box;
+  background: #353535;
+  border: 0;
+}
+
+form input:hover {
+  background: #707070;
+}
+
+form input:hover::placeholder {
+  color: #000;
+}
+
+form input:focus {
+  background: #fff;
+  color: #000;
+}
