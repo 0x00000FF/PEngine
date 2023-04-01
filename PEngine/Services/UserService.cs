@@ -28,10 +28,10 @@ public class UserService
     {
         var newUser = new User
         {
-            Username = request.Username,
-            Password = request.Password,
-            Name = request.Name,
-            Email = request.Email
+            Username = request.Username!,
+            Password = request.Password!,
+            Name = request.Name!,
+            Email = request.Email!
         };
 
         var registerResult = await _repository.CreateUser(newUser);
