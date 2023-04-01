@@ -14,7 +14,7 @@
   display: flex;
   list-style: none;
   align-items: center;
-  gap: 15px;
+  height: 42px;
 }
 
 .gnb:last-child {
@@ -22,13 +22,39 @@
 }
 
 .gnb .top-item {
-  padding: 0 20px;
+  display: block;
+  align-items: center;
   cursor: pointer;
+  height: 100%;
 }
 
-::deep .gnb .top-item a {
+.gnb .menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 42px;
+  text-align: center;}
+
+::deep .gnb .top-item > a {
+  display: flex;
+  height: 100%;
   color: inherit;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
   text-decoration: none;
+}
+
+::deep .gnb .top-item a:hover,
+::deep .gnb .top-item .menu-toggle:hover {
+    background: #ccc;
+    color: #222;
+}
+
+::deep .gnb .top-item a:active {
+    background: #aaa;
+    color: #222;
 }
 
 .gnb .top-item form input {
@@ -51,6 +77,23 @@
 .gnb .top-item form input:focus {
   background: #fff;
   color: #000;
+}
+
+.gnb.right {
+    gap: 0;
+    margin-right: 0;
+}
+
+.gnb.right .top-item {
+    padding: 0;
+}
+
+.gnb .user-authview {
+    display: flex;
+    padding: 0;
+    height: 40px;
+    align-items: center;
+    gap: 15px;
 }
 
 main::-webkit-scrollbar {
@@ -126,7 +169,7 @@ footer .current-version a {
   color: inherit;
   text-decoration: none;
   max-width: 130px;
-  text-wrap: none;
+  white-space: nowrap;
   text-overflow: ellipsis;
   overflow-x: hidden;
 }

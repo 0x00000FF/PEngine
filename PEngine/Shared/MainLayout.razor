@@ -9,7 +9,7 @@
     <header>
         <ul class="gnb">
             <li class="top-item">
-                <i class="fas fa-bars"></i>
+                <i class="fas fa-bars menu-toggle"></i>
             </li>
             <li class="top-item">
                 <AsyncNavLink Href="/">Files</AsyncNavLink>
@@ -30,13 +30,13 @@
                 <AsyncNavLink Href="/about">About</AsyncNavLink>
             </li>
         </ul>
-        <ul class="gnb">
+        <ul class="gnb right">
             <li class="top-item">
                 <form action="/search">
                     <input type="text" name="query" placeholder="Search..."  />
                 </form>
             </li>
-            <li class="top-item">
+            <li class="user-authview">
                 <AuthLinkItem IsAuthenticated="IsAuthenticated" />
             </li>
         </ul>
