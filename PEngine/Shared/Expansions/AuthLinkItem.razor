@@ -1,10 +1,30 @@
-@inject PEngine.States.UserContext Context
+@using PEngine.Services
+@inject UserService service
 
-@if (Context.ContextValid)
+@if (_currentUser is null)
 {
-    <AsyncNavLink Href="/my-page">%NAME%</AsyncNavLink>
+    <AsyncNavLink Href="/login">Login</AsyncNavLink>
 }
 else
 {
-    <AsyncNavLink Href="/login">Login</AsyncNavLink>
+    <AsyncNavLink Href="/my-page">@_currentUser.Name</AsyncNavLink>
+}
+
+@code
+{
+    private User? _currentUser;
+
+    [Parameter]
+    public bool IsAuthenticated { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (ShouldRender())
+        {
+            _currentUser = IsAuthenticated ? service.GetCurrentUser() : null;
+            StateHasChanged();
+        }
+        
+        base.OnAfterRender(firstRender);
+    }
 }

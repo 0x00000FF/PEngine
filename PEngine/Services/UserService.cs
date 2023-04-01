@@ -19,6 +19,11 @@ public class UserService
         _repository = repository;
     }
 
+    public User? GetCurrentUser()
+    {
+        return _context.ContextValid ? _repository.FromId(_context.UserId) : null;
+    }
+
     public async Task<ServiceResponse> RegisterAsync(UserRegisterRequest request)
     {
         var newUser = new User
@@ -28,9 +33,6 @@ public class UserService
             Name = request.Name,
             Email = request.Email
         };
-
-        var newRole = newUser.Role;
-        newUser.RoleList.Add(newRole);
 
         var registerResult = await _repository.CreateUser(newUser);
 
