@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="git log --pretty=format:%25%25H -n1 &gt; $(OutDir)/githash.txt" />
+    <Exec Command="git log --pretty=format:%%H -n1 &gt; $(OutDir)/githash.txt" />
   </Target>
 
 </Project>
