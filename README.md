@@ -13,7 +13,7 @@ CI/CD coming soon!
 ## Works in Progress
 
 ### To The First Releases
-* [ ] Basic User Services (Login, Management, ...)
+* [x] Basic User Services (Login, Management, ...)
 * [ ] Post/Attachment CRUD
 * [ ] Comment CRUD
 * [ ] Complete Mobile UI/UX
