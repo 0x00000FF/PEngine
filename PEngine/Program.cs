@@ -63,9 +63,11 @@ namespace PEngine
         }
         public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
         {
-            return services.AddSingleton<UserRepository>();
+            return services.AddSingleton<UserRepository>()
+                           .AddSingleton<CommentRepository>()
+                           .AddSingleton<PostRepository>();
         }
-        
+
         public static IServiceCollection ConfigureBackendServices(this IServiceCollection services)
         {
             return services.AddScoped<PostService>()
@@ -92,7 +94,7 @@ namespace PEngine
                 options.Cookie.Name = UserContext.TOKEN_COOKIE;
                 options.Cookie.IsEssential = true;
             });
-            
+
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
@@ -102,7 +104,7 @@ namespace PEngine
                 .ConfigureRepositories()
                 .ConfigureViewModels()
                 .ConfigureBackendServices();
-            
+
             builder.Services.AddLogging();
             builder.Services.AddSingleton<DatabaseContext>();
 
@@ -119,7 +121,7 @@ namespace PEngine
             }
 
             app.UseHttpsRedirection();
-            
+
             app.UseSession();
             app.UseMiddleware<VisitorMiddleware>();
 
