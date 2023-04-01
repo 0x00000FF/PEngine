@@ -24,6 +24,17 @@ public class UserService
         return _context.ContextValid ? _repository.FromId(_context.UserId) : null;
     }
 
+    public async Task RequestContextStart(User user)
+    {
+        await _context.BeginUserContext(user);
+    }
+
+    public async Task RequestContextExit()
+    {
+        if (_context.ContextValid)
+            await _context.ExitUserContext();
+    }
+    
     public async Task<ServiceResponse> RegisterAsync(UserRegisterRequest request)
     {
         var newUser = new User
@@ -51,7 +62,7 @@ public class UserService
 
         if (user is not null)
         {
-            _context.BeginUserContext(user);
+            await RequestContextStart(user);
         }
 
         return new ServiceResponse() { Success = user is not null, Payload = user };

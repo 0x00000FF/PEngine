@@ -27,7 +27,7 @@
 
         vm.BusyLoad(async () =>
         {
-            navManager.NavigateTo(Href);
+            await Task.Run(() => navManager.NavigateTo(Href));
         });
     }
 }
