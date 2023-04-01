@@ -1,7 +1,7 @@
 ﻿@inject NavigationManager navManager
 @inject MainLayoutViewModel vm
 
-<a @onclick="HandleLinkClick">@ChildContent</a>
+<a @onclick="HandleLinkClick" class="@Class">@ChildContent</a>
 
 @code {
     [Parameter]
@@ -12,6 +12,9 @@
 
     [Parameter]
     public string Href { get; set; } = "";
+
+    [Parameter]
+    public string? Class { get; set; }
 
     private async Task HandleLinkClick()
     {
