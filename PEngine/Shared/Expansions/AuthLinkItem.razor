@@ -1,9 +1,8 @@
 @using PEngine.Services
-@using PEngine.States;
+
 @inject MainLayoutViewModel vm
 @inject NavigationManager navManager
 @inject UserService service
-@inject UserContext context
 
 <div class="auth-status-link">
 @if (_currentUser is null)
