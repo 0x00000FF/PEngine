@@ -85,7 +85,6 @@ public class UserContext
         await Task.Run(() =>
         {
             Session.Clear();
-            Session.SetInt32("Expired", 1);
         });
     }
 
