@@ -1,4 +1,11 @@
 ﻿@page "/post/{Id:int}"
+@using PEngine.Services
+
+@inject MainLayoutViewModel vm
+
+@inject PostService ps
+@inject CommentService cs
+@inject UserService us
 
 <PageTitle>Index</PageTitle>
 
@@ -98,4 +105,25 @@
 @code{
     [Parameter]
     public int Id { get; set; }
+
+    private Post _post;
+    private User _author;
+    private List<Comment> _comments;
+
+    protected override void OnInitialized()
+    {
+        vm.BusyLoad(async () =>
+        {
+            await Task.Delay(5000);
+            var postRequestResult = await ps.FromId(Id);
+
+            if (postRequestResult.Success)
+            {
+                
+            }
+        });
+        
+        base.OnInitialized();
+    }
+
 }
