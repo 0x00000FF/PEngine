@@ -35,7 +35,7 @@ public class UserService
             await _context.ExitUserContext();
     }
     
-    public async Task<ServiceResponse> RegisterAsync(UserRegisterRequest request)
+    public async Task<ServiceResponse<Guid?>> RegisterAsync(UserRegisterRequest request)
     {
         var newUser = new User
         {
@@ -47,14 +47,14 @@ public class UserService
 
         var registerResult = await _repository.CreateUser(newUser);
 
-        return new ServiceResponse()
+        return new ServiceResponse<Guid?>()
         {
             Success = registerResult,
             Payload = registerResult ? newUser.Id : null
         };
     }
 
-    public async Task<ServiceResponse> LoginAsync(LoginRequest request)
+    public async Task<ServiceResponse<User?>> LoginAsync(LoginRequest request)
     {
         var user = await _repository.FromUsernameAndPassword(
             request.Username?.Trim() ?? string.Empty,
@@ -65,7 +65,7 @@ public class UserService
             await RequestContextStart(user);
         }
 
-        return new ServiceResponse() { Success = user is not null, Payload = user };
+        return new ServiceResponse<User?>() { Success = user is not null, Payload = user };
     }
 
     public async Task<bool> LoginPkiAsync(string token)

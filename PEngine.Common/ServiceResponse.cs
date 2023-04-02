@@ -1,7 +1,7 @@
 namespace PEngine.Common;
 
-public class ServiceResponse
+public class ServiceResponse<T>
 {
     public bool Success { get; set; }
-    public object? Payload { get; set; }
+    public T? Payload { get; set; }
 }
