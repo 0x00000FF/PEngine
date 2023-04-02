@@ -11,9 +11,9 @@ public class VisitorMiddleware : IMiddleware
     }
     public void RecordExternalInflow(StringValues values)
     {
-        
+
     }
-    
+
     public Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
         var accessIp = context.Connection.RemoteIpAddress;
@@ -23,12 +23,10 @@ public class VisitorMiddleware : IMiddleware
         {
             context.Session.SetInt32("Expired", 0);
         }
-        else if (context.Session.GetInt32("Expired") == 1) 
+        else if (context.Session.GetInt32("Expired") == 1)
         {
             context.Response.Cookies.Delete(UserContext.TOKEN_COOKIE);
-            context.Response.Redirect("/");
-
-            return Task.CompletedTask;
+            context.Session.Clear();
         }
 
         return next(context);
