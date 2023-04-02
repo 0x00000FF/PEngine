@@ -41,6 +41,9 @@
     [Parameter]
     public Action<IExplorerItem>? OnEntryDblClick { get; set; }
     
+    [Parameter]
+    public Action<IExplorerItem>? OnEntryReleased { get; set; }
+    
     private readonly List<IExplorerItem> _containingData;
     private IExplorerItem? _selectedItem = null;
     
@@ -70,6 +73,7 @@
     {
         if (_selectedItem is not null)
         {
+            OnEntryReleased?.Invoke(_selectedItem);
             _selectedItem.IsSelected = false;
         }
 
@@ -80,6 +84,7 @@
     {
         if (_selectedItem is not null)
         {
+            OnEntryReleased?.Invoke(_selectedItem);
             _selectedItem.IsSelected = false;
         }
 
