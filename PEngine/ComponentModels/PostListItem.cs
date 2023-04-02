@@ -5,7 +5,14 @@ namespace PEngine.ComponentModels;
 public class PostListItem : IExplorerItem
 {
     public bool IsSelected { get; set; }
-    
+    public object? Tag
+    {
+        get => Id;
+        set => Id = (int)(value ?? 0);
+    }
+
+    public int Id { get; set; }
+
     [ExplorerViewColumn(Name = "Title")]
     public string? Title { get; set; }
     
