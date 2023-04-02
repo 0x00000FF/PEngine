@@ -1,8 +1,10 @@
 ﻿@page "/"
-
 @using PEngine.ComponentModels
+@using PEngine.Services
 
-@inject MainLayoutViewModel mvm
+@inject MainLayoutViewModel vm
+@inject NavigationManager navManager
+@inject PostService postService;
 
 <PageTitle>PEngine Main</PageTitle>
 
@@ -13,12 +15,27 @@
 
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
-        _view?.Add(new PostListItem())
-            .ConfigureAwait(false)
-            .GetAwaiter()
-            .GetResult();
-        
+        if (firstRender && _view is not null)
+        {
+            vm.BusyLoad(async () =>
+            {
+                var fetchList = await postService.FetchLatest();
+                await _view.AddRange(fetchList);
+            });
+            
+            _view.OnEntryDblClick += WhenItemClicked;
+        }
+
         return base.OnAfterRenderAsync(firstRender);
+    }
+
+    // TODO: how to share with search page?
+    private void WhenItemClicked(IExplorerItem item)
+    {
+        vm.BusyLoad(async () =>
+        {
+            await Task.Run(() => navManager.NavigateTo($"/post/{item.Tag}"));
+        });
     }
 
 }
