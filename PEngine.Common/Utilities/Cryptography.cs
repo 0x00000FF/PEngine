@@ -44,12 +44,13 @@ public static class Cryptography
 
     public static byte[] EncryptSymmetric(byte[] plaintext, byte[] key, byte[] iv)
     {
-        var defaultAes = Aes.Create("AES-256");
+        var defaultAes = Aes.Create();
+        
+        defaultAes.KeySize = 256;
+        defaultAes.BlockSize = 128;
+        defaultAes.Padding = PaddingMode.PKCS7;
 
-        if (defaultAes is null)
-        {
-            return Array.Empty<byte>();
-        }
+        defaultAes.Key = key;
 
         return EncryptSymmetric(defaultAes, plaintext, key, iv);
     }
@@ -61,10 +62,13 @@ public static class Cryptography
 
     public static byte[] DecryptSymmetric(byte[] ciphertext, byte[] key, byte[] iv)
     {
-        var defaultAes = Aes.Create("AES-256");
-
-        if (defaultAes is null)
-            return Array.Empty<byte>();
+        var defaultAes = Aes.Create();
+        
+        defaultAes.KeySize = 256;
+        defaultAes.BlockSize = 128;
+        defaultAes.Padding = PaddingMode.PKCS7;
+        
+        defaultAes.Key = key;
 
         return DecryptSymmetric(defaultAes, ciphertext, key, iv);
     }
