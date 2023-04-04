@@ -75,7 +75,7 @@
     public bool IsPronamaEnabled { get; set; } = true;
     public bool IsBusy => vm.IsBusy;
     public bool IsAuthenticated => vm.IsAuthenticated;
-    public string CurrentStatusMessage = "Ready";
+    public string CurrentStatusMessage => vm.StatusBarContents.Count == 0 ? "Ready" : vm.StatusBarContents.Peek();
 
 
     protected override void OnInitialized()

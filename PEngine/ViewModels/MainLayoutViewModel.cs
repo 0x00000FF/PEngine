@@ -14,6 +14,8 @@ namespace PEngine.ViewModels
         private UserContext? _userContext;
 
         private TaskQueue _taskQueue { get; }
+        
+        public Stack<string> StatusBarContents { get; }
 
         public bool IsAuthenticated => _userContext?.ContextValid ?? false;
         public bool IsBusy => !_taskQueue.IsEmpty;
@@ -26,6 +28,7 @@ namespace PEngine.ViewModels
         public MainLayoutViewModel()
         {
             _taskQueue = new ();
+            StatusBarContents = new();
         }
 
         public void Init(MainLayout view)
@@ -42,6 +45,22 @@ namespace PEngine.ViewModels
 
             _layout.IsPronamaEnabled = enabled;
             _layout.RequestUpdate();
+        }
+
+        public void SetStatusbar(string? newStatus)
+        {
+            var str = newStatus?.Trim();
+
+            if (str is null)
+            {
+                StatusBarContents.Pop();
+            }
+            else
+            {
+                StatusBarContents.Push(str);
+            }
+
+            _layout?.RequestUpdate();
         }
 
         public void NotifyEventCompleted()
