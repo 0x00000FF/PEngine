@@ -20,9 +20,9 @@ public class UserRepository : RepositoryBase
         return await Database.SaveChangesAsync() > 0;
     }
 
-    public User? FromId(Guid id)
+    public async Task<User?> FromId(Guid id)
     {
-        return _users.FirstOrDefault(u => u.Id == id);
+        return await _users.FirstOrDefaultAsync(u => u.Id == id);
     }
 
     public async Task<User?> FromIdAsync(Guid id)

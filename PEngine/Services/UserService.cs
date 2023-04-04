@@ -19,9 +19,10 @@ public class UserService
         _repository = repository;
     }
 
-    public User? GetCurrentUser()
+    public async Task<User?> GetCurrentUser()
     {
-        return _context.ContextValid ? _repository.FromId(_context.UserId) : null;
+        return _context.ContextValid ? 
+            await _repository.FromId(_context.UserId) : null;
     }
 
     public async Task RequestContextStart(User user)

@@ -32,15 +32,23 @@ else
     [Parameter]
     public bool IsAuthenticated { get; set; }
 
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (ShouldRender())
         {
-            _currentUser = IsAuthenticated ? service.GetCurrentUser() : null;
-            StateHasChanged();
-        }
+            vm.BusyLoad(async () =>
+            {
+                var newUserCheck = IsAuthenticated ? await service.GetCurrentUser() : null;
 
-        base.OnAfterRender(firstRender);
+                if (_currentUser != newUserCheck)
+                {
+                    _currentUser = newUserCheck;
+                    await InvokeAsync(StateHasChanged);
+                }
+            });
+        }
+        
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     private void DoUsernameClick()
