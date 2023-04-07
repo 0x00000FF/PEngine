@@ -1,6 +1,11 @@
 @page "/post/{Id:int}/edit"
 <h3>PostEdit</h3>
 
+<PostEditor />
+
 @code {
-    
+
+    [Parameter]
+    public int Id { get; set; }
+
 }
