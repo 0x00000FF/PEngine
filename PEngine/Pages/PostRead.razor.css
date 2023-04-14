@@ -1,6 +1,5 @@
 ﻿article {
   padding: 30px calc(50% - 575px) 32px calc(50% - 575px);
-  padding-bottom: 32px;
   background-color: #F9FBFF;
 }
 
@@ -16,6 +15,33 @@
   display: flex;
   list-style: none;
   gap: 20px;
+}
+
+.article-metadata ul li {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.article-metadata ul li span {
+  width: 70px;
+  text-align: center;
+  padding: 3px 5px;
+  border-radius: 2px;
+  border: 1px solid #eee;
+  background: #202020;
+  color: #fff;
+}
+
+@media screen and (max-width: 700px) {
+  article {
+    padding: 30px 5vw;
+  }
+  
+  .article-metadata ul {
+    flex-direction: column;
+    gap: 5px;
+  }
 }
 
 .article-toc {

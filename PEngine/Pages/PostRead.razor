@@ -16,11 +16,11 @@
 
     <section class="article-metadata">
         <ul>
-            <li>카테고리: ABCDEFG</li>
-            <li>작성자: 허강준(0x00000FF)</li>
-            <li>작성: @DateTime.Now</li>
-            <li>수정: @DateTime.Now</li>
-            <li>조회수: 0 회</li>
+            <li><span>카테고리</span>ABCDEFG</li>
+            <li><span>작성자</span>허강준(0x00000FF)</li>
+            <li><span>작성</span>@DateTime.Now</li>
+            <li><span>수정</span>@DateTime.Now</li>
+            <li><span>조회수</span>0 회</li>
         </ul>
     </section>
 
@@ -107,19 +107,20 @@
     public int Id { get; set; }
 
     private Post _post;
-    private User _author;
+    private User? _author;
     private List<Comment> _comments;
 
     protected override void OnInitialized()
     {
         vm.BusyLoad(async () =>
         {
-            await Task.Delay(5000);
             var postRequestResult = await ps.FromId(Id);
 
-            if (postRequestResult.Success)
+            if (postRequestResult.Success && postRequestResult.Payload is not null)
             {
-                
+                _post = postRequestResult.Payload;
+                _author = await us.FromId(_post.Writer);
+                _comments = await cs.FromPostId(_post.Id);
             }
         });
         

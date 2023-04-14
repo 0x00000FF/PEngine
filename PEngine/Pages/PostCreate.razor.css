@@ -13,11 +13,11 @@
     border-bottom: 1px solid #aaa;
 }
 
-.post-editor .editor-top .title-icon {
-    padding-left: 10px;    
+.post-editor .editor-top i {
+    padding: 0 10px;
 }
 
-.post-editor .editor-top .title-input {
+.post-editor .editor-top input {
     background: inherit;
     color: #fff;
     height: 100%;
@@ -50,24 +50,6 @@
     .post-editor .editor-top .tool span {
         display: none;
     }
-}
-
-.post-editor .editor-top .new-dir {
-    display: flex;
-    width: 100%;
-    gap: 10px;
-    align-items: center;
-}
-
-.post-editor .editor-top .new-dir i {
-    padding-left: 10px;
-    padding-right: 5px;
-}
-
-.post-editor .editor-top .new-dir p {
-    flex: 1;
-    font-size: .9em;
-    text-align: left;
 }
 
 .post-editor .editor-top button:hover {

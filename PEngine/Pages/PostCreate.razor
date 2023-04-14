@@ -4,14 +4,12 @@
 <div class="post-editor">
     <div class="editor-top">
         <div class="editor-top-row">
-            <button class="new-dir">
-                <i class="fas fa-folder"></i>
-                <p>/</p>
-            </button>
+            <i class="fas fa-folder-tree"></i>
+            <input class="category-input" value="/" />
         </div>
         <div class="editor-top-row">
-            <i class="fas fa-file title-icon"></i>
-            <input class="title-input" @oninput="OnTitleChanged" />
+            <i class="fas fa-file"></i>
+            <input class="title-input" />
         </div>
         <div class="editor-top-row">
             <button class="tool">
@@ -33,6 +31,10 @@
             <button class="tool">
                 <i class="fas fa-upload"></i>
                 <span>Upload File</span>
+            </button>
+            <button class="tool">
+                <i class="fas fa-asterisk"></i>
+                <span>Add Reference</span>
             </button>
             <button class="tool">
                 <i class="fas fa-print"></i>
@@ -63,10 +65,5 @@
     private void OnCursorPositionChanged(CursorPositionChangedEvent e)
     {
         vm.SetStatusbar($"Ln {e.Position.LineNumber}, Col {e.Position.Column}");
-    }
-
-    private void OnTitleChanged(ChangeEventArgs e)
-    {
-        return;
     }
 }
