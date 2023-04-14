@@ -1,4 +1,23 @@
 @page "/post/new"
-<h3>New Post</h3>
 
-<PostEditor />
+<div>
+    <div class="editor-top">
+        <i class="fa fa-document"></i>
+        <input type="text" />
+    </div>
+    
+    <StandaloneCodeEditor ConstructionOptions="EditorConstructionOptions"/>
+</div>
+
+@code
+{
+    private StandaloneEditorConstructionOptions EditorConstructionOptions(StandaloneCodeEditor editor)
+    {
+        return new StandaloneEditorConstructionOptions
+        {
+            AutomaticLayout = true,
+            Theme = "vs-dark",
+            Language = "markdown"
+        };
+    }
+}

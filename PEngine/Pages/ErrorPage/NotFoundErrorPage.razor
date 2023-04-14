@@ -47,7 +47,7 @@
 </div>
 
 @code {
-    string[] Stacktrace = Environment.StackTrace.Split('\n')[1..25];
+    string[] Stacktrace = System.Environment.StackTrace.Split('\n')[1..25];
 
     protected override void OnAfterRender(bool firstRender)
     {
