@@ -11,12 +11,16 @@
         </div>
         <div class="editor-top-row">
             <i class="fas fa-file title-icon"></i>
-            <div class="title-input" contenteditable="true" @onpaste="OnTitleInputPasted"></div>
+            <input class="title-input" @oninput="OnTitleChanged" />
         </div>
         <div class="editor-top-row">
             <button class="tool">
-                <i class="fas fa-lock"></i>
-                <span>Protect Post</span>
+                <i class="fas @(true ? "fa-eye" : "fa-eye-slash")"></i>
+                <span>@(true ? "Public" : "Private")</span>
+            </button>
+            <button class="tool">
+                <i class="fas @(true ? "fa-unlock" : "fa-lock")"></i>
+                <span>@(true ? "Unencrypted" : "Encrypted")</span>
             </button>
             <button class="tool">
                 <i class="fas fa-image"></i>
@@ -42,7 +46,6 @@
     </div>
     
     <StandaloneCodeEditor ConstructionOptions="EditorConstructionOptions" OnDidChangeCursorPosition="OnCursorPositionChanged"/>
-    
 </div>
 
 @code
@@ -62,8 +65,8 @@
         vm.SetStatusbar($"Ln {e.Position.LineNumber}, Col {e.Position.Column}");
     }
 
-    private void OnTitleInputPasted(ClipboardEventArgs e)
+    private void OnTitleChanged(ChangeEventArgs e)
     {
-        
+        return;
     }
 }
