@@ -1,3 +1,50 @@
+.post-editor {
+    display: flex;
+    flex-direction: column;
+    height: 100%
+}
+
+.post-editor .editor-top {
+    display: flex;
+    align-items: center;
+    font-size: 1.4em;
+    color: #fff;
+    gap: 10px;
+    height: 40px;
+    border-bottom: 1px solid #aaa;
+}
+
+.post-editor .editor-top .title-icon {
+    padding-left: 15px;    
+}
+
+.post-editor .editor-top .title-input {
+    background: inherit;
+    color: inherit;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 1em;
+    flex-grow: 1;
+}
+
+.post-editor .editor-top button {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-left: 1px solid #aaa;
+    background: inherit;
+    color: inherit;
+}
+
+.post-editor .editor-top button:hover {
+    color: #000;
+    background: #fff;
+}
+
 ::deep .monaco-editor-container {
-    height: 500px;
+    flex-grow: 1;
+    height: auto;
+    cursor: pointer;
+    padding: 5px 0;
 }
