@@ -4,37 +4,70 @@
     height: 100%
 }
 
-.post-editor .editor-top {
+.post-editor .editor-top-row {
     display: flex;
     align-items: center;
-    font-size: 1.4em;
+    font-size: 1.2em;
     color: #fff;
-    gap: 10px;
-    height: 40px;
+    height: 25px;
     border-bottom: 1px solid #aaa;
 }
 
 .post-editor .editor-top .title-icon {
-    padding-left: 15px;    
+    padding-left: 10px;    
 }
 
 .post-editor .editor-top .title-input {
     background: inherit;
-    color: inherit;
-    height: 40px;
+    color: #fff;
+    height: 100%;
     display: flex;
     align-items: center;
-    font-size: 1em;
+    font-size: .8em;
     flex-grow: 1;
+    padding: 0 15px;
 }
 
 .post-editor .editor-top button {
-    width: 40px;
-    height: 40px;
+    min-width: 30px;
+    height: 100%;
     border: 0;
-    border-left: 1px solid #aaa;
     background: inherit;
     color: inherit;
+    cursor: pointer;
+    font-size: .9em;
+}
+
+.post-editor .editor-top .tool {
+    padding: 0 10px;
+}
+
+@media screen and (max-width: 650px) {
+    .post-editor .editor-top .editor-top-row {
+        height: 30px;
+    }
+    
+    .post-editor .editor-top .tool span {
+        display: none;
+    }
+}
+
+.post-editor .editor-top .new-dir {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    align-items: center;
+}
+
+.post-editor .editor-top .new-dir i {
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+.post-editor .editor-top .new-dir p {
+    flex: 1;
+    font-size: .9em;
+    text-align: left;
 }
 
 .post-editor .editor-top button:hover {
