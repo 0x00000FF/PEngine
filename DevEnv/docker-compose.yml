@@ -12,6 +12,23 @@ services:
       - "./.dev-mysql:/var/lib/mysql"
     ports:
       - "32000:3306"
+  pengine-rdbms-psql:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=pengine
+      - POSTGRES_PASSWORD=penginedev
+      - POSTGRES_DB=pengine
+    volumes:
+      - "./.dev-postgres:/var/lib/postgresql/data"
+    ports:
+      - "31000:5432"
+  pengine-elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.7.0
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "31100:9200"
+      - "31101:9300"
   pengine-redis:
     image: redis:7-alpine
     ports:
