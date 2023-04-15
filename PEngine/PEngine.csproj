@@ -15,8 +15,11 @@
 
   <ItemGroup>
     <PackageReference Include="BlazorMonaco" Version="3.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
+    <PackageReference Include="Elasticsearch.Net" Version="7.17.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+    <PackageReference Include="Npgsql" Version="8.0.0-preview.2" />
     <PackageReference Include="StackExchange.Redis" Version="2.6.96" />
   </ItemGroup>
 
@@ -25,7 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Request" />
+    <Folder Include="Models\Response" />
     <Folder Include="Pages\Management\" />
+    <Folder Include="Repositories" />
     <Folder Include="Resources" />
   </ItemGroup>
 
