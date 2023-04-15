@@ -31,7 +31,6 @@
     <Folder Include="Models\Request" />
     <Folder Include="Models\Response" />
     <Folder Include="Pages\Management\" />
-    <Folder Include="Repositories" />
     <Folder Include="Resources" />
   </ItemGroup>
 
