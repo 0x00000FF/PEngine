@@ -29,3 +29,4 @@ PData
 
 # devenv related dir/files
 .dev-mysql
+.dev-postgres
