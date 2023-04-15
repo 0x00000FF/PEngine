@@ -9,6 +9,9 @@
 
 .article-metadata {
   margin: 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .article-metadata ul {
@@ -24,7 +27,7 @@
 }
 
 .article-metadata ul li span {
-  width: 70px;
+  width: 100px;
   text-align: center;
   padding: 3px 5px;
   border-radius: 2px;
