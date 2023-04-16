@@ -4,9 +4,10 @@ namespace PEngine.Models.Data;
 public enum EntryMode
 {
     Post = 1 << 9,
-    Comment = 1 << 10,
-    File = 1 << 11,
-    Directory = 1 << 12,
+    Tag = 1 << 10,
+    Comment = 1 << 11,
+    File = 1 << 12,
+    Directory = 1 << 13,
     
     OwnerRead = 1 << 8,
     OwnerWrite = 1 << 7,

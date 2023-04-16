@@ -74,6 +74,13 @@ CREATE TABLE IF NOT EXISTS "Posts" (
     PRIMARY KEY ("Id")
 );
 
+CREATE TABLE IF NOT EXISTS "Tags" (
+    "Id"        uuid,
+    "Name"      varchar(100) NOT NULL,
+
+    PRIMARY KEY ("Id")
+);
+
 CREATE TABLE IF NOT EXISTS "Comments" (
     "Id"        uuid,
 
@@ -125,14 +132,11 @@ ALTER TABLE "Entries" ADD FOREIGN KEY ("Owner")
 ALTER TABLE "Entries" ADD FOREIGN KEY ("Parent")
         REFERENCES "Entries"("Id") ON DELETE CASCADE;
 
-ALTER TABLE "Posts" ADD FOREIGN KEY ("Author")
-                   REFERENCES "Users"("Id") ON DELETE RESTRICT;
-
 ALTER TABLE "Posts" ADD FOREIGN KEY ("Keyring")
                    REFERENCES "Keyrings"("Id") ON DELETE RESTRICT;
 
-ALTER TABLE "Comments" ADD FOREIGN KEY ("Author")
-                   REFERENCES "Users"("Id") ON DELETE RESTRICT;
+ALTER TABLE "PostTags" ADD FOREIGN KEY ("TagId")
+                    REFERENCES "Tags"("Id") ON DELETE CASCADE;
 
 ALTER TABLE "Comments" ADD FOREIGN KEY ("Keyring")
                    REFERENCES "Keyrings"("Id") ON DELETE RESTRICT;

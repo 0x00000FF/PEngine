@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Folder Include="Models\Request" />
-    <Folder Include="Models\Response" />
     <Folder Include="Pages\Management\" />
     <Folder Include="Resources" />
   </ItemGroup>
