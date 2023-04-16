@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "Users" (
-    "Id"        uuid,
+    "Id"        uuid DEFAULT gen_random_uuid(),
     "Group"     uuid,
     "Username"  varchar(32) NOT NULL,
     "DisplayName" varchar(32) NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS "Users" (
 );
 
 CREATE TABLE IF NOT EXISTS "Credentials" (
-    "Id"        uuid,
+    "Id"        uuid DEFAULT gen_random_uuid(),
     "Service"   varchar(32) NOT NULL,
     "CredentialHash" varchar(256) NOT NULL,
     "CredentialSalt" varchar(256),
@@ -25,12 +25,13 @@ CREATE TABLE IF NOT EXISTS "Credentials" (
 );
 
 CREATE TABLE IF NOT EXISTS "Entries" (
-    "Id"        uuid,
+    "Id"        uuid DEFAULT gen_random_uuid(),
     "Parent"    uuid,
 
     "Name"      varchar(300) not null,
 
-    "Mode"      integer not null default 0644, -- Directory / Post / Comment / File, Permissions
+    "Mode"      integer not null default 8612, -- Directory / Post / Comment / File, Permissions
+                                               -- Default: directory, 644 (20644)
     "Creator"   uuid,
     "Owner"     uuid,
     "Group"     uuid,
@@ -55,7 +56,7 @@ CREATE INDEX IF NOT EXISTS "Entries_Parent_Index"
     ON "Entries" USING BTREE ("Parent");
 
 CREATE TABLE IF NOT EXISTS "Keyrings" (
-    "Id"        uuid,
+    "Id"        uuid DEFAULT gen_random_uuid(),
     "Salt"      varchar(256), -- Used for Password to Key Derivation
     "Algorithm" varchar(32) NOT NULL, -- Crypto Algorithm
     "Key"       varchar(256) NOT NULL, -- Digest or Key
@@ -65,7 +66,7 @@ CREATE TABLE IF NOT EXISTS "Keyrings" (
 );
 
 CREATE TABLE IF NOT EXISTS "Posts" (
-    "Id"        uuid,
+    "Id"        uuid DEFAULT gen_random_uuid(),
     "Content"   TEXT,
 
     "Encrypted" BOOLEAN default false,
@@ -75,14 +76,14 @@ CREATE TABLE IF NOT EXISTS "Posts" (
 );
 
 CREATE TABLE IF NOT EXISTS "Tags" (
-    "Id"        uuid,
+    "Id"        uuid DEFAULT gen_random_uuid(),
     "Name"      varchar(100) NOT NULL,
 
     PRIMARY KEY ("Id")
 );
 
 CREATE TABLE IF NOT EXISTS "Comments" (
-    "Id"        uuid,
+    "Id"        uuid DEFAULT gen_random_uuid(),
 
     "Name"      varchar(32), -- when anonymous comment
     "Email"     varchar(128), -- when anonymous comment, should be encrypted
@@ -96,7 +97,7 @@ CREATE TABLE IF NOT EXISTS "Comments" (
 );
 
 CREATE TABLE IF NOT EXISTS "Files" (
-    "Id"        uuid,
+    "Id"        uuid DEFAULT gen_random_uuid(),
 
     "HashName"  varchar(32),
     "Digest"    varchar(32),
@@ -137,9 +138,3 @@ ALTER TABLE "Posts" ADD FOREIGN KEY ("Keyring")
 
 ALTER TABLE "Comments" ADD FOREIGN KEY ("Keyring")
                    REFERENCES "Keyrings"("Id") ON DELETE RESTRICT;
-
--- EXECUTE SUBROUTINE GENERATION -------------------
-
-\include views/VIEW_*.sql
-\include functions/FUNC_*.sql
-\include procedures/PROC_*.sql    
