@@ -1,5 +1,51 @@
-<h3>DialogBase</h3>
+<div class="overlay-dialog">
+    <div class="header">
+        <i class="fas @Icon" />
+        <h2>@Title</h2>
+    </div>
+    <div class="body">
+        @ChildContent
+    </div>
+    <div class="footer">
+        @foreach (var button in Buttons)
+        {
+            <button class="dialog-button dialog-button-@button.Type"
+                    @onclick="() => button.Handler?.Invoke()">
+                @if (button.Icon is not null)
+                {
+                    <i class="fas @button.Icon"></i>
+                }
+                
+                @if (button.Text is not null)
+                {
+                    <span>@button.Text</span>
+                }
+                <span>@button.Text</span>
+            </button>
+        }
+    </div>
+</div>
 
 @code {
+
+    public class DialogButton
+    {
+        public string Type { get; set; } = "primary";
+        public string? Icon { get; set; }
+        public string? Text { get; set; } = "";
+        public Action? Handler { get; set; }
+    }
     
+    [CascadingParameter]
+    public string Icon { get; set; } = "fa-cog";
+
+    [Parameter]
+    public string Title { get; set; } = "Untitled";
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public List<DialogButton> Buttons { get; set; } = new();
+
 }
