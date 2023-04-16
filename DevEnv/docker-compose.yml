@@ -17,7 +17,8 @@ services:
     environment:
       - POSTGRES_USER=pengine
       - POSTGRES_PASSWORD=penginedev
-      - POSTGRES_DB=pengine
+      - POSTGRES_DB=PEngine
+      - POSTGRES_INITDB_ARGS='--lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8 --lc-time=ko_KR.UTF-8 --lc-messages=en_US.UTF-8'
     volumes:
       - "./.dev-postgres:/var/lib/postgresql/data"
     ports:
