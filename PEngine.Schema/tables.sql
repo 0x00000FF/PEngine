@@ -135,8 +135,5 @@ ALTER TABLE "Entries" ADD FOREIGN KEY ("Parent")
 ALTER TABLE "Posts" ADD FOREIGN KEY ("Keyring")
                    REFERENCES "Keyrings"("Id") ON DELETE RESTRICT;
 
-ALTER TABLE "PostTags" ADD FOREIGN KEY ("TagId")
-                    REFERENCES "Tags"("Id") ON DELETE CASCADE;
-
 ALTER TABLE "Comments" ADD FOREIGN KEY ("Keyring")
                    REFERENCES "Keyrings"("Id") ON DELETE RESTRICT;
