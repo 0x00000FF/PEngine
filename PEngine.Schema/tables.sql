@@ -137,3 +137,9 @@ ALTER TABLE "Posts" ADD FOREIGN KEY ("Keyring")
 
 ALTER TABLE "Comments" ADD FOREIGN KEY ("Keyring")
                    REFERENCES "Keyrings"("Id") ON DELETE RESTRICT;
+
+-- EXECUTE SUBROUTINE GENERATION -------------------
+
+\include views/VIEW_*.sql
+\include functions/FUNC_*.sql
+\include procedures/PROC_*.sql    
