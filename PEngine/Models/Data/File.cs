@@ -7,8 +7,8 @@ public class File
     public string? Name { get; set; }
     public string? Email { get; set; }
     
-    public string Content { get; set; }
+    public string Filetype { get; set; }
 
-    public bool Encrypted { get; set; }
-    public Guid? Keyring { get; set; }
+    public string? Service { get; set; }
+    public string Path { get; set; }
 }
