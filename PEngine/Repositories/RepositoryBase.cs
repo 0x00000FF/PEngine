@@ -5,17 +5,11 @@ namespace PEngine.Repositories;
 
 public abstract class RepositoryBase
 {
-    private static string? _connectionString = "";
+    private static string? ConnectionString => Program.WebsiteConfiguration?["Persistence:Database"];
+    protected readonly IDbConnection Connection;
 
-    public static string? ConnectionString
+    protected RepositoryBase()
     {
-        private get => _connectionString;
-        set => _connectionString = _connectionString ?? value;
-    }
-    protected IDbConnection Connection;
-
-    public RepositoryBase()
-    {
-        Connection = new NpgsqlConnection(_connectionString);
+        Connection = new NpgsqlConnection(ConnectionString);
     }
 }

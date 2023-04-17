@@ -1,7 +1,6 @@
 using PEngine.ViewModels;
 using System.Reflection;
 using PEngine.Middlewares;
-using PEngine.Persistence;
 using PEngine.Repositories;
 using PEngine.Services;
 using PEngine.States;
@@ -106,7 +105,6 @@ namespace PEngine
                 .ConfigureBackendServices();
 
             builder.Services.AddLogging();
-            builder.Services.AddSingleton<DatabaseContext>();
 
             builder.Services.AddSingleton<VisitorMiddleware>();
 
