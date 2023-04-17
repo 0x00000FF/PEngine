@@ -1,7 +1,7 @@
 DROP TYPE IF EXISTS "EntryPathChainNode" CASCADE;
 
 CREATE TYPE "EntryPathChainNode" AS (
-    "Index" INTEGER, "Id" UUID, "Parent" UUID, "Name" VARCHAR(300) );
+    "Index" INTEGER, "Id" UUID, "Parent" UUID, "Name" VARCHAR(300));
 
 DROP FUNCTION IF EXISTS "EntryPath_StrToChain"(p_path TEXT);
 
