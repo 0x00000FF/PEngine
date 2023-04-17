@@ -1,7 +1,7 @@
 DROP TYPE IF EXISTS "EntryPathItem" CASCADE;
 
 CREATE TYPE "EntryPathItem" AS (
-    "Id" UUID, "Type" INTEGER, "UPerm" INTEGER, "GPerm" INTEGER, "OPerm" INTEGER,
+    "Id" UUID, "Type" INTEGER, "Perm" INTEGER,
     "Name" VARCHAR(300), "Created" TIMESTAMP, "Modified" TIMESTAMP,
     "CreatorId" UUID, "CreatorName" VARCHAR(32), "OwnerId" UUID, "OwnerName" VARCHAR(32),
     "Hidden" BOOLEAN, "IpAddress" varchar(32)
@@ -26,9 +26,7 @@ BEGIN
     RETURN QUERY SELECT
         et."Id",
             cast((cast(et."Mode" as bit(16)) >> 9) as INTEGER) As "Type",
-            cast((cast(et."Mode" as bit(16)) & B'0000000111000000') >> 6 as INTEGER)  As "UPerm",
-            cast((cast(et."Mode" as bit(16)) & B'0000000000111000') >> 3 as INTEGER)  As "GPerm",
-            cast((cast(et."Mode" as bit(16)) & B'0000000000000111') as INTEGER) As "OPerm",
+            cast((cast(et."Mode" as bit(16)) & x'01FF') as INTEGER) As "Perm",
             et."Name", et."Created", et."Modified",
             ut."Id" As "CreatorId", ut."DisplayName" As "CreatorName",
             ut2."Id" As "OwnerId", ut2."DisplayName" As "OwnerName",
