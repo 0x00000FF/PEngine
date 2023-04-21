@@ -72,6 +72,8 @@ CREATE TABLE IF NOT EXISTS "Posts" (
     "Encrypted" BOOLEAN default false,
     "Keyring"   uuid,
 
+    "Spoiler"   BOOLEAN NOT NULL default false,
+
     PRIMARY KEY ("Id")
 );
 
@@ -89,6 +91,8 @@ CREATE TABLE IF NOT EXISTS "Comments" (
     "Email"     varchar(128), -- when anonymous comment, should be encrypted
 
     "Content"   varchar(500),
+
+    "Spoiler"   BOOLEAN NOT NULL default false,
 
     "Encrypted" BOOLEAN default false,
     "Keyring"   uuid,
