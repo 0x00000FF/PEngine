@@ -1,7 +1,10 @@
 DROP VIEW IF EXISTS "EntryLookupView";
 CREATE VIEW "EntryLookupView" AS SELECT
             et."Id",
-            et."Parent",
+            CASE
+                WHEN et."Parent" IS NULL THEN '00000000-0000-0000-0000-000000000000'::uuid
+                ELSE et."Parent"
+            END AS "Parent",
             cast((cast(et."Mode" as bit(16)) >> 9) as INTEGER) As "Type",
             cast((cast(et."Mode" as bit(16)) & x'01FF') as INTEGER) As "Perm",
             et."Name", et."Created", et."Modified",
