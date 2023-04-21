@@ -24,8 +24,9 @@ BEGIN
         RETURN;
     END IF;
 
-    RETURN QUERY (SELECT * FROM "EntryLookupView" WHERE "Id" = target_item."Id") UNION
-                 (SELECT * FROM "EntryLookupView" WHERE "Parent" = target_item."Id")
+    RETURN QUERY (SELECT * FROM "EntryLookupView" WHERE "Parent" = target_item."Id") UNION
+                 (SELECT * FROM "EntryLookupView" WHERE "Id" = target_item."Parent") UNION
+                 (SELECT * FROM "EntryLookupView" WHERE "Id" = target_item."Id")
                  ORDER BY "Parent", "Name";
 END;
 $$ LANGUAGE plpgsql;
