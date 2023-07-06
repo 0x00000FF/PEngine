@@ -1,0 +1,1 @@
+SELECT * FROM "EntryPath_Lookup"('/testdir');

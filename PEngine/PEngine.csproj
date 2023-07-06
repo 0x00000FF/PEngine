@@ -28,7 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Query" />
     <Folder Include="Models\Request" />
     <Folder Include="Pages\Management\" />
     <Folder Include="Resources" />
