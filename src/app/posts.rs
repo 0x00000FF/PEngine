@@ -6,7 +6,7 @@ use crate::template::template_engine::TemplateEngine;
 
 pub async fn main_page() -> impl IntoResponse {
     let mut vm:HashMap<String, Box<dyn ToString>> = HashMap::new();
-    vm.insert("test".to_owned(), Box::new("hello my template engine!!".to_owned()));
+    vm.insert("test".to_owned(), Box::new("hello my template engine!! 안녕하세요!! こんにちは！！".to_owned()));
 
     TemplateEngine::init("index")
         .set_view_model(vm)
