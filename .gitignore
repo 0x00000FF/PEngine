@@ -16,10 +16,6 @@ obj
 node_modules
 lib
 
-# automatically generated from SCSS and Javascripts
-wwwroot/script.js
-wwwroot/style.css
-
 # editor specified files
 *.bak
 *.swp
