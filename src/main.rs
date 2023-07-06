@@ -2,6 +2,7 @@ pub mod app;
 pub mod models;
 pub mod routes;
 pub mod repos;
+pub mod template;
 
 use axum::{Router};
 
