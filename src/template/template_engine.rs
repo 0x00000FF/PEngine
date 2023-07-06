@@ -1,8 +1,8 @@
-use std::{fs, collections::HashMap, str::FromStr};
-use axum::{http::{Response, StatusCode}, body};
+use std::{fs, collections::HashMap, str::FromStr, io::BufReader};
+use axum::{http::{Response, StatusCode}, body::{self, Full}, response::IntoResponse};
 use regex::Regex;
 
-struct TemplateEngine {
+pub struct TemplateEngine {
     view: String,
     status: StatusCode
 }
@@ -25,7 +25,7 @@ impl TemplateEngine {
         } else {
             init_view_data = fs::read_to_string(format!("templates/{}.html", layout)).unwrap();
         
-            let body_regex = Regex::new("@render_body").unwrap();
+            let body_regex = Regex::new("@body").unwrap();
             
             if (body_regex.find_iter(&init_view_data).count() == 1) {
                 let replaced = body_regex.replace(&init_view_data, view_data);
@@ -37,7 +37,7 @@ impl TemplateEngine {
     }
 
     pub fn set_view_model(self: &mut Self, vm: HashMap<String, Box<dyn ToString>>) -> &Self {
-        let placeholder_regex = Regex::new("@([a-zA-Z_])").unwrap();
+        let placeholder_regex = Regex::new("@([a-zA-Z_]+)").unwrap();
         let model_applied_view = placeholder_regex.replace_all(&self.view, |captures: &regex::Captures| {
             let captured = &captures[1];
             
@@ -58,11 +58,14 @@ impl TemplateEngine {
         self
     }
 
-    pub fn build(self: &Self) -> Response<&[u8]> {
-        let response = Response::new(self.view.as_bytes());
+    pub fn build(self: &Self) -> impl IntoResponse {
+        let stream = self.view.as_bytes().to_vec();
 
-
-
-        response
+        Response::builder()
+            .status(self.status)
+            .body(
+                body::boxed(Full::from(stream))
+            )
+            .unwrap()
     }
 }
