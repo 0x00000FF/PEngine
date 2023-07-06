@@ -1,0 +1,36 @@
+# MacOS Garbages
+.DS_Store
+
+# per-user settings
+*.DotSettings.user
+
+# intelliJ, Rider, ...
+.idea
+
+# visual studio auxilery files
+.vs
+bin
+obj
+
+# frontend library files; automatically downloaded if not exists
+node_modules
+lib
+
+# automatically generated from SCSS and Javascripts
+wwwroot/script.js
+wwwroot/style.css
+
+# editor specified files
+*.bak
+*.swp
+
+# default data directory
+PData
+
+# devenv related dir/files
+.dev-mysql
+.dev-postgres
+
+# Added by cargo
+
+/target
