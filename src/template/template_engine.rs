@@ -3,8 +3,9 @@ use axum::{http::{Response, StatusCode}, body::{self, Full}, response::IntoRespo
 use regex::Regex;
 
 pub struct TemplateEngine {
-    view: String,
-    status: StatusCode
+    view_template: String,
+    status: StatusCode,
+    vm: HashMap<String, Box<dyn ToString>>
 }
 
 impl TemplateEngine {
@@ -30,42 +31,107 @@ impl TemplateEngine {
             if (body_regex.find_iter(&init_view_data).count() == 1) {
                 let replaced = body_regex.replace(&init_view_data, view_data);
                 init_view_data = String::from_str(&replaced).unwrap();
+            } else {
+                init_view_data = "No body defined".to_owned();
             }
         }
 
-        TemplateEngine { view: init_view_data, status: StatusCode::OK }
+        TemplateEngine { view_template: init_view_data, status: StatusCode::OK, vm: HashMap::new() }
     }
 
-    pub fn set_view_model(self: &mut Self, vm: HashMap<String, Box<dyn ToString>>) -> &Self {
-        let placeholder_regex = Regex::new("@([a-zA-Z_]+)").unwrap();
-        let model_applied_view = placeholder_regex.replace_all(&self.view, |captures: &regex::Captures| {
-            let captured = &captures[1];
-            
-            if vm.contains_key(captured) {
-                vm.get(captured).unwrap().to_string()
-            } else {
-                "".to_owned()
-            }
-        });
-
-        self.view = String::from_str(&model_applied_view).unwrap();
-
+    pub fn set_view_model(self: &mut Self, key: &str, value: Box<dyn ToString>) -> &mut Self {
+        self.vm.insert( key.to_owned(), value );
         self
     }
 
-    pub fn set_status(self: &mut Self, status: StatusCode) -> &Self {
+    pub fn set_status(self: &mut Self, status: StatusCode) -> &mut Self {
         self.status = status;
         self
     }
 
     pub fn build(self: &Self) -> impl IntoResponse {
-        let stream = self.view.as_bytes().to_vec();
+        let stream = self.parse_template();
 
         Response::builder()
             .status(self.status)
+            .header("Content-Type", "text/html")
             .body(
                 body::boxed(Full::from(stream))
             )
             .unwrap()
+    }
+
+    fn parse_template(self: &Self) -> Vec<u8> {
+        let mut stream = vec![];
+        
+        let vt_size = self.view_template.bytes().count();
+        let ch_bytes = self.view_template.as_bytes();
+
+        let mut i = 0;
+        loop {
+            if i >= vt_size {
+                break;
+            } 
+
+            let ch = ch_bytes[i];
+
+            // check UTF-8
+            if ch & 0b11000000 == 0b1100000 {
+                stream.extend_from_slice(&ch_bytes[i..i+2]);
+                i = i + 1;
+            } else if ch & 0b11100000 == 0b11100000 {
+                stream.extend_from_slice(&ch_bytes[i..i+3]);
+                i = i + 2;
+            } else if ch & 0b11110000 == 0b11110000 {
+                stream.extend_from_slice(&ch_bytes[i..i+4]);
+                i = i + 3;
+            } else {
+                let mut total_skip = 1;
+
+                if ch == b'@' {
+                    let next = ch_bytes[i+1];
+
+                    if next == b'@' {           // verbatim @
+                        stream.push(b'@');
+                    } else if ch_bytes[i+1..i+3] == *b"if" {
+                        stream.extend_from_slice(b"if block here");
+                        total_skip += 2;
+
+                    } else if ch_bytes[i+1..i+4] == *b"for" {
+                        stream.extend_from_slice(b"for block here");
+                        total_skip += 3;
+
+                    } else if next == b'(' { // expression
+
+                    } else if next == b'{' { // block
+
+                    } else {
+                        loop {
+                            if !ch_bytes[i+total_skip].is_ascii_alphabetic() {
+                                break;
+                            }
+
+                            total_skip += 1;
+                        }
+
+                        let id = String::from_utf8(ch_bytes[i+1..i+total_skip].to_vec()).unwrap();
+                        
+                        if self.vm.contains_key(&id) {
+                            stream.extend_from_slice(self.vm.get(&id).unwrap().to_string().as_bytes());
+                        }
+                    }
+
+                    i += total_skip;
+
+                    continue;
+                } else {
+                    stream.push(ch);
+                }
+            }
+
+            i = i + 1;
+        }
+
+        stream
     }
 }
