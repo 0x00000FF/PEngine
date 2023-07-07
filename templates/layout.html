@@ -5,7 +5,24 @@
     <title>@title</title>
     <link rel="stylesheet" href="/static/style.css" />
   </head>
+
   <body>
-    @body
+    <h1 id="title" title="Blog Main Link">
+      <a href="/">Patche Blog from Scratch</a>
+    </h1>
+    <div class="gnb">
+      <form action="/search">
+        <select name="category">
+          <option>카테고리</option>
+        </select>
+        <input type="text" name="keyword" placeholder="Keyword..." />
+        <input type="submit" value="검색" />
+      </form>
+    </div>
+    <main>@body</main>
+    <footer>
+      Patche's Blog is powered by PEngine, Minimal Edition. <br />
+      Built with Rust and axum
+    </footer>
   </body>
 </html>
