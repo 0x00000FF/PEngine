@@ -98,8 +98,64 @@ impl TemplateEngine {
                         total_skip += 2;
 
                     } else if ch_bytes[i+1..i+4] == *b"for" {
-                        stream.extend_from_slice(b"for block here");
                         total_skip += 3;
+                        
+                        loop {
+                            if ch_bytes[i + total_skip] == b' ' ||
+                            ch_bytes[i + total_skip] == b'\t'  {
+                                total_skip += 1;
+                            } else if ch_bytes[i + total_skip] == b'(' {
+                                total_skip += 1;
+                                break;
+                            } else {
+                                todo!("expected parenthesis open");
+                            }
+                        }
+
+                        let cursor_name_startpos = i + total_skip;
+                        let mut cursor_name_length = 0;
+                        
+                        loop {
+                            if ch_bytes[i + total_skip].is_ascii_alphabetic() || 
+                            ch_bytes[i + total_skip].is_ascii_whitespace() {
+                                cursor_name_length += 1;
+                            } else if ch_bytes[i + total_skip] == b':' {
+                                total_skip += 1;
+                                break;
+                            }
+                            else {
+                                todo!("unexpected char input or expected colon")
+                            }
+
+                            total_skip += 1;
+                        }
+
+                        let cursor_name = String::from_utf8(
+                            ch_bytes[cursor_name_startpos..cursor_name_startpos+cursor_name_length].to_vec()
+                        ).unwrap();
+
+                        let collection_name_startpos = i + total_skip;
+                        let mut collection_name_length = 0;
+                        
+                        loop {
+                            if ch_bytes[i + total_skip].is_ascii_alphabetic() || 
+                            ch_bytes[i + total_skip].is_ascii_whitespace() {
+                                collection_name_length += 1;
+                            } else if ch_bytes[i+total_skip] == b')' {
+                                total_skip += 1;
+                                break;
+                            } else {
+                                todo!("unexpected char input or expected parenthesis close")
+                            }
+
+                            total_skip += 1;
+                        }
+
+                        let collection_name = String::from_utf8(
+                            ch_bytes[collection_name_startpos..collection_name_startpos+collection_name_length].to_vec()
+                        ).unwrap();
+
+                        println!("{} in {}", cursor_name.trim(), collection_name.trim());
 
                     } else if next == b'(' { // expression
                         let mut stage = 0;
