@@ -155,7 +155,41 @@ impl TemplateEngine {
                             ch_bytes[collection_name_startpos..collection_name_startpos+collection_name_length].to_vec()
                         ).unwrap();
 
-                        println!("{} in {}", cursor_name.trim(), collection_name.trim());
+                        let (cursor_name, collection_name) = (cursor_name.trim().to_owned(), collection_name.trim().to_owned());
+
+                        let mut stage = 0;
+                        let mut for_block_start = i + total_skip;
+                        let mut for_block_length = 0;
+
+                        loop {
+                            if ch_bytes[i + total_skip] == b'{' {
+                                stage += 1;
+                            } else if ch_bytes[i + total_skip] == b'}' {
+                                if stage == 0 {
+                                    todo!("unexpected block close");
+                                }
+
+                                stage -= 1;
+
+                                total_skip += 1;
+                                for_block_length += 1;
+
+                                if stage == 0 {
+                                    break;
+                                } else {
+                                    continue;
+                                }
+                            }
+
+                            for_block_length += 1;
+                            total_skip += 1;
+                        }
+
+                        let for_block = String::from_utf8(
+                            ch_bytes[for_block_start..for_block_start+for_block_length].to_vec()
+                        ).unwrap();
+
+                        println!("{}", for_block);
 
                     } else if next == b'(' { // expression
                         let mut stage = 0;
