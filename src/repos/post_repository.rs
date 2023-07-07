@@ -1,28 +1,33 @@
+use async_trait::async_trait;
+
 use crate::repos::repo_base::Repository;
 use crate::models::post::Post;
+
+use super::repo_base::RepositoryManager;
 
 struct PostRepository {
 
 }
 
+#[async_trait]
 impl Repository<Post, u64> for PostRepository {
-    fn get_one(&self, id: u64) -> Post {
+    async fn get_one(&self, id: u64) -> Option<Post> {
         todo!()
     }
 
-    fn get_all(&self) -> Vec<Post> {
+    async fn get_all(&self) -> Vec<Post> {
         todo!()
     }
 
-    fn insert(&self, entity: Post) -> u64 {
+    async fn insert(&self, entity: Post) -> Result<u64, sqlx::Error> {
         todo!()
     }
 
-    fn update(&self, entity: Post) -> u64 {
+    async fn update(&self, entity: Post) -> Result<u64, sqlx::Error> {
         todo!()
     }
 
-    fn delete(&self, id: u64) -> bool {
+    async fn delete(&self, id: u64) -> Result<bool, sqlx::Error> {
         todo!()
     }
 }

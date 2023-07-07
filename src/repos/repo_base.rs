@@ -1,15 +1,17 @@
 use std::{sync::Arc, borrow::Borrow};
 
+use async_trait::async_trait;
 use 
     sqlx::{postgres::{PgPool, PgQueryResult, PgPoolOptions, PgRow, PgArguments}, 
     query::{Query}, Postgres, Encode, Type};
 
+#[async_trait]
 pub trait Repository<TEntity, TId> {
-    fn get_one(&self, id: TId) -> TEntity;
-    fn get_all(&self) -> Vec<TEntity>;
-    fn insert(&self, entity: TEntity) -> TId;
-    fn update(&self, entity: TEntity) -> TId;
-    fn delete(&self, id: TId) -> bool;
+    async fn get_one(&self, id: TId) -> Option<TEntity>;
+    async fn get_all(&self) -> Vec<TEntity>;
+    async fn insert(&self, entity: TEntity) -> Result<TId, sqlx::Error>;
+    async fn update(&self, entity: TEntity) -> Result<TId, sqlx::Error>;
+    async fn delete(&self, id: TId) -> Result<bool, sqlx::Error>;
 }
 
 pub struct RepositoryManager {
