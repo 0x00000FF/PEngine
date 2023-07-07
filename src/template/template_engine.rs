@@ -102,9 +102,60 @@ impl TemplateEngine {
                         total_skip += 3;
 
                     } else if next == b'(' { // expression
+                        let mut stage = 0;
 
+                        loop {
+                            if i + total_skip >= vt_size && stage > 0 {
+                                todo!("error, parenthesis not match");
+                            }
+
+                            if ch_bytes[i+total_skip] == b'(' {
+                                stage += 1;
+                            } else if ch_bytes[i+total_skip] == b')' {
+                                stage -= 1;
+
+                                if stage == 0 {
+                                    total_skip += 1;
+                                    break;
+                                }
+                            }
+
+                            total_skip += 1;
+                        }
+
+                        let id = String::from_utf8(ch_bytes[i+1..i+total_skip].to_vec()).unwrap();
+
+                        stream.extend_from_slice(b"<h5>expression was here</h5>");
+
+                        i += total_skip;
+                        continue;
+                        // "do eval and push eval result"
                     } else if next == b'{' { // block
+                        let mut stage = 0;
 
+                        loop {
+                            if i + total_skip >= vt_size && stage > 0 {
+                                todo!("error, parenthesis not match");
+                            }
+
+                            if ch_bytes[i+total_skip] == b'{' {
+                                stage += 1;
+                            } else if ch_bytes[i+total_skip] == b'}' {
+                                stage -= 1;
+
+                                if stage == 0 {
+                                    total_skip += 1;
+                                    break;
+                                }
+                            }
+
+                            total_skip += 1;
+                        }
+
+                        stream.extend_from_slice(b"<h5>block was here</h5>");
+                        i += total_skip;
+                        continue;
+                        // "do eval and push eval result";
                     } else {
                         loop {
                             if !ch_bytes[i+total_skip].is_ascii_alphabetic() {
