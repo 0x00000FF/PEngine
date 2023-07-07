@@ -10,7 +10,7 @@ use axum::{Router};
 async fn main() {
     let app = Router::new().nest("/", routes::make_routes());
 
-    axum::Server::bind(&"127.0.0.1:5000".parse().unwrap())
+    axum::Server::bind(&"127.0.0.1:4000".parse().unwrap())
         .serve(app.into_make_service())
         .await
         .unwrap()
