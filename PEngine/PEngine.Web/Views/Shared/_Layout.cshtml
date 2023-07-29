@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewData["Title"]</title>
+
+    @await RenderSectionAsync("OpenGraph", required: false)
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <brand>
+            <h2>0x00000FF</h2>
+        </brand>
+        <ul class="gnb">
+            <li>
+                <a asp-controller="Home">Home</a>
+            </li>
+            <li>
+                <a asp-controller="Introduction">Introduction</a>
+            </li>
+            <li>
+                <a asp-controller="Posts">Categories</a>
+                
+                <ul>
+                    <li>
+                        <a asp-controller="Post">전체</a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Post" asp-action="List" asp-route-category="Category 1">Category 1</a>
+                    </li>
+                    
+                    <li>
+                        <a asp-controller="Post" asp-action="List" asp-route-category="Category 2">Category 2</a>
+                    </li>
+                    
+                    <li>
+                        <a asp-controller="Post" asp-action="List" asp-route-category="Category 3">Category 3</a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Post" asp-action="List" asp-route-category="Category 4">Category 4</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a asp-controller="Search">Search</a>
+            </li>
+            <li>
+                <a asp-controller="Guestbook">Guestbook</a>
+            </li>
+        </ul>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <footer>
+        <span>Copyright &copy; P.Knowledge, @(DateTime.Now.Year).</span>
+        <a class="mdd" asp-controller="Misc" asp-action="Mdd" target="_blank">Learn about MDD</a>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

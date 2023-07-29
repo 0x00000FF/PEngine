@@ -1,0 +1,186 @@
+/* fontfaces */
+@import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
+
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* styles */
+
+:root {
+    --theme: #202020;
+    --theme-sub: #808080;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box }
+
+html { min-height: 100%; }
+
+body { height: 100%; width: 100%; position: relative; padding: 60px 0; }
+
+body {
+    font-family: SUITE-Regular, 'Meiryo UI', sans-serif;
+    background: #ccc;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* layout */
+
+header, footer {
+    background-color: var(--theme);
+    height: 60px;
+    width: 100%;
+}
+
+header, footer {
+    display: flex;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+header brand {
+    background: var(--theme-sub);
+    color: #fff;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header .gnb {
+    display: flex;
+    color: #fff;
+    list-style: none;
+    font-size: 1.5em;
+    height: 100%;
+}
+
+header .gnb li {
+    width: 200px;
+    height: 100%;
+    transition: .3s;
+}
+
+header .gnb li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+header .gnb li ul {
+    display: none;
+    list-style: none;
+    opacity: 0;
+    transition: .2s;
+}
+
+header .gnb li:hover ul {
+    display: block;
+    transition: .2s;
+    opacity: 1;
+}
+
+header .gnb li ul li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 200px;
+    height: 60px;
+    background-color: #303030;
+}
+
+header .gnb li a:hover {
+    background: #404040;
+    transition: .3s;
+}
+
+main {
+    background-color: #fff;
+    margin: 0 200px;
+    width: calc(100vw - 400px);
+    height: 100%;
+}
+
+footer {
+    align-items: center;
+    color: #fff;
+    font-size: 1.2em;
+    padding: 0 20px;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+footer .mdd {
+    display: block;
+    margin-left: auto;
+}
+
+/* home/index */
+
+.post-shelf {
+    min-height: 300px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.post-shelf-featured {
+    background: #aaa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.6em;
+}
+
+.post-shelf h2 {
+    font-size: 2em;
+}
+
+.post-shelf-list {
+    list-style: none;
+    width: 100%;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.post-shelf-list li {
+    display: inline-block;
+    height: 300px;
+    width: 25%;
+    margin-right: 20px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+/* common components */
+
+text {
+    font-family: 'Nanum Myeongjo', serif;
+    display: flex;
+}
+
+
+button {}
+badge {}
+
+menu {
+    appearance: menulist;
+}

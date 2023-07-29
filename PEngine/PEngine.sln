@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEngine.Web", "PEngine.Web\PEngine.Web.csproj", "{AF46A1DC-08D1-4BDB-9EC7-5C73551EFB86}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF46A1DC-08D1-4BDB-9EC7-5C73551EFB86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF46A1DC-08D1-4BDB-9EC7-5C73551EFB86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF46A1DC-08D1-4BDB-9EC7-5C73551EFB86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF46A1DC-08D1-4BDB-9EC7-5C73551EFB86}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7F66A6B7-36C9-4DC0-B3BB-9266835331B7}
+	EndGlobalSection
+EndGlobal
