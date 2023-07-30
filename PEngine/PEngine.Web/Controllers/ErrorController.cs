@@ -12,6 +12,9 @@ namespace PEngine.Web.Controllers
 			{
 				case 404:
 					return NotFound();
+				
+				case 500:
+					return ServerError();
 
 				default:
 					return Unknown();
@@ -21,6 +24,11 @@ namespace PEngine.Web.Controllers
 		private new IActionResult NotFound()
 		{
 			return View("NotFound");
+		}
+
+		private IActionResult ServerError()
+		{
+			return View("ServerError");
 		}
 
 		private IActionResult Unknown()

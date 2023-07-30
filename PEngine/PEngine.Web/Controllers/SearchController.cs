@@ -2,11 +2,13 @@
 
 namespace PEngine.Web.Controllers
 {
+    [Route("/[controller]/{keyword}")]
     public class SearchController : Controller
     {
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Result(string keyword)
         {
-            return View();
+            return NotFound();
         }
     }
 }

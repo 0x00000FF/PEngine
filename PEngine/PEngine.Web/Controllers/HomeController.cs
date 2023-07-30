@@ -16,5 +16,11 @@ namespace PEngine.Web.Controllers
         {
             return View();
         }
+
+        [HttpGet("/Misc/Mdd")]
+        public IActionResult Mdd()
+        {
+            return View();
+        }
     }
 }
