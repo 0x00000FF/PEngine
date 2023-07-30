@@ -37,6 +37,7 @@ header, footer {
     background-color: var(--theme);
     height: 60px;
     width: 100%;
+    z-index: 100;
 }
 
 header, footer {
@@ -155,19 +156,91 @@ footer .mdd {
 }
 
 .post-shelf-list {
+    display: flex;
     list-style: none;
     width: 100%;
-    overflow-x: scroll;
     white-space: nowrap;
 }
 
 .post-shelf-list li {
-    display: inline-block;
-    height: 300px;
+    height: 250px;
     width: 25%;
     margin-right: 20px;
     border: 1px solid #ccc;
     border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .3s;
+}
+
+.post-shelf-list li:hover {
+    box-shadow: 5px 5px #ccc;
+    transition: .3s;
+}
+
+.post-shelf-list li a {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    position: relative;
+}
+
+.post-shelf-list li a h3 {
+    font-size: 1.8em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}
+
+.post-shelf-list li a p {
+    height: 4em;
+    font-size: 1.5em;
+    word-break: break-all;
+    white-space: pre-wrap;
+    overflow: hidden;
+}
+
+.post-shelf-list li a span {
+    position: absolute;
+    left: 0px;
+    bottom: 20px;
+    padding: 3px 20px;
+    color: #cacaca;
+    transition: .4s;
+}
+
+.post-shelf-list li:hover a span {
+    background: #000;
+    transition: .4s;
+    width: 100%;
+}
+
+.post-shelf-list li .image-cover {
+    padding: 0;
+}
+
+.post-shelf-list li .image-cover img {
+    height: 100%;
+    width: 100%;
+    
+    border-radius: 15px;
+    pointer-events: none;
+}
+
+
+/* error pages */
+
+error-wrapper {
+    display: flex;
+    height: calc(100vh - 120px);
+    align-items: center;
+    justify-content: center;
 }
 
 /* common components */
