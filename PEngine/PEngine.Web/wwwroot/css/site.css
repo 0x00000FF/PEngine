@@ -243,6 +243,14 @@ error-wrapper {
     justify-content: center;
 }
 
+/* temp */
+
+#nagiChan {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+
 /* common components */
 
 text {
