@@ -17,17 +17,17 @@
         </brand>
         <ul class="gnb">
             <li>
-                <a asp-controller="Home">Home</a>
+                <a asp-controller="Home" asp-action="Index">Home</a>
             </li>
             <li>
-                <a asp-controller="Introduction">Introduction</a>
+                <a asp-controller="Introduction" asp-action="Index">Introduction</a>
             </li>
             <li>
                 <a asp-controller="Post">Categories</a>
                 
                 <ul>
                     <li>
-                        <a asp-controller="Post">전체</a>
+                        <a asp-controller="Post" asp-action="List">전체</a>
                     </li>
 
                     <li>
@@ -60,7 +60,7 @@
     </main>
     <footer>
         <span>Copyright &copy; P.Knowledge, @(DateTime.Now.Year).</span>
-        <a class="mdd" asp-controller="Misc" asp-action="Mdd" target="_blank">Learn about MDD</a>
+        <a class="mdd" href="/Misc/Mdd" target="_blank">Learn about MDD</a>
     </footer>
 
     <a id ="nagiChan" href="https://www.pixiv.net/en/users/5321039" target="_blank" title="This blog is under construction! / Artwork originally by Zzul">

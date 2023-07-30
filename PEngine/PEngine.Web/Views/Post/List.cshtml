@@ -3,4 +3,37 @@
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+<ul class="category-wrapper">
+    <li>전체 (0)</li>
+    <li>Category 1 (0)</li>
+    <li>Category 2 (0)</li>
+    <li>Category 3 (0)</li>
+    <li>Category 4 (0)</li>
+</ul>
+
+<ul class="post-list">
+    <li class="post-item">
+        <img src="#" alt="cover image" />
+        <a asp-controller="Post" asp-action="View" asp-route-id="1">
+            <h3>Title Here</h3>
+            <p></p>
+            <ul class="metadata">
+                <li>
+                    <i class="fa-solid fa-tags"></i>
+                    Category
+                </li>
+                <li>
+                    <i class="fa-regular fa-clock"></i> 0000.00.00.
+                </li>
+                <li>
+                    <i class="fa-regular fa-eye"></i>
+                    0
+                </li>
+                <li>
+                    <i class="fa-regular fa-comment"></i>
+                    0
+                </li>
+            </ul>
+        </a>
+    </li>
+</ul>

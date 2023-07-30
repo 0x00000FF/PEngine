@@ -266,6 +266,82 @@ footer .mdd {
     width: 140px;
     border-radius: 70px;
     border: 1px solid #ddd;
+    pointer-events: none;
+}
+
+.introduce-block .identity-row {
+    display: flex;
+}
+
+.introduce-block .identity-row span {
+    font-weight: bold;
+    width: 130px;
+    border-right: 1px solid #aaa;
+    margin-right: 20px;
+}
+
+
+/* post pages */
+
+.category-wrapper {
+    list-style: none;
+    white-space: nowrap;
+    overflow-x: scroll;
+    padding: 30px;
+}
+
+.category-wrapper li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.post-list {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 10px;
+    padding: 0 30px;
+    list-style: none;
+}
+
+.post-list .post-item {
+    display: flex;
+    height: 150px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    transition: .4s;
+}
+
+.post-list .post-item:hover {
+    box-shadow: 4px 4px #aaa;
+    transition: .4s;
+}
+
+.post-list .post-item img {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 0;
+}
+
+.post-list .post-item a {
+    position: relative;
+    padding: 20px;
+    display: flex;
+    height: 100%;
+    flex: 1;
+}
+
+.post-list .post-item a ul {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    display: flex;
+    list-style: none;
+    gap: 10px;
+}
+
+.post-list .post-item a ul li {
+    font-size: .9em;
+    white-space: nowrap;
 }
 
 /* error pages */
