@@ -1,3 +1,6 @@
+/* fontawesome */
+@import url(//cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css);
+
 /* fontfaces */
 @import url(//fonts.googleapis.com/earlyaccess/nanummyeongjo.css);
 
@@ -194,7 +197,7 @@ footer .mdd {
 }
 
 .post-shelf-list li a h3 {
-    font-size: 1.8em;
+    font-size: 1.5em;
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow-x: hidden;
@@ -202,7 +205,7 @@ footer .mdd {
 
 .post-shelf-list li a p {
     height: 4em;
-    font-size: 1.5em;
+    font-size: 1.2em;
     word-break: break-all;
     white-space: pre-wrap;
     overflow: hidden;
@@ -235,6 +238,35 @@ footer .mdd {
     pointer-events: none;
 }
 
+.post-shelf-list li.nothing {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 1.3em;
+}
+
+/* introductions */
+
+.introduce-block {
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    gap: 15px;
+    justify-content: center;
+}
+
+.introduce-block-horiz {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.introduce-block-horiz img {
+    height: 140px;
+    width: 140px;
+    border-radius: 70px;
+    border: 1px solid #ddd;
+}
 
 /* error pages */
 
@@ -263,7 +295,3 @@ text {
 
 button {}
 badge {}
-
-menu {
-    appearance: menulist;
-}
