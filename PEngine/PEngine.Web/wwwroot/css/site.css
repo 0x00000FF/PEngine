@@ -213,12 +213,12 @@ footer .mdd {
     padding: 3px 20px;
     color: #cacaca;
     transition: .4s;
+    width: 100%;
 }
 
 .post-shelf-list li:hover a span {
     background: #000;
     transition: .4s;
-    width: 100%;
 }
 
 .post-shelf-list li .image-cover {
