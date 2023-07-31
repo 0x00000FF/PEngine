@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpOverrides;
 
 namespace PEngine.Web
@@ -9,6 +10,9 @@ namespace PEngine.Web
             var builder = WebApplication.CreateBuilder(args);
             var mvcBuilder = builder.Services.AddControllersWithViews();
 
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
+            
             if (builder.Environment.IsDevelopment())
             {
                 mvcBuilder.AddRazorRuntimeCompilation();
