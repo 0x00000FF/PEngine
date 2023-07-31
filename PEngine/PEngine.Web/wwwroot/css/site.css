@@ -503,13 +503,19 @@ article .article-tail-collapsible .comment-list li .comment-body {
     font-size: .9em;
 }
 
-    /* editor */
+/* editor */
 
 .editor-form {
     display: flex;
     flex-direction: column;
     padding: 20px;
     gap: 20px;
+}
+
+.editor-form textarea {
+    min-height: 400px;
+    resize: none;
+    color: transparent;
 }
 
 .editor-form .editor-preamble {

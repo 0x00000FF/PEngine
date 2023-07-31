@@ -22,6 +22,11 @@ namespace PEngine.Web.Controllers
         {
             return View("Editor");
         }
+
+        public IActionResult WriteTest()
+        {
+            return View("Editor");
+        }
         
         [HttpPost]
         [Authorize]
