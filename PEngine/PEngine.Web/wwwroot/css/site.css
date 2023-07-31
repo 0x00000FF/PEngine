@@ -58,7 +58,7 @@ header {
 header brand {
     background: var(--theme-sub);
     color: #fff;
-    width: 400px;
+    width: 300px;
 }
 
 header brand form {
@@ -94,7 +94,7 @@ main {
 }
 
 aside {
-    width: 400px;
+    width: 300px;
     background: #505050;
 }
 
@@ -138,6 +138,7 @@ aside .gnb li ul li a {
     display: flex;
     align-items: center;
     padding-left: 30px;
+    font-size: .8em;
 
     height: 50px;
     background-color: #303030;
@@ -152,7 +153,7 @@ aside .gnb li a:hover {
 
 content {
     background-color: #fff;
-    width: calc(100% - 400px);
+    width: calc(100% - 300px);
 }
 
 footer {
@@ -321,6 +322,7 @@ footer .mdd {
     list-style: none;
     white-space: nowrap;
     overflow-x: scroll;
+    overflow: hidden;
     padding: 30px;
 }
 
@@ -382,6 +384,56 @@ footer .mdd {
 .post-list .post-item a ul li {
     font-size: .9em;
     white-space: nowrap;
+}
+
+/* post page */
+article {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+article .article-title {
+    font-size: 2.4em;
+}
+
+article .metadata {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    color: #505050;
+}
+
+article .article-body {
+    margin: 30px 0;
+    line-height: 2em;
+}
+
+article .article-tail {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+article .article-tail .article-tail-label {
+    cursor: pointer;
+}
+
+article .article-tail .article-tail-label:hover {
+    text-decoration: underline;
+}
+
+article .article-tail input[type=checkbox] {
+    display: none;
+}
+
+article .article-tail .article-tail-collapsible {
+    display: none;
+}
+
+article .article-tail input[type=checkbox]:checked + .article-tail-collapsible {
+    display: block;
 }
 
 /* editor */

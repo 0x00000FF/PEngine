@@ -3,4 +3,58 @@
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+@section OpenGraph {
+    <meta property="og:title" content="Title here" />
+    <meta property="og:url" content="/Post/View/{id}" />
+    <meta property="og:description" content="Lorem ipsum dolor sit amet."/>
+    <meta property="og:site_name" content="Blog name here" />
+    
+    <!-- Use if cover exists -->
+    <meta property="og:image" content="sample.jpg" />
+}
+
+<article>
+    <h1 class="article-title">Title Here</h1>
+    <ul class="metadata">
+        <li>
+            <i class="fa-solid fa-user"></i>
+            PostWriter
+        </li>
+        <li>
+            <i class="fa-regular fa-calendar-days"></i>
+            0000. 00. 00. 00:00:00
+        </li>
+        <li>
+            <i class="fa-solid fa-eye"></i>
+            0 Hit(s)
+        </li>
+    </ul>
+    <div class="article-body">
+        <h1>Lorem ipsum dolor sit amet.</h1>
+        <h2>Lorem ipsum dolor sit amet.</h2>
+        <h3>Lorem ipsum dolor sit amet.</h3>
+        <h4>Lorem ipsum dolor sit amet.</h4>
+        <h5>Lorem ipsum dolor sit amet.</h5>
+        <h6>Lorem ipsum dolor sit amet.</h6>
+        <p>Lorem ipsum dolor sit amet.</p>
+        <p>Lorem ipsum dolor sit amet.</p>
+        <p>Lorem ipsum dolor sit amet.</p>
+    </div>
+    <label class="article-tail">
+        <span class="article-tail-label">
+            <i class="fa-regular fa-comments"></i>
+            0 Comments
+        </span>
+        
+        <input type="checkbox" />     
+        
+        <div class="article-tail-collapsible" id="comments">
+            <ul class="comment-list">
+                <li>
+                    <img src="#" alt="profile" />
+                    
+                </li>
+            </ul>
+        </div>
+    </label>
+</article>
