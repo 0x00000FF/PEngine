@@ -87,6 +87,23 @@ header brand form input::placeholder {
     color: #fff;
 }
 
+header menu {
+    flex: 1;
+    display: flex;
+}
+
+header menu .login-locked {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #900;
+    color: #fff;
+    height: 50px;
+    width: 50px;
+    margin-left: auto;
+}
+
+
 main {
     display: flex;
     width: 100%;
