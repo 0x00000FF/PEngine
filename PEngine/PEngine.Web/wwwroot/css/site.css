@@ -424,19 +424,62 @@ article .article-tail .article-tail-label:hover {
     text-decoration: underline;
 }
 
-article .article-tail input[type=checkbox] {
+article input[type=checkbox] {
     display: none;
 }
 
-article .article-tail .article-tail-collapsible {
+article .article-tail-collapsible {
     display: none;
 }
 
-article .article-tail input[type=checkbox]:checked + .article-tail-collapsible {
+article input[type=checkbox]:checked + .article-tail-collapsible {
     display: block;
 }
 
-/* editor */
+article .article-tail-collapsible .comment-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+article .article-tail-collapsible .comment-list li {
+    display: flex;
+    gap: 20px;
+}
+
+article .article-tail-collapsible .comment-list li .icon {
+    width: 75px;
+    height: 75px;
+}
+
+article .article-tail-collapsible .comment-list li .comment-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+article .article-tail-collapsible .comment-list li .comment-header {
+    display: flex;
+    gap: 15px;
+    font-weight: bold;
+}
+
+article .article-tail-collapsible .comment-list li .comment-header li {
+    gap: 5px;
+}
+
+article .article-tail-collapsible .comment-list li .comment-header .comment-header-button {
+    cursor: pointer;
+    
+}
+
+article .article-tail-collapsible .comment-list li .comment-body {
+    line-height: 2em;
+    font-size: .9em;
+}
+
+    /* editor */
 
 .editor-form {
     display: flex;

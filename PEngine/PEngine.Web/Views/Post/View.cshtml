@@ -40,21 +40,67 @@
         <p>Lorem ipsum dolor sit amet.</p>
         <p>Lorem ipsum dolor sit amet.</p>
     </div>
-    <label class="article-tail">
+    
+    <label class="article-tail" for="commentBoxToggle">
         <span class="article-tail-label">
             <i class="fa-regular fa-comments"></i>
             0 Comments
         </span>
-        
-        <input type="checkbox" />     
-        
-        <div class="article-tail-collapsible" id="comments">
-            <ul class="comment-list">
-                <li>
-                    <img src="#" alt="profile" />
-                    
-                </li>
-            </ul>
-        </div>
     </label>
+    <input type="checkbox" id="commentBoxToggle" />     
+        
+    <div class="article-tail-collapsible" id="comments">
+        <ul class="comment-list">
+            <li>
+                <img src="#" alt="profile" class="icon" />
+                <div class="comment-content">
+                    <ul class="comment-header">
+                        <li>CommentWriter (127.0)</li>
+                        <li>0000.00.00. 00:00:00</li>
+                        <li class="comment-header-button">
+                            <i class="fa-solid fa-reply"></i>
+                            Reply
+                        </li>
+                        <li class="comment-header-button">
+                            <i class="fa-solid fa-trash-can"></i>
+                            Delete
+                        </li>
+                    </ul>
+                    <div class="comment-body">
+                        Lorem ipsum dolor sit amet. <br />
+                        Lorem ipsum dolor sit amet. <br />
+                        Lorem ipsum dolor sit amet. <br />
+                        Lorem ipsum dolor sit amet. <br />
+                        Lorem ipsum dolor sit amet. <br />
+                        Lorem ipsum dolor sit amet. <br />
+                    </div>
+                </div>
+            </li>
+            <li>
+                <img src="#" alt="profile" class="icon"/>
+                <div class="comment-content">
+                    <ul class="comment-header">
+                        <li>CommentWriter (127.0)</li>
+                        <li>0000.00.00. 00:00:00</li>
+                        <li class="comment-header-button">
+                            <i class="fa-solid fa-reply"></i>
+                            Reply
+                        </li>
+                        <li class="comment-header-button">
+                            <i class="fa-solid fa-trash-can"></i>
+                            Delete
+                        </li>
+                    </ul>
+                    <div class="comment-body">
+                        Lorem ipsum dolor sit amet. <br />
+                        Lorem ipsum dolor sit amet. <br />
+                        Lorem ipsum dolor sit amet. <br />
+                        Lorem ipsum dolor sit amet. <br />
+                        Lorem ipsum dolor sit amet. <br />
+                        Lorem ipsum dolor sit amet. <br />
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </article>
