@@ -318,12 +318,20 @@ footer .mdd {
 
 /* post pages */
 
-.category-wrapper {
+.post-list-header {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+}
+
+.post-list-header .category-wrapper {
+    flex: 1;
     list-style: none;
     white-space: nowrap;
-    overflow-x: scroll;
-    overflow: hidden;
-    padding: 30px;
+}
+
+.post-list-header .button {
+    font-size: .8em;
 }
 
 .category-wrapper li {
@@ -517,5 +525,17 @@ text {
 }
 
 
-button {}
+.button {
+    padding: 10px;
+    cursor: pointer;
+    border: 0;
+    height: auto;
+    text-decoration: none;
+}
+
+.button.dark {
+    background: #303030;
+    color: #fff;
+}
+
 badge {}

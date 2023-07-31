@@ -3,13 +3,18 @@
     Layout = "_Layout";
 }
 
-<ul class="category-wrapper">
-    <li>전체 (0)</li>
-    <li>Category 1 (0)</li>
-    <li>Category 2 (0)</li>
-    <li>Category 3 (0)</li>
-    <li>Category 4 (0)</li>
-</ul>
+<div class="post-list-header">
+    <ul class="category-wrapper">
+        <li>전체 (0)</li>
+        <li>Category 1 (0)</li>
+        <li>Category 2 (0)</li>
+        <li>Category 3 (0)</li>
+        <li>Category 4 (0)</li>
+    </ul>
+    <a class="button dark" asp-controller="Post" asp-action="Write">
+        <i class="fa-solid fa-pen"></i> Write
+    </a>
+</div>
 
 <ul class="post-list">
     <li class="post-item">
