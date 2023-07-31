@@ -411,9 +411,8 @@ article .article-body {
 }
 
 article .article-tail {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
+    display: inline-block;
+    width: 120px;
 }
 
 article .article-tail .article-tail-label {
