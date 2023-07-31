@@ -11,7 +11,15 @@ namespace PEngine.Web
             var mvcBuilder = builder.Services.AddControllersWithViews();
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/User/Login";
+                    options.LogoutPath = "/User/Logout";
+                    
+                    options.Cookie.Name = "_PEngineAuth_";
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.IsEssential = true;
+                });
             
             if (builder.Environment.IsDevelopment())
             {
