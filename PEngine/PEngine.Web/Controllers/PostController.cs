@@ -5,10 +5,6 @@ namespace PEngine.Web.Controllers
 {
     public class PostController : Controller
     {
-        public IActionResult Index()
-        {
-            return List("");
-        }
 
         [HttpGet("/[controller]/[action]/{category?}")]
         public IActionResult List(string? category)
@@ -26,15 +22,41 @@ namespace PEngine.Web.Controllers
         {
             return View("Editor");
         }
+        
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Write(object post)
+        {
+            return Json(null);
+        }
 
+        [Authorize]
         public IActionResult Modify(int id)
         {
             return View("Editor");
         }
 
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Modify(int id, object post)
+        {
+            return Json(null);
+        }
+        
+        [Authorize]
         public IActionResult Delete(int id)
         {
             return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id, string message)
+        {
+            return Json(null);
         }
     }
 }
