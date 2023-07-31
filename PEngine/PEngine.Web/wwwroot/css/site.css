@@ -495,9 +495,35 @@ article .article-tail-collapsible .comment-list li .comment-body {
     gap: 20px;
 }
 
-.editor-form input {
-    padding: 5px;
+.editor-form .editor-preamble {
+    display: flex;
+    gap: 15px;
+}
+
+.editor-form .editor-preamble select {
+    appearance: none;
+    border: 1px solid #ccc;
+    min-width: 150px;
+    padding: 0 10px;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+
+.editor-form .editor-preamble input {
+    padding: 10px 5px;
     font-size: 1.2em;
+    border: 0;
+    border-bottom: 2px solid #ccc;
+    flex: 1;
+}
+
+.editor-form .editor-preamble input:focus {
+    outline: none;
+}
+
+.editor-form #postSave {
+    font-size: 1em;
 }
 
 /* error pages */
@@ -531,6 +557,7 @@ text {
     border: 0;
     height: auto;
     text-decoration: none;
+    font-family: inherit;
 }
 
 .button.dark {

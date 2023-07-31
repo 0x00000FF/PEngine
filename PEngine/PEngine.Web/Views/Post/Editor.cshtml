@@ -15,9 +15,17 @@
 }
 
 <form class="editor-form" asp-controller="Post" asp-action="Write">
-    <input type="text" placeholder="Title" />
-
+    <div class="editor-preamble">
+        <select name="category">
+            <option value="">Uncategorized</option>
+        </select>
+        <input name="title" type="text" placeholder="Title" />
+    </div>
+    
     <textarea></textarea>
 
-    <button>Save</button>
+    <button class="button dark" id="postSave">
+        <i class="fa fa-save"></i>
+        Save
+    </button>
 </form>
