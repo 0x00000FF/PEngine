@@ -13,50 +13,55 @@
 <body>
     <header>
         <brand>
-            <h2>0x00000FF</h2>
+            <form class="search-box" asp-controller="Search" method="get">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" name="keyword" placeholder="Search..." />
+            </form>
         </brand>
-        <ul class="gnb">
-            <li>
-                <a asp-controller="Home" asp-action="Index">Home</a>
-            </li>
-            <li>
-                <a asp-controller="Introduction" asp-action="Index">Introduction</a>
-            </li>
-            <li>
-                <a asp-controller="Post">Categories</a>
-                
-                <ul>
-                    <li>
-                        <a asp-controller="Post" asp-action="List">전체</a>
-                    </li>
-
-                    <li>
-                        <a asp-controller="Post" asp-action="List" asp-route-category="Category 1">Category 1</a>
-                    </li>
-                    
-                    <li>
-                        <a asp-controller="Post" asp-action="List" asp-route-category="Category 2">Category 2</a>
-                    </li>
-                    
-                    <li>
-                        <a asp-controller="Post" asp-action="List" asp-route-category="Category 3">Category 3</a>
-                    </li>
-
-                    <li>
-                        <a asp-controller="Post" asp-action="List" asp-route-category="Category 4">Category 4</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a asp-controller="Search">Search</a>
-            </li>
-            <li>
-                <a asp-controller="Guestbook">Guestbook</a>
-            </li>
-        </ul>
     </header>
     <main>
-        @RenderBody()
+        <aside>
+            <ul class="gnb">
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                </li>
+                <li>
+                    <a asp-controller="Introduction" asp-action="Index">Introduction</a>
+                </li>
+                <li>
+                    <a asp-controller="Post" asp-action="List">Categories</a>
+
+                    <ul>
+                        <li>
+                            <a asp-controller="Post" asp-action="List">전체</a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Post" asp-action="List" asp-route-category="Category 1">Category 1</a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Post" asp-action="List" asp-route-category="Category 2">Category 2</a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Post" asp-action="List" asp-route-category="Category 3">Category 3</a>
+                        </li>
+
+                        <li>
+                            <a asp-controller="Post" asp-action="List" asp-route-category="Category 4">Category 4</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a asp-controller="Search">Search</a>
+                </li>
+                <li>
+                    <a asp-controller="Guestbook">Guestbook</a>
+                </li>
+            </ul>
+        </aside>
+        <content>@RenderBody()</content>
     </main>
     <footer>
         <span>Copyright &copy; P.Knowledge, @(DateTime.Now.Year).</span>

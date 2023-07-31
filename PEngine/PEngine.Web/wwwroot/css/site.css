@@ -58,67 +58,101 @@ header {
 header brand {
     background: var(--theme-sub);
     color: #fff;
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 400px;
 }
 
-header .gnb {
+header brand form {
     display: flex;
+    gap: 15px;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 1.5em;
+    height: 100%;
+}
+
+header brand form input {
+    background: transparent;
+    border: 0;
     color: #fff;
+    border-bottom: 2px solid #fff;
+    padding: 7px 0;
+    flex: 1;
+}
+
+header brand form input:focus {
+    outline: none;
+}
+
+header brand form input::placeholder {
+    color: #fff;
+}
+
+main {
+    display: flex;
+    width: 100%;
+    min-height: calc(100vh - var(--hf-height) * 2);
+}
+
+aside {
+    width: 400px;
+    background: #505050;
+}
+
+aside .gnb {
+    display: flex;
+    flex-direction: column;
+    color: #000;
     list-style: none;
     font-size: 1.2em;
-    height: 100%;
 }
 
-header .gnb li {
-    width: 200px;
-    height: 100%;
+aside .gnb li {
+    min-height: 50px;
     transition: .3s;
+    border-bottom: 1px solid #202020;
+    background: #c0c0c0;
 }
 
-header .gnb li a {
+aside .gnb li a {
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 10px;
     width: 100%;
-    height: 100%;
+    height: 50px;
 }
 
-header .gnb li ul {
+aside .gnb li ul {
     display: none;
     list-style: none;
     opacity: 0;
     transition: .2s;
 }
 
-header .gnb li:hover ul {
+aside .gnb li:hover ul {
     display: block;
     transition: .2s;
     opacity: 1;
 }
 
-header .gnb li ul li a {
+aside .gnb li ul li a {
     display: flex;
     align-items: center;
-    justify-content: center;
+    padding-left: 30px;
 
-    width: 200px;
-    height: 60px;
+    height: 50px;
     background-color: #303030;
+    color: #fff;
 }
 
-header .gnb li a:hover {
+aside .gnb li a:hover {
     background: #404040;
+    color: #fff;
     transition: .3s;
 }
 
-main {
+content {
     background-color: #fff;
-    margin: 0 200px;
-    width: calc(100vw - 400px);
-    min-height: calc(100vh - var(--hf-height) * 2); 
+    width: calc(100% - 400px);
 }
 
 footer {
@@ -303,6 +337,12 @@ footer .mdd {
     list-style: none;
 }
 
+@media screen and (min-width: 1921px) {
+    .post-list {
+        grid-template-columns: 33% 33% 33%;
+    }
+}
+
 .post-list .post-item {
     display: flex;
     height: 150px;
@@ -342,6 +382,20 @@ footer .mdd {
 .post-list .post-item a ul li {
     font-size: .9em;
     white-space: nowrap;
+}
+
+/* editor */
+
+.editor-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+}
+
+.editor-form input {
+    padding: 5px;
+    font-size: 1.2em;
 }
 
 /* error pages */

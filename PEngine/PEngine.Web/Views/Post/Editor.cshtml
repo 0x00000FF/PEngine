@@ -1,6 +1,23 @@
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Edit Post";
     Layout = "_Layout";
 }
 
-<h2>title</h2>
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/yqaoonr89lq9bf2icuu0tqh1ealzcgzpdart3okdscbk4bdg/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+          selector: 'textarea',
+          plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+        });
+    </script>
+}
+
+<form class="editor-form" asp-controller="Post" asp-action="Write">
+    <input type="text" placeholder="Title" />
+
+    <textarea></textarea>
+
+    <button>Save</button>
+</form>

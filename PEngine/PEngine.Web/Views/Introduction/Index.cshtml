@@ -1,6 +1,9 @@
 @{
     ViewBag.Title = "Introduction";
     Layout = "_Layout";
+
+    var birthdate = DateTime.Now;
+    var age = (DateTime.Now - birthdate).Days / (float)365;
 }
 
 <div class="introduce-block">
@@ -9,8 +12,8 @@
     <div class="introduce-block-horiz">
         <img src="#" alt="profile image"/>
         <div class="introduce-block">
-            <p class="identity-row"><span>Name</span></p>
-            <p class="identity-row"><span>Birthdate</span> ( y/o)</p>
+            <p class="identity-row"><span>Name</span> </p>
+            <p class="identity-row"><span>Birthdate</span> @birthdate.ToString("yyyy. MM. dd.") (@age y/o)</p>
             <p class="identity-row"><span>Pronouns</span> </p>
             <p class="identity-row"><span>Nationality</span> </p>
             <p class="identity-row"><span>Religion</span> </p>
