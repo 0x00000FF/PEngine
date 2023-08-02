@@ -657,6 +657,10 @@ error-wrapper {
     bottom: 0;
 }
 
+#nagiChan img {
+    height: 200px;
+}
+
 /* common components */
 
 text {
