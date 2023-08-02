@@ -46,6 +46,11 @@
             </span>
         </label>
         <div class="article-tail-buttons">
+            <a class="button dark" asp-controller="Post" asp-action="List">
+                <i class="fa fa-list"></i>
+                List
+            </a>
+            
             @if (ViewBag.Authenticated)
             {
                 <a class="button dark" asp-controller="Post" asp-action="Modify" asp-route-id="@Model.Id">
