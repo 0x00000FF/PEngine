@@ -7,7 +7,8 @@ namespace PEngine.Web
 {
     public class Program
     {
-        public static WebApplication App { get; set; }
+        public static WebApplication App { get; private set; } = null!;
+        
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);

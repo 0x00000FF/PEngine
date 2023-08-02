@@ -1,4 +1,5 @@
-﻿@{
+﻿@model PEngine.Web.Models.ViewModels.HomeVM
+@{
 	ViewData["Title"] = "MainPage";
 }
 
@@ -6,97 +7,59 @@
 	Nothing Here... For now.
 </div>
 
-
 <div class="post-shelf">
 	<h2>Latest Posts</h2>
 	<ul class="post-shelf-list">
-		<li> 
-			<a asp-controller="Post" asp-action="View" asp-route-id="1">
-				<h3>Post Title Here</h3>
-				<p>excerpted post here...excerpted post here...excerpted post here...excerpted post here...excerpted post here...excerpted post here...excerpted post here...excerpted post here...excerpted post here...</p>
-				<span>@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</span>
-			</a>
-		</li>
-		<li>
-			<a class="image-cover" asp-controller="Post" asp-action="View" asp-route-id="2">
-				<img src="https://upload.wikimedia.org/wikipedia/en/4/4b/Blue_Archives_cover.jpeg" />
-				<span>@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</span>
-			</a>
-		</li>
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
+		@for (var i = 0; i < 4; ++i)
+		{
+			var nothing = Model.Latest.Count <= i;
+			
+			if (nothing)
+			{
+				<li class="nothing">
+					<i class="fas fa-exclamation-triangle"></i>
+					<p>NOTHING HERE!</p>
+				</li>
+			}
+			else
+			{
+				<li>
+					<a asp-controller="Post" asp-action="View" asp-route-id="1">
+						<h3>@Model.Latest[i].Title</h3>
+						<span>@Model.Latest[i].WrittenAt.ToString("yyyy-MM-dd HH:mm:ss")</span>
+					</a>
+				</li>
+			}
+		}
 	</ul>
 </div>
 
-
-<div class="post-shelf">
-	<h2>Category 1</h2>
-	<ul class="post-shelf-list">
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-	</ul>
-</div>
-
-<div class="post-shelf">
-	<h2>Category 2</h2>
-	<ul class="post-shelf-list">
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-	</ul>
-</div>
-
-<div class="post-shelf">
-	<h2>Category 3</h2>
-	<ul class="post-shelf-list">
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-		<li class="nothing">
-			<i class="fas fa-exclamation-triangle"></i>
-			<p>NOTHING HERE!</p>
-		</li>
-	</ul>
-</div>
+@foreach (var cat in Model.Categories)
+{
+	<div class="post-shelf">
+		<h2>@cat.Key</h2>
+		<ul class="post-shelf-list">
+			@for (var i = 0; i < 4; ++i)
+			{
+				var nothing = cat.Value.Count <= i;
+			
+				if (nothing)
+				{
+					<li class="nothing">
+						<i class="fas fa-exclamation-triangle"></i>
+						<p>NOTHING HERE!</p>
+					</li>
+				}
+				else
+				{
+					<li>
+						<a asp-controller="Post" asp-action="View" asp-route-id="1">
+							<h3>@cat.Value[i].Title</h3>
+							<span>@cat.Value[i].WrittenAt.ToString("yyyy-MM-dd HH:mm:ss")</span>
+						</a>
+					</li>
+				}
+			}
+		</ul>
+	</div>
+}
