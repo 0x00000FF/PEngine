@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using PEngine.Web.Models;
 using PEngine.Web.Models.ViewModels;
 
 namespace PEngine.Web.Controllers
@@ -66,6 +68,7 @@ namespace PEngine.Web.Controllers
             }
 
             await HitPost(post.Id);
+            
             return View(post);
         }
 
@@ -81,19 +84,7 @@ namespace PEngine.Web.Controllers
         public async Task<IActionResult> Write(string category, string title, string content, 
             [FromServices] IHtmlSanitizer sanitizer)
         {
-            var sanitizedContent = sanitizer.SanitizeDocument(content);
-            var result = _context.Posts.Add(new ()
-            {
-                WrittenBy = UserId!.Value,
-                Category = category,
-                Title = title,
-                Content = sanitizedContent,
-                WrittenAt = DateTime.Now
-            });
-            
-            return await _context.SaveChangesAsync() > 0 ?
-                    RedirectToAction("View", new { Id = result.Entity.Id }) :
-                    View("WriteFailed");
+            return await Modify(null, category, title, content, sanitizer);
         }
 
         [Authorize]
@@ -105,14 +96,54 @@ namespace PEngine.Web.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Modify(int id, object post)
+        public async Task<IActionResult> Modify(long? id, string category, string title, string content, 
+            [FromServices] IHtmlSanitizer sanitizer)
         {
-            return Json(null);
+            Func<Post, EntityEntry<Post>> updateProc = _context.Posts.Add;
+            Post? post = null;
+            
+            var sanitizedContent = sanitizer.SanitizeDocument(content);
+
+            if (id is not null)
+            {
+                updateProc = _context.Posts.Update;
+                post = _context.Posts.FirstOrDefault(p => p.Id == id && p.WrittenBy == UserId);
+
+                if (post is null)
+                {
+                    return Forbid();
+                }
+
+                post.Title = title;
+                post.Category = category;
+                post.Content = sanitizedContent;
+            }
+            
+            var result = updateProc(post ?? new ()
+            {
+                Id = id ?? 0,
+                WrittenBy = UserId!.Value,
+                Category = category,
+                Title = title,
+                Content = sanitizedContent,
+                WrittenAt = DateTime.Now
+            });
+            
+            return await _context.SaveChangesAsync() > 0 ?
+                RedirectToAction("View", new { Id = result.Entity.Id }) :
+                View("UpdateFailed");
         }
         
         [Authorize]
         public IActionResult Delete(int id)
         {
+            var post = _context.Posts.FirstOrDefault(p => p.Id == id && p.WrittenBy == UserId);
+
+            if (post is null)
+            {
+                return NotFound();
+            }
+            
             return View();
         }
 
@@ -121,7 +152,25 @@ namespace PEngine.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id, string message)
         {
-            return Json(null);
+            if (int.TryParse(message, out var messageValue))
+            {
+                var post = _context.Posts
+                    .FirstOrDefault(p => p.Id == id && p.WrittenBy == UserId &&
+                                         p.Id == messageValue);
+
+                if (post is null)
+                {
+                    return NotFound();
+                }
+
+                _context.Posts.Remove(post);
+                
+                return await _context.SaveChangesAsync() > 0 ?
+                    RedirectToAction("List") : 
+                    View("DeleteFailed");
+            }
+
+            return View("Delete", new { message = "Code Check Failed..." });
         }
     }
 }
