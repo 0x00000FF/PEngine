@@ -17,7 +17,16 @@ namespace PEngine.Web.Controllers
         [HttpGet("/[controller]/[action]/{category?}")]
         public IActionResult List(string? category)
         {
-            return View();
+            var posts = _context.Posts.AsQueryable();
+
+            if (category is not null)
+            {
+                posts = posts.Where(p => p.Category == category);
+            }
+
+            posts = posts.Take(30);
+            
+            return View(posts.ToList());
         }
 
 
