@@ -1,0 +1,16 @@
+@model PEngine.Web.Models.ViewModels.UserCreateFirstVM
+@{
+    ViewBag.Title = "Create First User";
+    Layout = "_Layout";
+}
+
+<form class="login-form" asp-controller="User" asp-action="Create">
+    <h2>Please Create First User...</h2>
+    <div>
+        <input type="text" name="username" placeholder="Username..." value="@Model.Username"/>
+        <input type="password" name="password" placeholder="Password..."/>
+        <input type="text" name="name" placeholder="Name..."/>
+        <input type="submit" class="button dark" value="Create"/>
+    </div>
+    @Html.AntiForgeryToken()
+</form>

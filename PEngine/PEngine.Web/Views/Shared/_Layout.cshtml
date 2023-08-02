@@ -19,9 +19,18 @@
             </form>
         </brand>
         <menu>
-            <a class="login-locked" asp-controller="User" asp-action="Login">
-                <i class="fa fa-lock"></i>
-            </a>
+            @if ((bool?)ViewData["Authenticated"] == false)
+            {
+                <a class="login-locked" asp-controller="User" asp-action="Login">
+                    <i class="fa fa-lock"></i>
+                </a>
+            }
+            else
+            {
+                <a class="login-locked unlocked" asp-controller="User" asp-action="Logout">
+                    <i class="fa fa-unlock"></i>
+                </a>
+            }
         </menu>
     </header>
     <main>

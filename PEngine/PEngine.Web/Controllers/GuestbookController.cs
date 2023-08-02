@@ -2,12 +2,10 @@
 
 namespace PEngine.Web.Controllers
 {
-    public class GuestbookController : Controller
+    public class GuestbookController : CommonControllerBase<GuestbookController>
     {
-        public IActionResult Index()
+        public GuestbookController(ILogger<GuestbookController> logger) : base(logger)
         {
-            return NotFound();
         }
-        
     }
 }

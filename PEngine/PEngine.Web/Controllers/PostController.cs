@@ -3,9 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace PEngine.Web.Controllers
 {
-    public class PostController : Controller
+    public class PostController : CommonControllerBase<PostController>
     {
 
+        public PostController(ILogger<PostController> logger) : base(logger)
+        {
+            
+        }
+        
         [HttpGet("/[controller]/[action]/{category?}")]
         public IActionResult List(string? category)
         {

@@ -1,27 +1,40 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace PEngine.Web
 {
     public class Program
     {
+        public static WebApplication App { get; set; }
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var devMode = builder.Environment.IsDevelopment();
             var mvcBuilder = builder.Services.AddControllersWithViews();
 
+            builder.Services.AddHttpContextAccessor();
+            
+            builder.Services.AddAntiforgery();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/User/Login";
                     options.LogoutPath = "/User/Logout";
-                    
+
                     options.Cookie.Name = "_PEngineAuth_";
                     options.Cookie.HttpOnly = true;
                     options.Cookie.IsEssential = true;
                 });
+
+            BlogContext.SetConnectionString(devMode ? 
+                builder.Configuration.GetConnectionString("Development") :
+                builder.Configuration.GetConnectionString("Production"));
+
+            builder.Services.AddDbContext<BlogContext>();
             
-            if (builder.Environment.IsDevelopment())
+            if (devMode)
             {
                 mvcBuilder.AddRazorRuntimeCompilation();
             }
@@ -32,31 +45,31 @@ namespace PEngine.Web
                     ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             });
 
-            var app = builder.Build();
+            App = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
+            if (!App.Environment.IsDevelopment())
             {
-                app.UseExceptionHandler("/Home/Error");
+                App.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                App.UseHsts();
             }
+            
+            App.UseForwardedHeaders();
+            
+            App.UseHttpsRedirection();
+            App.UseStaticFiles();
+            App.UseStatusCodePagesWithReExecute("/Error/{0}");
 
-            app.UseForwardedHeaders();
+            App.UseRouting();
 
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            App.UseAuthorization();
 
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.MapControllerRoute(
+            App.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            app.Run();
+            App.Run();
         }
     }
 }

@@ -3,8 +3,12 @@
 namespace PEngine.Web.Controllers
 {
 	[Route("/Error/{statusCode:int}")]
-	public class ErrorController : Controller
+	public class ErrorController : CommonControllerBase<ErrorController>
 	{
+		public ErrorController(ILogger<ErrorController> logger) : base(logger)
+		{
+		}
+		
 		[HttpGet]
 		public IActionResult Index(int statusCode)
 		{
@@ -35,5 +39,6 @@ namespace PEngine.Web.Controllers
 		{
 			return View("Unknown");
 		}
+
 	}
 }

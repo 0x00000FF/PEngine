@@ -3,13 +3,10 @@ using System.Diagnostics;
 
 namespace PEngine.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : CommonControllerBase<HomeController>
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger) : base(logger)
         {
-            _logger = logger;
         }
 
         public IActionResult Index()

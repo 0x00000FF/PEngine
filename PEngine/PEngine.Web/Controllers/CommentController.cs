@@ -2,11 +2,10 @@
 
 namespace PEngine.Web.Controllers
 {
-    public class CommentController : Controller
+    public class CommentController : CommonControllerBase<CommentController>
     {
-        public IActionResult Index()
+        public CommentController(ILogger<CommentController> logger) : base(logger)
         {
-            return View();
         }
     }
 }
