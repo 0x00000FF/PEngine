@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Ganss.Xss;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PEngine.Web.Models.ViewModels;
@@ -77,14 +78,16 @@ namespace PEngine.Web.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Write(string category, string title, string content)
+        public async Task<IActionResult> Write(string category, string title, string content, 
+            [FromServices] IHtmlSanitizer sanitizer)
         {
+            var sanitizedContent = sanitizer.SanitizeDocument(content);
             var result = _context.Posts.Add(new ()
             {
                 WrittenBy = UserId!.Value,
                 Category = category,
                 Title = title,
-                Content = content,
+                Content = sanitizedContent,
                 WrittenAt = DateTime.Now
             });
             

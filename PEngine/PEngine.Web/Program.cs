@@ -1,3 +1,4 @@
+using Ganss.Xss;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +35,7 @@ namespace PEngine.Web
                 builder.Configuration.GetConnectionString("Production"));
 
             builder.Services.AddDbContext<BlogContext>();
+            builder.Services.AddSingleton<IHtmlSanitizer, HtmlSanitizer>();
             
             if (devMode)
             {
