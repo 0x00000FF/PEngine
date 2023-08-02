@@ -151,6 +151,7 @@ aside .gnb li ul {
     transition: .2s;
 }
 
+aside .gnb li.open ul,
 aside .gnb li:hover ul {
     display: block;
     transition: .2s;
@@ -490,6 +491,39 @@ article input[type=checkbox]:checked + .article-tail-collapsible {
     display: block;
 }
 
+article .article-tail-collapsible .comment-form {
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+article .article-tail-collapsible .comment-form input {
+    border: 0;
+    border-bottom: 2px solid #000;
+}
+
+article .article-tail-collapsible .comment-form input::placeholder {
+    
+}
+
+article .article-tail-collapsible .comment-form .comment-form-header {
+    display: flex;
+    gap: 10px;
+}
+
+article .article-tail-collapsible .comment-form .comment-form-header input[type=submit] {
+    margin-left: auto;
+}
+
+article .article-tail-collapsible .comment-form textarea {
+    width: 100%;
+    min-height: 150px;
+    resize: none;
+    border: 2px solid #000;
+}
+
 article .article-tail-collapsible .comment-list {
     list-style: none;
     display: flex;
@@ -619,12 +653,13 @@ text {
 }
 
 input[type=text],
-input[type=password] {
+input[type=password],
+textarea {
     background: transparent;
     padding: 7px 5px;
     font-family: inherit;
 }
 
-input:focus {
+input:focus, textarea:focus {
     outline: none;
 }

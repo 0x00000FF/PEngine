@@ -1,0 +1,35 @@
+@model List<PEngine.Web.Models.Comment>
+
+@{
+    Layout = null;
+}
+
+<ul class="comment-list">
+    @foreach (var comment in Model)
+    {
+        <li id="comment-@comment.Id">
+            <img alt="profile" class="icon" />
+            <div class="comment-content">
+                <ul class="comment-header">
+                    <li>
+                        @( comment.WrittenBy is null ? 
+                            $"{comment.WriterName} ({comment.WriterIP})" :
+                            "WriterName")
+                    </li>
+                    <li>@comment.WrittenAt.ToString("yyyy. MM. dd. hh:mm:ss")</li>
+                    <li class="comment-header-button" id="comment-reply-@comment.Id">
+                        <i class="fa-solid fa-reply"></i>
+                        Reply
+                    </li>
+                    <li class="comment-header-button" id="comment-delete-@comment.Id">
+                        <i class="fa-solid fa-trash-can"></i>
+                        Delete
+                    </li>
+                </ul>
+                <div class="comment-body">
+                    @comment.Content
+                </div>
+            </div>
+        </li>
+    }
+</ul>
