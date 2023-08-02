@@ -9,6 +9,15 @@ namespace PEngine.Web
     public class Program
     {
         public static WebApplication App { get; private set; } = null!;
+
+        public static HtmlSanitizer InitSanitizer(IServiceProvider provider)
+        {
+            var sanitizer = new HtmlSanitizer();
+
+            sanitizer.AllowedTags.Add("iframe");
+            
+            return sanitizer;
+        }
         
         public static void Main(string[] args)
         {
@@ -35,7 +44,7 @@ namespace PEngine.Web
                 builder.Configuration.GetConnectionString("Production"));
 
             builder.Services.AddDbContext<BlogContext>();
-            builder.Services.AddSingleton<IHtmlSanitizer, HtmlSanitizer>();
+            builder.Services.AddSingleton<IHtmlSanitizer, HtmlSanitizer>(InitSanitizer);
             
             if (devMode)
             {
@@ -66,6 +75,7 @@ namespace PEngine.Web
 
             App.UseRouting();
 
+            App.UseAuthentication();
             App.UseAuthorization();
 
             App.MapControllerRoute(

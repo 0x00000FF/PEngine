@@ -36,6 +36,10 @@ a {
     color: inherit;
 }
 
+iframe {
+    border: 0;
+}
+
 /* layout */
 
 header, footer {
