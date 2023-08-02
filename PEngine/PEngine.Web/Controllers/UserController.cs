@@ -61,8 +61,13 @@ public class UserController : CommonControllerBase<UserController>
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(string username, string password, string name)
+    public async Task<IActionResult> CreateFirst(string username, string password, string name)
     {
+        if (_context.Users.Any())
+        {
+            return Forbid();
+        }
+        
         var newSalt = CryptoHelper.Random(32).ToBase64();
         _context.Users.Add(new User()
         {
