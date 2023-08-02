@@ -1,6 +1,6 @@
 @model PEngine.Web.Models.ViewModels.PostVM
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = Model.Title;
     Layout = "_Layout";
 }
 
@@ -41,63 +41,50 @@
     <label class="article-tail" for="commentBoxToggle">
         <span class="article-tail-label">
             <i class="fa-regular fa-comments"></i>
-            0 Comments
+            <span>0</span> Comments
         </span>
     </label>
     <input type="checkbox" id="commentBoxToggle" />     
         
-    <div class="article-tail-collapsible" id="comments">
-        <ul class="comment-list">
-            <li>
-                <img alt="profile" class="icon" />
-                <div class="comment-content">
-                    <ul class="comment-header">
-                        <li>CommentWriter (127.0)</li>
-                        <li>0000.00.00. 00:00:00</li>
-                        <li class="comment-header-button">
-                            <i class="fa-solid fa-reply"></i>
-                            Reply
-                        </li>
-                        <li class="comment-header-button">
-                            <i class="fa-solid fa-trash-can"></i>
-                            Delete
-                        </li>
-                    </ul>
-                    <div class="comment-body">
-                        Lorem ipsum dolor sit amet. <br />
-                        Lorem ipsum dolor sit amet. <br />
-                        Lorem ipsum dolor sit amet. <br />
-                        Lorem ipsum dolor sit amet. <br />
-                        Lorem ipsum dolor sit amet. <br />
-                        Lorem ipsum dolor sit amet. <br />
-                    </div>
-                </div>
-            </li>
-            <li>
-                <img alt="profile" class="icon"/>
-                <div class="comment-content">
-                    <ul class="comment-header">
-                        <li>CommentWriter (127.0)</li>
-                        <li>0000.00.00. 00:00:00</li>
-                        <li class="comment-header-button">
-                            <i class="fa-solid fa-reply"></i>
-                            Reply
-                        </li>
-                        <li class="comment-header-button">
-                            <i class="fa-solid fa-trash-can"></i>
-                            Delete
-                        </li>
-                    </ul>
-                    <div class="comment-body">
-                        Lorem ipsum dolor sit amet. <br />
-                        Lorem ipsum dolor sit amet. <br />
-                        Lorem ipsum dolor sit amet. <br />
-                        Lorem ipsum dolor sit amet. <br />
-                        Lorem ipsum dolor sit amet. <br />
-                        Lorem ipsum dolor sit amet. <br />
-                    </div>
-                </div>
-            </li>
-        </ul>
+    <div class="article-tail-collapsible" >
+        <form class="comment-form">
+            <div class="comment-form-header">
+                <input type="text" name="name" placeholder="Name..."/>
+                <input type="password" name="password" placeholder="Password..."/>
+                <input type="submit" value="Save" class="button dark" />
+            </div>
+            
+            <textarea name="content" placeholder="Matthew 12, 36"></textarea>
+            @Html.AntiForgeryToken()
+        </form>
+        <div id="comments"></div>
     </div>
 </article>
+
+<script defer>
+    (function ($) {
+        function handleCommentHeaderButton() {
+            const invoker = $(this);
+            const [_, event, id] = invoker.id.split('-');
+            
+            switch (event) {
+                case "reply":
+                    break;
+                case "delete":
+                    break;
+            }
+        }
+        
+        function refreshComment(id) {
+            $.get("/Comment/List/" + id)
+            .then(data => {
+                $("#comments").html(data);
+                $("#comments .comment-header-button").click(handleCommentHeaderButton);
+            });   
+        }
+        
+        $(function () {
+            // refreshComment(@Model.Id);
+        });
+    })(jQuery);
+</script>
