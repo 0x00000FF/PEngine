@@ -1,6 +1,7 @@
 ﻿using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PEngine.Web.Models;
@@ -16,7 +17,13 @@ namespace PEngine.Web.Controllers
         {
             _context = context;
         }
-        
+
+        public override void OnActionExecuted(ActionExecutedContext context)
+        {
+            base.OnActionExecuted(context);
+            ViewData.Add("PostArea", true);
+        }
+
         [HttpGet("/[controller]/[action]/{category?}")]
         public IActionResult List(string? category)
         {

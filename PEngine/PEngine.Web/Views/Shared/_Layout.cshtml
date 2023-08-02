@@ -9,6 +9,7 @@
     @await RenderSectionAsync("OpenGraph", required: false)
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
 </head>
 <body>
     <header>
@@ -42,7 +43,7 @@
                 <li>
                     <a asp-controller="Introduction" asp-action="Index">Introduction</a>
                 </li>
-                <li>
+                <li @(ViewData.ContainsKey("PostArea") ? "class=open" : "")>
                     <a asp-controller="Post" asp-action="List">Categories</a>
 
                     <ul>
@@ -87,8 +88,6 @@
     </a>
 
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
