@@ -416,6 +416,7 @@ footer .mdd {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     border: 0;
+    width: 148px;
 }
 
 .post-list .post-item a {
