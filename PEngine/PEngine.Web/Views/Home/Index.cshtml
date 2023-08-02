@@ -24,7 +24,7 @@
 			else
 			{
 				<li>
-					<a asp-controller="Post" asp-action="View" asp-route-id="1">
+					<a asp-controller="Post" asp-action="View" asp-route-id="@Model.Latest[i].Id">
 						<h3>@Model.Latest[i].Title</h3>
 						<span>@Model.Latest[i].WrittenAt.ToString("yyyy-MM-dd HH:mm:ss")</span>
 					</a>
@@ -53,7 +53,7 @@
 				else
 				{
 					<li>
-						<a asp-controller="Post" asp-action="View" asp-route-id="1">
+						<a asp-controller="Post" asp-action="View" asp-route-id="@cat.Value[i].Id">
 							<h3>@cat.Value[i].Title</h3>
 							<span>@cat.Value[i].WrittenAt.ToString("yyyy-MM-dd HH:mm:ss")</span>
 						</a>
