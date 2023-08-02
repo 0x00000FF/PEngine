@@ -1,3 +1,4 @@
+@model IEnumerable<PEngine.Web.Models.Post>
 @{
     ViewBag.Title = "Post List";
     Layout = "_Layout";
@@ -17,28 +18,32 @@
 </div>
 
 <ul class="post-list">
-    <li class="post-item">
-        <img src="#" alt="cover image" />
-        <a asp-controller="Post" asp-action="View" asp-route-id="1">
-            <h3>Title Here</h3>
-            <p></p>
-            <ul class="metadata">
-                <li>
-                    <i class="fa-solid fa-tags"></i>
-                    Category
-                </li>
-                <li>
-                    <i class="fa-regular fa-clock"></i> 0000.00.00.
-                </li>
-                <li>
-                    <i class="fa-regular fa-eye"></i>
-                    0
-                </li>
-                <li>
-                    <i class="fa-regular fa-comment"></i>
-                    0
-                </li>
-            </ul>
-        </a>
-    </li>
+    @foreach (var post in Model)
+    {
+        <li class="post-item">
+            <img src="#" alt="cover image"/>
+            <a asp-controller="Post" asp-action="View" asp-route-id="1">
+                <h3>@post.Title</h3>
+                
+                <ul class="metadata">
+                    <li>
+                        <i class="fa-solid fa-tags"></i>
+                        @post.Category
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-clock"></i>
+                        @post.WrittenAt.ToString("yyyy-MM-dd")
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-eye"></i>
+                        @($"{post.Hits:N0}")
+                    </li>
+                    <li>
+                        <i class="fa-regular fa-comment"></i>
+                        0
+                    </li>
+                </ul>
+            </a>
+        </li>
+    }
 </ul>

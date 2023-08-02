@@ -79,7 +79,7 @@ public class UserController : CommonControllerBase<UserController>
         });
 
         return await _context.SaveChangesAsync() > 0 ? 
-            Login(username, password) : BadRequest();
+            RedirectToAction("Login") : BadRequest();
     }
 
     public async Task<IActionResult> Logout(string? returnUrl)

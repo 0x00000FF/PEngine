@@ -27,6 +27,12 @@ public class BlogContext : DbContext
         optionsBuilder.UseMySql(
             connectionString: _connectionString, 
             MySqlServerVersion.LatestSupportedServerVersion);
+     
         base.OnConfiguring(optionsBuilder);
+    }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
     }
 }
