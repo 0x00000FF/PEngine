@@ -418,6 +418,13 @@ footer .mdd {
     border-bottom-left-radius: 10px;
     border: 0;
     width: 148px;
+    height: 148px;
+    background: #ccc;
+    color: #fff;
+    
+    display: flex;
+    gap: 10px;
+    font-size: .8em;
 }
 
 .post-list .post-item a {
@@ -467,15 +474,31 @@ article .article-body {
 }
 
 article .article-tail {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+article .article-tail .article-tail-buttons {
+    display: flex;
+    margin-left: auto;
+    gap: 10px;
+}
+
+article .article-tail .article-tail-buttons .button {
+    font-size: .8em;
+}
+
+article .article-tail .comment-box-toggle {
     display: inline-block;
     width: 120px;
 }
 
-article .article-tail .article-tail-label {
+article .article-tail .comment-box-toggle .article-tail-label {
     cursor: pointer;
 }
 
-article .article-tail .article-tail-label:hover {
+article .article-tail .comment-box-toggle .article-tail-label:hover {
     text-decoration: underline;
 }
 
@@ -649,6 +672,11 @@ text {
 
 .button.dark {
     background: #303030;
+    color: #fff;
+}
+
+.button.crimson {
+    background: #990000;
     color: #fff;
 }
 

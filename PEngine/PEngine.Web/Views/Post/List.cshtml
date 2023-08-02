@@ -7,10 +7,6 @@
 <div class="post-list-header">
     <ul class="category-wrapper">
         <li>전체 (0)</li>
-        <li>Category 1 (0)</li>
-        <li>Category 2 (0)</li>
-        <li>Category 3 (0)</li>
-        <li>Category 4 (0)</li>
     </ul>
     <a class="button dark" asp-controller="Post" asp-action="Write">
         <i class="fa-solid fa-pen"></i> Write
@@ -21,7 +17,7 @@
     @foreach (var post in Model)
     {
         <li class="post-item">
-            <img alt="cover image"/>
+            <img alt="No Cover Image!"/>
             <a asp-controller="Post" asp-action="View" asp-route-id="@post.Id">
                 <h3>@post.Title</h3>
                 

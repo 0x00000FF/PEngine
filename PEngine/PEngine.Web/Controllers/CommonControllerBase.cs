@@ -36,7 +36,8 @@ public abstract class CommonControllerBase<T> : Controller
     {
         if (context.Result is ViewResult)
         {
-            ViewData.Add("Authenticated", IsAuthenticated);
+            ViewBag.Authenticated = IsAuthenticated;
+            
             ViewData.Add("Id", UserId);
             ViewData.Add("Name", UserName);
         }

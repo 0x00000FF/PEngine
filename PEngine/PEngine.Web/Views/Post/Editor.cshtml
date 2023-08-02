@@ -1,6 +1,10 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model PEngine.Web.Models.Post?
 @{
     ViewBag.Title = "Edit Post";
     Layout = "_Layout";
+
+    var endpoint = Model is null ? "/Post/Write" : $"/Post/Modify";
 }
 
 @section Scripts {
@@ -15,18 +19,25 @@
     </script>
 }
 
-<form class="editor-form" asp-controller="Post" asp-action="Write">
+<form class="editor-form" action="@endpoint" method="post">
+    @if (Model is not null)
+    {
+        <input type="hidden" name="id" value="@Model.Id" />
+    }
+    
     <div class="editor-preamble">
         <select name="category">
             <option value="">Uncategorized</option>
         </select>
-        <input name="title" type="text" placeholder="Title" />
+        <input name="title" type="text" placeholder="Title" value="@Model?.Title"/>
     </div>
-    
-    <textarea name="content" readonly="readonly"></textarea>
+
+    <textarea name="content" readonly="readonly">@Model?.Content</textarea>
 
     <button class="button dark" id="postSave">
         <i class="fa fa-save"></i>
         Save
     </button>
+    
+    @Html.AntiForgeryToken()
 </form>

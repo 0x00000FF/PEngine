@@ -34,7 +34,8 @@ namespace PEngine.Web.Controllers
                 posts = posts.Where(p => p.Category == category);
             }
 
-            posts = posts.Take(30);
+            posts = posts.OrderByDescending(p => p.Id)
+                    .Take(30);
             
             return View(posts.ToList());
         }
@@ -88,50 +89,58 @@ namespace PEngine.Web.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Write(string category, string title, string content, 
+        public async Task<IActionResult> Write(Post formData, 
             [FromServices] IHtmlSanitizer sanitizer)
         {
-            return await Modify(null, category, title, content, sanitizer);
+            return await Modify(formData, sanitizer);
         }
 
         [Authorize]
         public IActionResult Modify(int id)
         {
-            return View("Editor");
-        }
+            var post = _context.Posts.FirstOrDefault(p => p.Id == id);
 
+            if (post is null)
+            {
+                return NotFound();
+            }
+            
+            return View("Editor", post);
+        }
+        
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Modify(long? id, string category, string title, string content, 
+        public async Task<IActionResult> Modify(Post formData, 
             [FromServices] IHtmlSanitizer sanitizer)
         {
             Func<Post, EntityEntry<Post>> updateProc = _context.Posts.Add;
             Post? post = null;
             
-            var sanitizedContent = sanitizer.SanitizeDocument(content);
+            var sanitizedContent = sanitizer.SanitizeDocument(formData.Content!);
 
-            if (id is not null)
+            if (formData.Id != default)
             {
                 updateProc = _context.Posts.Update;
-                post = _context.Posts.FirstOrDefault(p => p.Id == id && p.WrittenBy == UserId);
+                post = _context.Posts.FirstOrDefault(p => p.Id == formData.Id && 
+                                                          p.WrittenBy == UserId);
 
                 if (post is null)
                 {
                     return Forbid();
                 }
 
-                post.Title = title;
-                post.Category = category;
+                post.Title = formData.Title;
+                post.Category = formData.Category;
                 post.Content = sanitizedContent;
             }
             
             var result = updateProc(post ?? new ()
             {
-                Id = id ?? 0,
+                Id = formData.Id,
                 WrittenBy = UserId!.Value,
-                Category = category,
-                Title = title,
+                Category = formData.Category,
+                Title = formData.Title,
                 Content = sanitizedContent,
                 WrittenAt = DateTime.Now
             });

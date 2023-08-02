@@ -38,12 +38,28 @@
         @Html.Raw(Model.Content)
     </div>
     
-    <label class="article-tail" for="commentBoxToggle">
-        <span class="article-tail-label">
-            <i class="fa-regular fa-comments"></i>
-            <span>0</span> Comments
-        </span>
-    </label>
+    <div class="article-tail">
+        <label class="comment-box-toggle" for="commentBoxToggle">
+            <span class="article-tail-label">
+                <i class="fa-regular fa-comments"></i>
+                <span>0</span> Comments
+            </span>
+        </label>
+        <div class="article-tail-buttons">
+            @if (ViewBag.Authenticated)
+            {
+                <a class="button dark" asp-controller="Post" asp-action="Modify" asp-route-id="@Model.Id">
+                    <i class="fa fa-pencil"></i>
+                    Modify
+                </a>
+                <a class="button crimson" asp-controller="Post" asp-action="Delete" asp-route-id="@Model.Id">
+                    <i class="fa fa-trash"></i>
+                    Delete
+                </a>
+            }
+        </div>
+    </div>
+    
     <input type="checkbox" id="commentBoxToggle" />     
         
     <div class="article-tail-collapsible" >
