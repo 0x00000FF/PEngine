@@ -1,3 +1,4 @@
+@model PEngine.Web.Models.Introduction
 @{
     ViewBag.Title = "Introduction";
     Layout = "_Layout";
@@ -7,10 +8,16 @@
 }
 
 <div class="introduce-block">
-    <h2>Introduction</h2>
+        <div class="introduce-block-header">
+            <h2>Introduction</h2>
+            @if (ViewBag.Authenticated)
+            {
+                <a class="button dark" asp-controller="Introduction" asp-action="Edit">Edit</a>
+            }
+        </div>
     
     <div class="introduce-block-horiz">
-        <img src="#" alt="profile image"/>
+        <img src="/Image/Profile/Thumbnail" alt="profile image"/>
         <div class="introduce-block">
             <p class="identity-row"><span>Name</span> </p>  
             <p class="identity-row"><span>Birthdate</span> @birthdate.ToString("yyyy. MM. dd.") (@age y/o)</p>

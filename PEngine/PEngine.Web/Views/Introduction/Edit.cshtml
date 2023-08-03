@@ -1,0 +1,76 @@
+@model PEngine.Web.Models.Introduction?
+@{
+    ViewBag.Title = "Edit Introduction";
+    Layout = "_Layout";
+}
+
+<form method="post">
+    <div class="introduce-block">
+        <div class="introduce-block-header">
+            <h2>Introduction</h2>
+            
+            <input type="submit" class="button dark" value="Save" />
+        </div>
+        
+        <div class="introduce-block-horiz">
+            <div class="identity-image-wrap">
+                <img src="/Image/Profile/Thumbnail" alt="profile image"/>
+            </div>
+
+            <div class="introduce-block">
+                <p class="identity-row">
+                    <span>Name</span>
+                    <input type="text" name="name"/>
+                </p>
+                <p class="identity-row">
+                    <span>Birthdate</span>
+                    <input type="date" name="birthdate"/>
+                </p>
+                <p class="identity-row">
+                    <span>Pronouns</span>
+                    <input type="text" name="pronouns"/>
+                </p>
+                <p class="identity-row">
+                    <span>Nationality</span>
+                    <input type="text" name="nationality"/>
+                </p>
+                <p class="identity-row">
+                    <span>Religion</span>
+                    <input type="text" name="religion"/>
+                </p>
+                <p class="identity-row">
+                    <span>As known as</span>
+                    <input type="text" name="asknown"/>
+                </p>
+                <p class="identity-row">
+                    <span>Contact</span>
+                    <input type="text" name="contact"/>
+                </p>
+            </div>
+        </div>
+
+        <textarea name="bio">@Model?.Bio</textarea>
+    </div>
+
+    <div class="introduce-block">
+        <div class="header">
+            <h3>Interests</h3>
+        </div>
+    </div>
+
+    <div class="introduce-block">
+        <div class="header"><h3>Skills</h3></div>
+    </div>
+
+    <div class="introduce-block">
+       <div class="header"> <h3>Affiliation</h3></div>    
+    </div>
+
+    <div class="introduce-block">
+        <div class="header"><h3>Education</h3></div>    
+    </div>
+
+    <div class="introduce-block">
+        <h3>Publications</h3>    
+    </div>
+</form>

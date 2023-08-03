@@ -1,0 +1,15 @@
+@{
+    ViewBag.Title = "Login";
+    Layout = "_Layout";
+}
+
+<form class="common-dialog" asp-controller="Post" asp-action="AddCategory">
+    <h2>Add Category</h2>
+    
+    <div>
+        <input type="text" name="category" placeholder="Name..." required />
+        <input type="submit" class="button dark" value="Add"/>
+    </div>
+    
+    @Html.AntiForgeryToken()
+</form>

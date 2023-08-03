@@ -13,6 +13,9 @@
 </head>
 <body>
     <header>
+        <label class="toggle-menu" for="asideToggle">
+            <i class="fa fa-bars"></i>
+        </label>
         <brand>
             <form class="search-box" asp-controller="Search" method="get">
                 <i class="fa-solid fa-magnifying-glass"></i>
@@ -35,6 +38,7 @@
         </menu>
     </header>
     <main>
+        <input type="checkbox" id="asideToggle" />
         <aside>
             <ul class="gnb">
                 <li>
@@ -46,11 +50,22 @@
                 <li @(ViewData.ContainsKey("PostArea") ? "class=open" : "")>
                     <a asp-controller="Post" asp-action="List">Categories</a>
 
-                    <ul>
+                    <ul class="submenu">
                         <li>
-                            <a asp-controller="Post" asp-action="List" asp-route-category="">전체</a>
+                            <a asp-controller="Post" asp-action="List" asp-route-category="">
+                                <span>전체</span>
+                            </a>
                         </li>
 
+                        @if (ViewBag.Authenticated)
+                        {
+                            <li>
+                                <a asp-controller="Post" asp-action="AddCategory">
+                                    <i class="fa fa-plus"></i>
+                                    Add Category
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </li>
                 <li>
@@ -64,7 +79,10 @@
         <content>@RenderBody()</content>
     </main>
     <footer>
-        <span>Copyright &copy; P.Knowledge, @(DateTime.Now.Year).</span>
+        <span>
+            <a href="https://github.com/0x00000FF/PEngine" target="_blank">PEngine α</a> 
+            &copy; P.Knowledge, @(DateTime.Now.Year).
+        </span>
         <a class="mdd" href="/Misc/Mdd" target="_blank">Learn about MDD</a>
     </footer>
 

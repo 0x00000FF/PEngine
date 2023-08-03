@@ -188,5 +188,19 @@ namespace PEngine.Web.Controllers
 
             return View("Delete", new { message = "Code Check Failed..." });
         }
+
+        [Authorize]
+        public IActionResult AddCategory()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddCategory(string category)
+        {
+            return View();
+        }
     }
 }
