@@ -178,7 +178,6 @@ aside .gnb li .submenu li a {
     color: #fff;
     
     gap: 5px;
-    box-sizing: content-box;
 }
 
 aside .gnb li .submenu li a span {
@@ -187,6 +186,7 @@ aside .gnb li .submenu li a span {
 
 aside .gnb li .submenu li:not(:last-child) a {
     border-bottom: 1px solid #ccc;
+    height: 36px;
 }
 
 aside .gnb li a:hover {
@@ -799,6 +799,16 @@ input:focus, textarea:focus {
 }
 
 @media screen and (max-width: 600px) {
+    .common-dialog {
+        width: 90vw;
+        margin: 50px auto;
+    }
+    
+    .common-dialog div {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
     .post-shelf h2 {
         font-size: 1.5em;
     }
