@@ -833,5 +833,14 @@ input:focus, textarea:focus {
         flex-direction: column;
         gap: 15px;
     }
+
+    .editor-form .editor-preamble {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .editor-form .editor-preamble select {
+        height: 46px;
+    }
     
 }
