@@ -836,6 +836,10 @@ input:focus, textarea:focus {
         height: 200px;
     }
     
+    .introduce-block-horiz {
+        flex-direction: column;
+    }
+    
     .post-list .post-item img,
     .post-list .post-item .metadata li:nth-child(3),
     .post-list .post-item .metadata li:nth-child(4){
