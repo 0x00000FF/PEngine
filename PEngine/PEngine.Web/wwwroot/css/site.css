@@ -59,6 +59,10 @@ header {
     left: 0;
 }
 
+header .toggle-menu {
+    display: none;
+}
+
 header brand {
     background: var(--theme-sub);
     color: #fff;
@@ -733,9 +737,17 @@ text {
     color: #fff;
 }
 
+.button.dark:hover {
+    background: #505050;
+}
+
 .button.crimson {
     background: #990000;
     color: #fff;
+}
+
+.button.crimson:hover {
+    background: #bb4444;
 }
 
 input[type=text],
@@ -758,13 +770,14 @@ input:focus, textarea:focus {
 
 @media screen and (max-width: 1380px) {
     .toggle-menu {
-        display: flex;
+        display: flex !important;
         height: 50px;
         width: 50px;
         color: #fff;
         justify-content: center;
         align-items: center;
         font-size: 1.2em;
+        cursor: pointer;
     }
     
     main aside {
@@ -841,6 +854,23 @@ input:focus, textarea:focus {
 
     .editor-form .editor-preamble select {
         height: 46px;
+    }
+    
+    article .article-title {
+        font-size: 1.8em;    
+    }
+
+    article .metadata {
+        font-size: .8em;
+        gap: 10px;
+    }
+
+    .article-tail {
+        font-size: .8em;
+    }
+    
+    .comment-form-header {
+        flex-direction: column;
     }
     
 }

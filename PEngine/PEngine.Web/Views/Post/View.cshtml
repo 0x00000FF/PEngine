@@ -70,12 +70,12 @@
     <div class="article-tail-collapsible" >
         <form class="comment-form">
             <div class="comment-form-header">
-                <input type="text" name="name" placeholder="Name..."/>
-                <input type="password" name="password" placeholder="Password..."/>
-                <input type="submit" value="Save" class="button dark" />
+                <input type="text" name="name" placeholder="Name..." required />
+                <input type="password" name="password" placeholder="Password..." required />
             </div>
             
-            <textarea name="content" placeholder="Matthew 12, 36"></textarea>
+            <textarea name="content" placeholder="Matthew 12, 36" required></textarea>
+            <input type="submit" value="Save" class="button dark" />            
             @Html.AntiForgeryToken()
         </form>
         <div id="comments"></div>
