@@ -15,10 +15,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.51" />
     <PackageReference Include="HtmlSanitizer" Version="8.0.645" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.9" />
     <PackageReference Include="MySql.Data" Version="8.1.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
+    <PackageReference Include="System.ServiceModel.Syndication" Version="7.0.0" />
   </ItemGroup>
 
 </Project>
