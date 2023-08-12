@@ -13,7 +13,7 @@
                 <ul class="comment-header">
                     <li>
                         @( comment.WrittenBy is null ? 
-                            $"{comment.WriterName} ({comment.WriterIP})" :
+                            $"{comment.WriterName} ({comment.WriterIp})" :
                             "WriterName")
                     </li>
                     <li>@comment.WrittenAt.ToString("yyyy. MM. dd. hh:mm:ss")</li>

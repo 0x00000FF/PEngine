@@ -43,7 +43,7 @@ public class UserController : CommonControllerBase<UserController>
             }
         }
 
-        if (user.Password != password.Password(user.PasswordSalt).ToBase64())
+        if (user.Password != password.Password(user.PasswordSalt!).ToBase64())
         {
             return View("UserFail");
         }
@@ -52,7 +52,7 @@ public class UserController : CommonControllerBase<UserController>
         
         var claimsIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
         claimsIdentity.AddClaim(new Claim("Id", user.Id.ToString()));
-        claimsIdentity.AddClaim(new Claim("Name", user.Name));
+        claimsIdentity.AddClaim(new Claim("Name", user.Name!));
 
         claimPrincipal.AddIdentity(claimsIdentity);
 
@@ -84,8 +84,11 @@ public class UserController : CommonControllerBase<UserController>
 
     public async Task<IActionResult> Logout(string? returnUrl)
     {
-        await HttpContext.SignOutAsync();
-        
+        if (HttpContext is not null)
+        {
+            await HttpContext.SignOutAsync();
+        }
+
         return Redirect(returnUrl ?? "/");
     }
 }

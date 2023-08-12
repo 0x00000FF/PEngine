@@ -39,7 +39,7 @@ namespace PEngine.Web.Controllers
                 .ToList()
                 .Select(p =>
                 {
-                    p.Content = ContentHelper.GetPlaintext(p.Content, 100);
+                    p.Content = ContentHelper.GetPlaintext(p.Content ?? "", 100);
                     return p;
                 });
 

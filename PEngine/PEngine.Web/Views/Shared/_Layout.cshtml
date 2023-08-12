@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using PEngine.Web.Models
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    var categories = ViewData["Categories"] as List<Category>;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -50,23 +56,29 @@
                 <li @(ViewData.ContainsKey("PostArea") ? "class=open" : "")>
                     <a asp-controller="Post" asp-action="List">Categories</a>
 
-                    <ul class="submenu">
-                        <li>
-                            <a asp-controller="Post" asp-action="List" asp-route-category="">
-                                <span>전체</span>
-                            </a>
-                        </li>
+                    @if (categories is not null)
+                    {
+                        <ul class="submenu">
+                            @foreach (var category in categories)
+                            {
+                                <li>
+                                    <a asp-controller="Post" asp-action="List" asp-route-category="@category.Name">
+                                        <span>@(string.IsNullOrEmpty(category.Name) ? "전체" : category.Name) (@category.Count)</span>
+                                    </a>
+                                </li>
+                            }
 
-                        @if (ViewBag.Authenticated)
-                        {
-                            <li>
-                                <a asp-controller="Post" asp-action="AddCategory">
-                                    <i class="fa fa-plus"></i>
-                                    Add Category
-                                </a>
-                            </li>
-                        }
-                    </ul>
+                            @if (ViewBag.Authenticated)
+                            {
+                                <li>
+                                    <a asp-controller="Post" asp-action="AddCategory">
+                                        <i class="fa fa-plus"></i>
+                                        Add Category
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
                 </li>
                 <li>
                     <a asp-controller="Search">Search</a>

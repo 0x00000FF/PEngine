@@ -3,7 +3,7 @@ namespace PEngine.Web.Models.ViewModels;
 public class PostVM
 {
     public long Id { get; set; }
-    public string WriterName { get; set; }
+    public string? WriterName { get; set; }
     
     public string? Title { get; set; }
     public string? Category { get; set; }

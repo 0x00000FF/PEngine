@@ -21,15 +21,25 @@ namespace PEngine.Web.Controllers
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             base.OnActionExecuted(context);
+            
             ViewData.Add("PostArea", true);
+            ViewData.Add("Categories", GetCategoryList());
         }
 
+        private List<Category> GetCategoryList()
+        {
+            var categories = _context.Categories.OrderBy(c => c.Name).ToList();
+            categories[0].Count = _context.Categories.Sum(c => c.Count);
+
+            return categories;
+        }
+        
         [HttpGet("/[controller]/[action]/{category?}")]
         public IActionResult List(string? category)
         {
             var posts = _context.Posts.AsQueryable();
 
-            if (category is not null)
+            if (!string.IsNullOrWhiteSpace(category))
             {
                 posts = posts.Where(p => p.Category == category);
             }
@@ -41,17 +51,19 @@ namespace PEngine.Web.Controllers
         }
 
 
-        public async Task HitPost(long id)
+        private async Task HitPost(long id)
         {
-            var post = await _context.Posts.FindAsync(id);
+            await _context.Database.ExecuteSqlRawAsync(
+                $"UPDATE {nameof(BlogContext.Posts)} SET Hits = Hits + 1 WHERE Id = {0}",
+                id);
+            await _context.SaveChangesAsync();
+        }
 
-            if (post is not null)
-            {
-                post.Hits++;
-                _context.Posts.Update(post);
-                
-                await _context.SaveChangesAsync();
-            }
+        private async Task UpdateCategoryCount(string? name, int count)
+        {
+            await _context.Database.ExecuteSqlRawAsync(
+                $"UPDATE {nameof(BlogContext.Categories)} SET Count = Count + {{0}} WHERE Name = {{1}}",
+                count, name ?? "");
         }
         
         public async Task<IActionResult> View(long id)
@@ -98,6 +110,8 @@ namespace PEngine.Web.Controllers
         [Authorize]
         public IActionResult Modify(int id)
         {
+            GetCategoryList();
+            
             var post = _context.Posts.FirstOrDefault(p => p.Id == id);
 
             if (post is null)
@@ -107,7 +121,7 @@ namespace PEngine.Web.Controllers
             
             return View("Editor", post);
         }
-        
+
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
@@ -119,35 +133,60 @@ namespace PEngine.Web.Controllers
             
             var sanitizedContent = sanitizer.SanitizeDocument(formData.Content!);
 
-            if (formData.Id != default)
+            await using var transaction = await _context.Database.BeginTransactionAsync();
+            
+            try
             {
-                updateProc = _context.Posts.Update;
-                post = _context.Posts.FirstOrDefault(p => p.Id == formData.Id && 
-                                                          p.WrittenBy == UserId);
 
-                if (post is null)
+                if (formData.Id != default)
                 {
-                    return Forbid();
-                }
+                    updateProc = _context.Posts.Update;
+                    post = _context.Posts.FirstOrDefault(p => p.Id == formData.Id && 
+                                                              p.WrittenBy == UserId);
 
-                post.Title = formData.Title;
-                post.Category = formData.Category;
-                post.Content = sanitizedContent;
+                    if (post is null)
+                    {
+                        return Forbid();
+                    }
+
+                    if (formData.Category != post.Category)
+                    {
+                        await UpdateCategoryCount(post.Category, -1);
+                        await UpdateCategoryCount(formData.Category, 1);
+                    }
+
+                    post.Title = formData.Title;
+                    post.Category = formData.Category ?? "";
+                    post.Content = sanitizedContent;
+                }
+                else
+                {
+                    await UpdateCategoryCount(formData.Category, 1);
+                }
+                
+                var result = updateProc(post ?? new()
+                    {
+                        Id = formData.Id,
+                        WrittenBy = UserId!.Value,
+                        Category = formData.Category ?? "",
+                        Title = formData.Title,
+                        Content = sanitizedContent,
+                        WrittenAt = DateTime.Now
+                    });
+
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+
+                return RedirectToAction("View", new { result.Entity.Id });
             }
-            
-            var result = updateProc(post ?? new ()
+            catch (Exception e)
             {
-                Id = formData.Id,
-                WrittenBy = UserId!.Value,
-                Category = formData.Category,
-                Title = formData.Title,
-                Content = sanitizedContent,
-                WrittenAt = DateTime.Now
-            });
-            
-            return await _context.SaveChangesAsync() > 0 ?
-                RedirectToAction("View", new { Id = result.Entity.Id }) :
-                View("UpdateFailed");
+                Logger.Log(LogLevel.Error, "at {} from {}\n{}", 
+                    nameof(Modify),
+                    e.Source, e.Message);
+                
+                return View("UpdateFailed");
+            }
         }
         
         [Authorize]
@@ -170,6 +209,8 @@ namespace PEngine.Web.Controllers
         {
             if (int.TryParse(message, out var messageValue))
             {
+                await using var transaction = await _context.Database.BeginTransactionAsync();
+
                 var post = _context.Posts
                     .FirstOrDefault(p => p.Id == id && p.WrittenBy == UserId &&
                                          p.Id == messageValue);
@@ -179,11 +220,25 @@ namespace PEngine.Web.Controllers
                     return NotFound();
                 }
 
-                _context.Posts.Remove(post);
-                
-                return await _context.SaveChangesAsync() > 0 ?
-                    RedirectToAction("List") : 
-                    View("DeleteFailed");
+                try
+                {
+                    _context.Posts.Remove(post);
+
+                    await UpdateCategoryCount(post.Category, -1);
+
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                    
+                    return RedirectToAction("List");
+                }
+                catch (Exception e)
+                {
+                    Logger.Log(LogLevel.Error, "at {} from {}\n{}", 
+                        nameof(Modify),
+                        e.Source, e.Message);
+                    
+                    return View("DeleteFailed");
+                }
             }
 
             return View("Delete", new { message = "Code Check Failed..." });
@@ -200,7 +255,11 @@ namespace PEngine.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddCategory(string category)
         {
-            return View();
+            _context.Categories.Add(new() { Name = category, Count = default });
+            
+            return _context.SaveChanges() > 0 ? 
+                RedirectToAction("List", "Post") : 
+                View();
         }
     }
 }

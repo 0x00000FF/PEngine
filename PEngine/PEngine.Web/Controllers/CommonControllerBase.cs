@@ -7,6 +7,7 @@ public abstract class CommonControllerBase<T> : Controller
 {
     protected ILogger<T> Logger { get; }
     protected new HttpContext? HttpContext { get; }
+    
 
     protected bool IsAuthenticated { get; set; }
     protected Guid? UserId { get; set; }

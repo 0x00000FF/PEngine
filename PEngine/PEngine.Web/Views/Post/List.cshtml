@@ -1,12 +1,24 @@
+@using PEngine.Web.Models
 @model IEnumerable<PEngine.Web.Models.Post>
 @{
     ViewBag.Title = "Post List";
     Layout = "_Layout";
+
+    var categories = ViewData["Categories"] as List<Category>;
+
+    if (categories is null)
+    {
+        return;
+    }
 }
 
 <div class="post-list-header">
     <ul class="category-wrapper">
-        <li>전체 (0)</li>
+        @foreach (var category in categories)
+        {
+            <li>@(string.IsNullOrEmpty(category.Name) ? "전체" : category.Name)
+                (@category.Count)</li>
+        }
     </ul>
     @if (ViewBag.Authenticated)
     {

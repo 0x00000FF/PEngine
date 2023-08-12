@@ -9,7 +9,7 @@ namespace PEngine.Web.Models
         public Guid? WrittenBy { get; set; }
         public long Post { get; set; }
         public string? WriterName { get; set; }
-        public string? WriterIP { get; set; }
+        public string? WriterIp { get; set; }
         public string? Password { get; set; }
         public string? Content { get; set; }
         public DateTime WrittenAt { get; set; } = DateTime.Now;

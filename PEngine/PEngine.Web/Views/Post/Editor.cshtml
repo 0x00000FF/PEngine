@@ -1,10 +1,18 @@
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@using PEngine.Web.Models
+
 @model PEngine.Web.Models.Post?
 @{
     ViewBag.Title = "Edit Post";
     Layout = "_Layout";
 
     var endpoint = Model is null ? "/Post/Write" : $"/Post/Modify";
+    var categories = ViewData["Categories"] as List<Category>;
+
+    if (categories is null)
+    {
+        return;
+    }
 }
 
 @section Scripts {
@@ -27,7 +35,17 @@
     
     <div class="editor-preamble">
         <select name="category">
-            <option value="">Uncategorized</option>
+            @foreach (var category in categories)
+            {
+                if (string.IsNullOrEmpty(category.Name))
+                {
+                    <option value="" >Uncategorized (@category.Count)</option>
+                }
+                else
+                {
+                    <option value="@category.Name">@category.Name (@category.Count)</option>
+                }
+            }
         </select>
         <input name="title" type="text" placeholder="Title" value="@Model?.Title"/>
     </div>

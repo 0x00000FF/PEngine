@@ -3,7 +3,7 @@ using PEngine.Web.Models;
 
 namespace PEngine.Web;
 
-public class BlogContext : DbContext
+public sealed class BlogContext : DbContext
 {
     private static string? _connectionString;
 
@@ -12,10 +12,12 @@ public class BlogContext : DbContext
         _connectionString ??= connectionString;
     }
     
-    public DbSet<Comment> Comments { get; set; }
-    /* public DbSet<Guestbook> Guestbooks {get;set;} */
-    public DbSet<Post> Posts { get; set; }
-    public DbSet<User> Users { get; set; }
+    public DbSet<Comment> Comments { get; set; } = null!;
+    public DbSet<Guestbook> Guestbooks { get; set; } = null!;
+    public DbSet<Post> Posts { get; set; } = null!;
+    public DbSet<Category> Categories { get; set; } = null!;
+    public DbSet<User> Users { get; set; } = null!;
+    public DbSet<FileTag> FileTags { get; set; } = null!;
 
     public BlogContext(DbContextOptions<BlogContext> contextOptions) : base(contextOptions)
     {
@@ -33,6 +35,14 @@ public class BlogContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Category>()
+            .HasData(
+            new Category() { Count = default }
+        );
+
+        modelBuilder.Entity<Introduction>()
+            .HasNoKey();
+        
         base.OnModelCreating(modelBuilder);
     }
 }
