@@ -1,4 +1,9 @@
 using System.Reflection;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.RegularExpressions;
+using System.Web;
+using HtmlAgilityPack;
 using PEngine.Web.Helper;
 using PEngine.Web.Test.Cases;
 
@@ -35,7 +40,18 @@ public class FileHelperPathSecurityTests
 
         foreach (var input in PathTraversalCases.Cases)
         {
-            testCases.Add(new (basePath, $"{basePath}/{input}", false));
+            // Assume inputs are all completely decoded
+            var inputDecoded = input;
+
+            while (Regex.IsMatch(inputDecoded, "%[0-9a-fA-F]{2,}"))
+            {
+                inputDecoded = HttpUtility.UrlDecode(inputDecoded);
+            }
+            
+            // Assume backslashes are also directory separator
+            inputDecoded = inputDecoded.Replace("\\", "/");
+
+            testCases.Add(new (basePath, $"{basePath}/{inputDecoded}", false));
         }
 
         foreach (var testCase in testCases)
