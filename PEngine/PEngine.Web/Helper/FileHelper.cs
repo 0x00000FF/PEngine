@@ -72,8 +72,7 @@ public static class FileHelper
     {
         var normalizedPath = Path.GetFullPath(fullPath);
 
-        return Path.Exists(fullPath) &&
-               normalizedPath.StartsWith(basePath);
+        return normalizedPath.StartsWith(basePath);
     }
 
     private static bool IsSafePath(BasePath basePathSelector, string path, out string outFullPath)
