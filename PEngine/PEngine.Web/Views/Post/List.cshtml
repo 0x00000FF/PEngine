@@ -16,8 +16,12 @@
     <ul class="category-wrapper">
         @foreach (var category in categories)
         {
-            <li>@(string.IsNullOrEmpty(category.Name) ? "전체" : category.Name)
-                (@category.Count)</li>
+            <li>
+                <a asp-controller="Post" asp-action="List" asp-route-category="@category.Name">
+                    @(string.IsNullOrEmpty(category.Name) ? "전체" : category.Name)
+                    (@category.Count)
+                </a>
+            </li>
         }
     </ul>
     @if (ViewBag.Authenticated)
