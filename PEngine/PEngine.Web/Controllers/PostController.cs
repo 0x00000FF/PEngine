@@ -54,7 +54,7 @@ namespace PEngine.Web.Controllers
         private async Task HitPost(long id)
         {
             await _context.Database.ExecuteSqlRawAsync(
-                $"UPDATE {nameof(BlogContext.Posts)} SET Hits = Hits + 1 WHERE Id = {0}",
+                $"UPDATE {nameof(BlogContext.Posts)} SET Hits = Hits + 1 WHERE Id = {{0}}",
                 id);
             await _context.SaveChangesAsync();
         }
