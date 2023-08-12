@@ -25,7 +25,7 @@ public class ImageController : CommonControllerBase<ImageController>
             return StatusCode(404);
         }
         
-        var stream = FileHelper.LoadAsStream(item.Id.ToString());
+        var stream = FileHelper.LoadAsStream(BasePath.UploadBase, item.Id.ToString());
 
         if (stream == Stream.Null || !item.Type.StartsWith("image"))
         {

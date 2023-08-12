@@ -41,7 +41,7 @@ public class FileController : CommonControllerBase<FileController>
                 await using var stream = file.OpenReadStream();
                 var path = $"{timestamp}/{entry.Entity.Id}";
                 
-                FileHelper.SaveFromStream(path, stream);
+                FileHelper.SaveFromStream(BasePath.UploadBase, path, stream);
                 
                 succeeded.Add(null!);
             }
