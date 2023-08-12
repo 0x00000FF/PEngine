@@ -41,8 +41,9 @@ public sealed class BlogContext : DbContext
         );
 
         modelBuilder.Entity<Introduction>()
-            .HasNoKey();
-        
-        base.OnModelCreating(modelBuilder);
+            .HasNoKey()
+            .HasData(new Introduction());
+
+            base.OnModelCreating(modelBuilder);
     }
 }
