@@ -19,19 +19,19 @@ public static class FileHelper
     private static string IntroductionBasePath => $"{StorageBase}/Introduction";
     private static string SettingsBasePath => $"{StorageBase}/Settings";
 
+    static FileHelper()
+    {
+        if (Directory.Exists(StorageBase)) return;
+
+        Directory.CreateDirectory(StorageBase);
+        Directory.CreateDirectory(UploadBasePath);
+        Directory.CreateDirectory(IntroductionBasePath);
+        Directory.CreateDirectory(SettingsBasePath);
+    }
+    
     private static Stream LoadAsStream(string path)
     {
-        var fullPath = $"{StorageBase}/{path}";
-
-        foreach (var ch in Path.GetInvalidFileNameChars())
-        {
-            if (path.Contains(ch, StringComparison.InvariantCultureIgnoreCase))
-            {
-                return Stream.Null;
-            }
-        }
-
-        return File.Exists(fullPath) ? File.OpenRead(fullPath) : Stream.Null;
+        return File.Exists(path) ? File.OpenRead(path) : Stream.Null;
     }
 
     private static void SaveFromStream(string path, Stream sourceStream)
@@ -41,9 +41,7 @@ public static class FileHelper
             return;
         }
         
-        var fullPath = $"{StorageBase}/{path}";
-        using var stream = File.OpenWrite(fullPath);
-        
+        using var stream = File.OpenWrite(path);
         sourceStream.CopyTo(stream);
     }
 
@@ -70,15 +68,19 @@ public static class FileHelper
 
     private static bool IsPathInRange(string basePath, string fullPath)
     {
-        var normalizedPath = Path.GetFullPath(fullPath);
-
-        return normalizedPath.StartsWith(basePath);
+        return fullPath.StartsWith(basePath);
     }
 
     private static bool IsSafePath(BasePath basePathSelector, string path, out string outFullPath)
     {
+        if (path.StartsWith(".."))
+        {
+            outFullPath = "";
+            return false;
+        }
+        
         var basePath = SelectBase(basePathSelector);
-        var fullPath = $"{basePathSelector}/{path}/";
+        var fullPath = Path.GetFullPath($"{basePath}/{path}");
 
         outFullPath = fullPath;
         
@@ -87,7 +89,7 @@ public static class FileHelper
 
     private static T SafePathDelegate<T>(BasePath basePathSelector, string path, Func<string, T> callback)
     {
-        if (IsSafePath(basePathSelector, path, out var fullPath))
+        if (!IsSafePath(basePathSelector, path, out var fullPath))
         {
             throw new InvalidOperationException();
         }
@@ -97,7 +99,7 @@ public static class FileHelper
     
     private static void SafePathDelegate(BasePath basePathSelector, string path, Action<string> callback)
     {
-        if (IsSafePath(basePathSelector, path, out var fullPath))
+        if (!IsSafePath(basePathSelector, path, out var fullPath))
         {
             throw new InvalidOperationException();
         }

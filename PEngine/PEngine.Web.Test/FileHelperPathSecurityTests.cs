@@ -13,31 +13,32 @@ public class FileHelperPathSecurityTests
 {
     private Type _targetType = null!;
     private MethodInfo _targetMethod = null!;
+    private MethodInfo _supportMethod = null!;
     
     [SetUp]
     public void Setup()
     {
         _targetType = typeof(FileHelper);
-        var result = _targetType.GetMethod("IsPathInRange", BindingFlags.Static | BindingFlags.NonPublic);
+        var result = _targetType.GetMethod("IsSafePath", BindingFlags.Static | BindingFlags.NonPublic);
 
         _targetMethod = result ?? throw new EntryPointNotFoundException();
+        _supportMethod = _targetType.GetMethod("SelectBase", BindingFlags.Static | BindingFlags.NonPublic) ?? throw new EntryPointNotFoundException();
     }
 
-    public bool? MethodDelegate(string a, string b)
+    public bool? MethodDelegate(BasePath k, string a, string b)
     {
-        return _targetMethod.Invoke(null, new object?[] { a, b }) as bool?;
+        return _targetMethod.Invoke(null, new object?[] { k, b, a }) as bool?;
     }
     
     [Test]
     public void TestSafePaths()
     {
-        var basePath = "/home/test/appMain/storage"; 
-        var testCases = new List<Tuple<string, string, bool>>()
-        {
-            new (basePath, "/home/test/appMain/storage/1.txt", true),
-            new (basePath, "/home/test/appMain/storage/../../../../etc/passwd", false),
-        };
+        var basePathEnum = BasePath.StorageBase;
+        var basePath = _supportMethod.Invoke(null, new object?[] { basePathEnum }) as string;
+        var testCases = new List<Tuple<int, string, string, bool>>();
 
+        var count = 1;
+        
         foreach (var input in PathTraversalCases.Cases)
         {
             // Assume inputs are all completely decoded
@@ -45,21 +46,21 @@ public class FileHelperPathSecurityTests
 
             while (Regex.IsMatch(inputDecoded, "%[0-9a-fA-F]{2,}"))
             {
-                inputDecoded = HttpUtility.UrlDecode(inputDecoded);
+                inputDecoded = HttpUtility.UrlDecode(inputDecoded, Encoding.UTF8);
             }
             
             // Assume backslashes are also directory separator
             inputDecoded = inputDecoded.Replace("\\", "/");
 
-            testCases.Add(new (basePath, $"{basePath}/{inputDecoded}", false));
+            testCases.Add(new (count++, basePath, $"{basePath}/{inputDecoded}", false));
         }
 
         foreach (var testCase in testCases)
         {
-            Assert.AreEqual(MethodDelegate(testCase.Item1, testCase.Item2), testCase.Item3,
-                "Check Failed (Expected {2}) \n" +
-                "BASE: {0}\n" +
-                "TEST: {1}", testCase.Item1, testCase.Item2, testCase.Item3);
+            Assert.AreEqual(MethodDelegate(basePathEnum, testCase.Item2, testCase.Item3), testCase.Item4,
+                "({0}) Check Failed (Expected {1}) \n" +
+                "BASE: {2}\n" +
+                "TEST: {3}",  testCase.Item1, testCase.Item4, testCase.Item2, testCase.Item3);
         }
     }
 }

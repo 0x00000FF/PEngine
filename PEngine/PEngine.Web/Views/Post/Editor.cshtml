@@ -18,12 +18,16 @@
 @section Scripts {
     <script src="https://cdn.tiny.cloud/1/yqaoonr89lq9bf2icuu0tqh1ealzcgzpdart3okdscbk4bdg/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-        tinymce.init({
-          add_form_submit_trigger: true,
-          selector: 'textarea',
-          plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
-          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-        });
+        (function () {
+            tinymce.init({
+              add_form_submit_trigger: true,
+              automatic_uploads: true,
+              images_upload_url: "/File/UploadSingle",
+              selector: 'textarea',
+              plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+              toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
+            });
+        })();
     </script>
 }
 
