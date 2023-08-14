@@ -9,8 +9,9 @@ namespace PEngine.Web
     public class Program
     {
         public static WebApplication App { get; private set; } = null!;
+        public static bool DevMode { get; private set; }
 
-        public static HtmlSanitizer InitSanitizer(IServiceProvider provider)
+        private static HtmlSanitizer InitSanitizer(IServiceProvider provider)
         {
             var sanitizer = new HtmlSanitizer();
 
@@ -18,71 +19,83 @@ namespace PEngine.Web
             
             return sanitizer;
         }
-        
-        public static void Main(string[] args)
+
+        private static void ConfigureReverseProxy(ForwardedHeadersOptions options)
         {
-            var builder = WebApplication.CreateBuilder(args);
-            var devMode = builder.Environment.IsDevelopment();
+            options.ForwardedHeaders =
+                ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        }
+
+        private static void ConfigureAuthCookies(CookieAuthenticationOptions options)
+        {
+            options.LoginPath = "/User/Login";
+            options.LogoutPath = "/User/Logout";
+
+            options.Cookie.Name = "_PEngineAuth_";
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
+        }
+        
+        private static void ConfigureServices(WebApplicationBuilder builder)
+        {
+            DevMode = builder.Environment.IsDevelopment();
+            
             var mvcBuilder = builder.Services.AddControllersWithViews();
 
             builder.Services.AddHttpContextAccessor();
             
             builder.Services.AddAntiforgery();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/User/Login";
-                    options.LogoutPath = "/User/Logout";
+                .AddCookie(ConfigureAuthCookies);
 
-                    options.Cookie.Name = "_PEngineAuth_";
-                    options.Cookie.HttpOnly = true;
-                    options.Cookie.IsEssential = true;
-                });
-
-            BlogContext.SetConnectionString(devMode ? 
+            BlogContext.SetConnectionString(DevMode ? 
                 builder.Configuration.GetConnectionString("Development") :
                 builder.Configuration.GetConnectionString("Production"));
 
             builder.Services.AddDbContext<BlogContext>();
             builder.Services.AddSingleton<IHtmlSanitizer, HtmlSanitizer>(InitSanitizer);
             
-            if (devMode)
+            if (DevMode)
             {
                 mvcBuilder.AddRazorRuntimeCompilation();
             }
+            
+            builder.Services.Configure<ForwardedHeadersOptions>(ConfigureReverseProxy);
+        }
 
-            builder.Services.Configure<ForwardedHeadersOptions>(options =>
+        private static void Configure(WebApplication app)
+        {
+            if (!app.Environment.IsDevelopment())
             {
-                options.ForwardedHeaders =
-                    ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
-            });
-
-            App = builder.Build();
-
-            // Configure the HTTP request pipeline.
-            if (!App.Environment.IsDevelopment())
-            {
-                App.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                App.UseHsts();
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
             
-            App.UseForwardedHeaders();
+            app.UseForwardedHeaders();
             
-            App.UseHttpsRedirection();
-            App.UseStaticFiles();
-            App.UseStatusCodePagesWithReExecute("/Error/{0}");
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
-            App.UseRouting();
+            app.UseRouting();
 
-            App.UseAuthentication();
-            App.UseAuthorization();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
-            App.MapControllerRoute(
+            app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+        }
 
-            App.Run();
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+            ConfigureServices(builder);
+
+            var app = builder.Build();
+            Configure(app);
+
+            (App = app).Run();
         }
     }
 }
