@@ -422,12 +422,15 @@ footer .mdd {
     display: flex;
     align-items: center;
     padding: 20px 30px;
+    max-width: 100%;
 }
 
 .post-list-header .category-wrapper {
     flex: 1;
     list-style: none;
     white-space: nowrap;
+    max-width: calc(100% - 50px);
+    overflow: auto;
 }
 
 .post-list-header .button {
