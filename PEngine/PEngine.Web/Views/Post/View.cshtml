@@ -1,6 +1,6 @@
 @model PEngine.Web.Models.ViewModels.PostVM
 @{
-    ViewBag.Title = Model.Title;
+    ViewBag.Title = Model.Title ?? "Untitled";
     Layout = "_Layout";
 }
 
@@ -11,7 +11,10 @@
     <meta property="og:site_name" content="Patche's Blog with PEngine" />
     
     <!-- Use if cover exists -->
-    <meta property="og:image" content="sample.jpg" />
+    @if (Model.Thumbnail is not null)
+    {
+        <meta property="og:image" content="/Image/Thumbnail/@(Model.Thumbnail)"/>
+    }
 }
 
 <article>

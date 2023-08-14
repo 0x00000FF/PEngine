@@ -100,6 +100,7 @@ namespace PEngine.Web.Controllers
                     {
                         Id = p.Id,
                         WriterName = u.Name,
+                        Thumbnail = p.Thumbnail,
                         Category = p.Category,
                         Title = p.Title,
                         Content = p.Content,
