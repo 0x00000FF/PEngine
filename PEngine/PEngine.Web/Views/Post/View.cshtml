@@ -5,15 +5,21 @@
 }
 
 @section OpenGraph {
-    <meta property="og:title" content="@Model.Title" />
-    <meta property="og:url" content="/Post/View/@Model.Id" />
+    <meta property="og:title" content="@Model.Title"/>
+    <meta property="og:url" content="/Post/View/@Model.Id"/>
     <meta property="og:description" content=""/>
-    <meta property="og:site_name" content="Patche's Blog with PEngine" />
-    
-    <!-- Use if cover exists -->
+    <meta property="og:site_name" content="Patche's Blog with PEngine"/>
+
+    <meta name="twitter:card" content="summary">
+    <meta property="twitter:domain" content="patche.me"> <!-- get from global settings -->
+    <meta property="twitter:url" content="/Post/View/@Model.Id">
+    <meta name="twitter:title" content="@Model.Title">
+    <meta name="twitter:description" content="">
+
     @if (Model.Thumbnail is not null)
     {
         <meta property="og:image" content="/Image/Thumbnail/@(Model.Thumbnail)"/>
+        <meta name="twitter:image" content="/Image/Thumbnail/@Model.Thumbnail" />
     }
 }
 
