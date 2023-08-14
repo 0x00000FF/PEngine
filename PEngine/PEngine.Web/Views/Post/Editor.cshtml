@@ -44,11 +44,11 @@
             {
                 if (string.IsNullOrEmpty(category.Name))
                 {
-                    <option value="" >Uncategorized (@category.Count)</option>
+                    <option value="" >Uncategorized</option>
                 }
                 else
                 {
-                    <option value="@category.Name" selected="@(category.Name == Model?.Category)">@category.Name (@category.Count)</option>
+                    <option value="@category.Name" selected="@(category.Name == Model?.Category)">@category.Name </option>
                 }
             }
         </select>
