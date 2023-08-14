@@ -1,4 +1,5 @@
-﻿using Ganss.Xss;
+﻿using System.Text.RegularExpressions;
+using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -64,6 +65,31 @@ namespace PEngine.Web.Controllers
             await _context.Database.ExecuteSqlRawAsync(
                 $"UPDATE {nameof(BlogContext.Categories)} SET Count = Count + {{0}} WHERE Name = {{1}}",
                 count, name ?? "");
+        }
+
+        private Guid? ExtractFirstImageSrc(string html)
+        {
+            var imgRegex = new Regex(@"<img[^>]*src\s*=\s*['""]([^'""]+)['""][^>]*>");
+            var matches = imgRegex.Matches(html);
+
+            if (matches.Count == 0)
+            {
+                return null;
+            }
+            
+            var firstMatch = matches.FirstOrDefault(m => 
+                m.Groups.Count == 2 && m.Groups[1].Value.StartsWith("/File/Download/"));
+
+            if (firstMatch is null)
+            {
+                return null;
+            }
+
+            var guid = firstMatch.Groups[1].Value.Split('/')[3];
+            var guidRegex =
+                new Regex("(?:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})");
+            
+            return guidRegex.IsMatch(guid) ? new Guid(guid) : null;
         }
         
         public async Task<IActionResult> View(long id)
@@ -137,7 +163,6 @@ namespace PEngine.Web.Controllers
             
             try
             {
-
                 if (formData.Id != default)
                 {
                     updateProc = _context.Posts.Update;
@@ -158,6 +183,7 @@ namespace PEngine.Web.Controllers
                     post.Title = formData.Title;
                     post.Category = formData.Category ?? "";
                     post.Content = sanitizedContent;
+                    post.Thumbnail = ExtractFirstImageSrc(sanitizedContent);
                 }
                 else
                 {
@@ -171,6 +197,7 @@ namespace PEngine.Web.Controllers
                         Category = formData.Category ?? "",
                         Title = formData.Title,
                         Content = sanitizedContent,
+                        Thumbnail = ExtractFirstImageSrc(sanitizedContent),
                         WrittenAt = DateTime.Now
                     });
 

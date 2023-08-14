@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PEngine.Web.Helper;
 using PEngine.Web.Models;
 using PEngine.Web.Models.ViewModels;
+using SixLabors.ImageSharp.Formats.Png;
 
 namespace PEngine.Web.Controllers;
 
@@ -15,24 +16,97 @@ public class FileController : CommonControllerBase<FileController>
     {
         _context = context;
     }
+
+    private async Task<DownloadResultVM> GetFile(Guid id, string typeFilter)
+    {
+        var tag = await _context.FileTags.FirstOrDefaultAsync(f => f.Id == id &&
+                                                                   f.Type.StartsWith(typeFilter));
+        var result = new DownloadResultVM();
+        
+        if (tag is null)
+        {
+            Logger.Log(LogLevel.Warning, "Requested type {0}, but not found for filtered", typeFilter);
+            return result;
+        }
+        
+        var stream  = FileHelper.LoadAsStream(BasePath.UploadBase, $"{id}");
+        
+        if (stream == Stream.Null)
+        {
+            Logger.Log(LogLevel.Warning, "Requested type {0}, but file does not exist.", typeFilter);
+            return result;
+        }
+
+        result.Name = tag.Name;
+        result.Type = tag.Type;
+        result.Length = tag.Size;
+        result.Stream = stream;
+
+        return result;
+    }
+
+    private async Task<Stream> TryCreateThumbnail(Guid id)
+    {
+        return await TryCreateThumbnail(id, 300, 300);
+    }
+    private async Task<Stream> TryCreateThumbnail(Guid id, int width, int height)
+    {
+        var req = await GetFile(id, "image/");
+
+        if (req.Stream == Stream.Null)
+        {
+            return Stream.Null;
+        }
+
+        var sourceImage = await SixLabors.ImageSharp.Image.LoadAsync(req.Stream);
+        var destStream = new MemoryStream();
+        
+        sourceImage.Mutate(ctx =>
+        {
+            ctx.Resize(width, height);
+        });
+        
+        await sourceImage.SaveAsync(destStream, new PngEncoder());
+        destStream.Position = 0;
+
+        FileHelper.SaveFromStream(BasePath.ThumbnailsBase, $"{id}", destStream);
+        return destStream;
+    }
     
     public async Task<IActionResult> Download(Guid id)
     {
-        var tag = await _context.FileTags.FirstOrDefaultAsync(f => f.Id == id);
+        var req = await GetFile(id, "");
 
-        if (tag is null)
+        if (req.Stream == Stream.Null)
         {
-            return StatusCode(404);
+            return NotFound();
+        }
+        
+        return File(req.Stream, "application/octet-stream", req.Name);
+    }
+
+    public async Task<IActionResult> Image(Guid id)
+    {
+        var req = await GetFile(id, "image/");
+        
+        if (req.Stream == Stream.Null)
+        {
+            return Redirect("/img/NotFound.png");
+        }
+        
+        return File(req.Stream, req.Type, req.Name);
+    }
+    
+    public async Task<IActionResult> Thumbnail(Guid id)
+    {
+        var stream = FileHelper.LoadAsStream(BasePath.ThumbnailsBase, $"{id}");
+
+        if (stream == Stream.Null)
+        {
+            stream = await TryCreateThumbnail(id);
         }
 
-        var file = FileHelper.LoadAsStream(BasePath.UploadBase, $"{tag.Id}");
-
-        if (file == Stream.Null)
-        {
-            return StatusCode(410);
-        }
-
-        return File(file, tag.Type, tag.Name);
+        return File(stream, "image/png");
     }
 
     [HttpPost]

@@ -8,6 +8,7 @@ namespace PEngine.Web.Models
         [Key]
         public long Id { get; set; }
         public Guid WrittenBy { get; set; }
+        public Guid? Thumbnail { get; set; }
         public string? Category { get; set; }
         public string? Title { get; set; }
         public string? Content { get; set; }

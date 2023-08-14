@@ -9,24 +9,36 @@ public enum BasePath
     StorageBase,
     UploadBase,
     IntroductionBase,
+    ThumbnailsBase,
     SettingsBase
 }
 
 public static class FileHelper
 {
     private static string StorageBase => Path.GetFullPath("Storage");
-    private static string UploadBasePath => $"{StorageBase}/Uploads";
-    private static string IntroductionBasePath => $"{StorageBase}/Introduction";
-    private static string SettingsBasePath => $"{StorageBase}/Settings";
-
+    
+    private static Dictionary<BasePath, string> BaseMap = new()
+    {
+        { BasePath.UploadBase, $"{StorageBase}/Uploads"},
+        { BasePath.IntroductionBase, $"{StorageBase}/Introduction"},
+        { BasePath.ThumbnailsBase, $"{StorageBase}/Thumbnails"},
+        { BasePath.SettingsBase, $"{StorageBase}/Settings"}
+    };
+    
     static FileHelper()
     {
-        if (Directory.Exists(StorageBase)) return;
+        if (!Directory.Exists(StorageBase))
+        {
+            Directory.CreateDirectory(StorageBase);
+        }
 
-        Directory.CreateDirectory(StorageBase);
-        Directory.CreateDirectory(UploadBasePath);
-        Directory.CreateDirectory(IntroductionBasePath);
-        Directory.CreateDirectory(SettingsBasePath);
+        foreach (var map in BaseMap)
+        {
+            if (!Directory.Exists(map.Value))
+            {
+                Directory.CreateDirectory(map.Value);
+            }
+        }
     }
     
     private static Stream LoadAsStream(string path)
@@ -47,23 +59,11 @@ public static class FileHelper
 
     private static string SelectBase(BasePath basePath)
     {
-        switch (basePath)
+        return basePath switch
         {
-            case BasePath.StorageBase:
-                return StorageBase;
-            
-            case BasePath.UploadBase:
-                return UploadBasePath;
-            
-            case BasePath.IntroductionBase:
-                return IntroductionBasePath;
-            
-            case BasePath.SettingsBase:
-                return SettingsBasePath;
-            
-            default:
-                throw new ArgumentOutOfRangeException(nameof(basePath), basePath, null);
-        }
+            BasePath.StorageBase => StorageBase,
+            _ => BaseMap[basePath]
+        };
     }
 
     private static bool IsPathInRange(string basePath, string fullPath)

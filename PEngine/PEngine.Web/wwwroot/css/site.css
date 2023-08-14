@@ -531,6 +531,10 @@ article .article-body * {
     word-break: break-word;
 }
 
+article .article-body img {
+    object-fit: cover;
+}
+
 article .article-tail {
     display: flex;
     gap: 10px;

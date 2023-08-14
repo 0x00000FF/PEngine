@@ -36,10 +36,14 @@
     @foreach (var post in Model)
     {
         <li class="post-item">
-            <img alt="No Cover Image!" />
+            @if (post.Thumbnail is not null)
+            {
+                <img src="/File/Thumbnail/@post.Thumbnail"/>
+            }
+            
             <a asp-controller="Post" asp-action="View" asp-route-id="@post.Id">
                 <h3>@post.Title</h3>
-                
+
                 <ul class="metadata">
                     <li>
                         <i class="fa-solid fa-tags"></i>
