@@ -6,8 +6,8 @@ namespace PEngine.Web.Controllers;
 public abstract class CommonControllerBase<T> : Controller
 {
     protected ILogger<T> Logger { get; }
-    protected new HttpContext? HttpContext { get; }
-    
+    protected new HttpContext HttpContext { get; }
+
 
     protected bool IsAuthenticated { get; set; }
     protected Guid? UserId { get; set; }
@@ -18,7 +18,7 @@ public abstract class CommonControllerBase<T> : Controller
         Logger = logger;
         
         var accessor = Program.App.Services.GetRequiredService<IHttpContextAccessor>();
-        HttpContext = accessor.HttpContext;
+        HttpContext = accessor.HttpContext ?? throw new InvalidOperationException();
     }
 
     public override void OnActionExecuting(ActionExecutingContext context)
@@ -41,6 +41,9 @@ public abstract class CommonControllerBase<T> : Controller
             
             ViewData.Add("Id", UserId);
             ViewData.Add("Name", UserName);
+
+            var urlRoot = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            ViewData.Add("UrlRoot", urlRoot);
         }
 
         base.OnActionExecuted(context);
