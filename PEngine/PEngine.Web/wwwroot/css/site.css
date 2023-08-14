@@ -663,12 +663,14 @@ article .article-tail-collapsible .comment-list li .comment-body {
     flex-direction: column;
     padding: 20px;
     gap: 20px;
+    height: 100%;
 }
 
 .editor-form textarea {
     min-height: 400px;
     resize: none;
     color: transparent;
+    flex: 1;
 }
 
 .editor-form .editor-preamble {
