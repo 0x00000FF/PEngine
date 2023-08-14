@@ -36,32 +36,34 @@
     @foreach (var post in Model)
     {
         <li class="post-item">
-            @if (post.Thumbnail is not null)
-            {
-                <img src="/File/Thumbnail/@post.Thumbnail"/>
-            }
-            
             <a asp-controller="Post" asp-action="View" asp-route-id="@post.Id">
-                <h3>@post.Title</h3>
-
-                <ul class="metadata">
-                    <li>
-                        <i class="fa-solid fa-tags"></i>
-                        @(post.Category ?? "Uncategorized")
-                    </li>
-                    <li>
-                        <i class="fa-regular fa-clock"></i>
-                        @post.WrittenAt.ToString("yyyy-MM-dd")
-                    </li>
-                    <li>
-                        <i class="fa-regular fa-eye"></i>
-                        @($"{post.Hits:N0}")
-                    </li>
-                    <li>
-                        <i class="fa-regular fa-comment"></i>
-                        0
-                    </li>
-                </ul>
+                @if (post.Thumbnail is not null)
+                {
+                    <img src="/File/Thumbnail/@post.Thumbnail"/>
+                }
+                
+                <div class="post-item-detail">
+                    <h3>@post.Title</h3>
+                    <div class="post-item-content"></div>
+                    <ul class="metadata">
+                        <li>
+                            <i class="fa-solid fa-tags"></i>
+                            @(post.Category ?? "Uncategorized")
+                        </li>
+                        <li>
+                            <i class="fa-regular fa-clock"></i>
+                            @post.WrittenAt.ToString("yyyy-MM-dd")
+                        </li>
+                        <li>
+                            <i class="fa-regular fa-eye"></i>
+                            @($"{post.Hits:N0}")
+                        </li>
+                        <li>
+                            <i class="fa-regular fa-comment"></i>
+                            0
+                        </li>
+                    </ul>
+                </div>
             </a>
         </li>
     }

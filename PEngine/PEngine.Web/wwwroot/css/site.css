@@ -480,18 +480,22 @@ footer .mdd {
     font-size: .8em;
 }
 
-.post-list .post-item a {
-    position: relative;
-    padding: 20px;
+.post-list .post-item .post-item-detail {
     display: flex;
-    height: 100%;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.post-list .post-item .post-item-detail .post-item-content {
     flex: 1;
 }
 
+.post-list .post-item a {
+    display: flex;
+    height: 100%;
+}
+
 .post-list .post-item a ul {
-    position: absolute;
-    bottom: 15px;
-    left: 20px;
     display: flex;
     list-style: none;
     gap: 10px;
