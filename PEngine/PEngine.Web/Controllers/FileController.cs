@@ -70,6 +70,8 @@ public class FileController : CommonControllerBase<FileController>
         destStream.Position = 0;
 
         FileHelper.SaveFromStream(BasePath.ThumbnailsBase, $"{id}", destStream);
+        destStream.Position = 0;
+        
         return destStream;
     }
     
