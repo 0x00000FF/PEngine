@@ -77,11 +77,5 @@ namespace PEngine.Web.Controllers
 
             return File(stream.ToArray(), "application/rss+xml; charset=utf-8");
         }
-        
-        [HttpGet("/Misc/Mdd")]
-        public IActionResult Mdd()
-        {
-            return View();
-        }
     }
 }
