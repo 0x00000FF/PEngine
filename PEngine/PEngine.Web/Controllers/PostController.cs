@@ -114,8 +114,12 @@ namespace PEngine.Web.Controllers
                 return NotFound();
             }
 
-            await HitPost(post.Id);
-            
+            // TODO: Check duplicated hits in further releases
+            if (!IsAuthenticated)
+            {
+                await HitPost(post.Id);
+            }
+
             return View(post);
         }
 
