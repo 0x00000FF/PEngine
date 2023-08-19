@@ -84,7 +84,7 @@ public class UserController : CommonControllerBase<UserController>
 
     public async Task<IActionResult> Logout(string? returnUrl)
     {
-        if (HttpContext is not null)
+        if (IsAuthenticated)
         {
             await HttpContext.SignOutAsync();
         }
