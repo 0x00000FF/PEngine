@@ -16,6 +16,7 @@
 
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/Rss" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
@@ -89,6 +90,27 @@
                     <a asp-controller="Guestbook">Guestbook</a>
                 </li>
             </ul>
+            
+            <div class="aside-mdd">
+                <a href="https://github.com/0x00000FF" target="_blank">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="https://twitter.com/0x00000FF" target="_blank">
+                    <i class="fa-brands fa-twitter"></i>
+                </a>
+                <a href="https://dot.net" target="_blank">
+                    <i class="fa-brands fa-microsoft"></i>
+                </a>
+                <a asp-controller="Moe" asp-action="DrivenDev">
+                    <i class="fa-solid fa-question"></i>
+                </a>
+                <a href="https://pronama.jp" target="_blank">
+                    <img src="~/third-party/imgs/901k.png" alt="Pronama LLC" />
+                </a>
+                <a href="https://conoha.mikumo.com" target="_blank">
+                    <img src="~/third-party/imgs/conoha.png" alt="© GMO Internet Group , Inc." />
+                </a>
+            </div>
         </aside>
         <content>@RenderBody()</content>
     </main>
@@ -97,7 +119,7 @@
             <a href="https://github.com/0x00000FF/PEngine" target="_blank">PEngine α</a> 
             &copy; P.Knowledge, @(DateTime.Now.Year).
         </span>
-        <a class="mdd" href="https://www.conoha.jp/conoha/" target="_blank">Running on <ConoH></ConoH>a</a>
+        <a class="mdd" href="https://www.conoha.jp/conoha/" target="_blank">Running on ConoHa</a>
     </footer>
 
 <script src="~/js/site.js" asp-append-version="true"></script>

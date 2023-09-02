@@ -199,6 +199,28 @@ aside .gnb li a:hover {
     transition: .3s;
 }
 
+aside .aside-mdd {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    background: #444;
+    bottom: 50px;
+}
+
+aside .aside-mdd a {
+    height: 50px;
+    width: 50px;
+    background: #fff;
+    display: flex;
+    font-size: 1.3em;
+    align-items: center;
+    justify-content: center;
+}
+
+aside .aside-mdd a img {
+    height: 35px;
+}
+
 content {
     background-color: #fff;
     width: calc(100% - 300px);
