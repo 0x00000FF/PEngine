@@ -202,7 +202,7 @@ aside .gnb li a:hover {
 aside .aside-mdd {
     display: flex;
     position: absolute;
-    width: 100%;
+    width: 300px;
     background: #444;
     bottom: 50px;
 }
@@ -562,6 +562,17 @@ article .article-body * {
 
 article .article-body img {
     object-fit: cover;
+}
+
+article .article-body ul,
+article .article-body ol {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    padding-inline-start: 40px;
 }
 
 article .article-tail {
