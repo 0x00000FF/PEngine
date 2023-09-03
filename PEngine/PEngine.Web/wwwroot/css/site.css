@@ -46,7 +46,7 @@ header, footer {
     background-color: var(--theme);
     height: var(--hf-height);
     width: 100%;
-    z-index: 100;
+    z-index: 10;
 }
 
 header, footer {
@@ -819,7 +819,7 @@ input:focus, textarea:focus {
         left: -300px;
         top: 50px;
         height: calc(100% - 50px);
-        z-index: 10;
+        z-index: 100;
         transition: .5s;
     }
 
@@ -834,7 +834,9 @@ input:focus, textarea:focus {
         transition: .5s;
     }
     
-    
+    main aside .aside-mdd {
+        bottom: 0;
+    }
 }
 
 @media screen and (max-width: 1100px) {
