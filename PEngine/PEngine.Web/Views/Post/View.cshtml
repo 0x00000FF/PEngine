@@ -4,10 +4,6 @@
     Layout = "_Layout";
 }
 
-@section Styles {
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/vs2015.min.css" integrity="sha512-mtXspRdOWHCYp+f4c7CkWGYPPRAhq9X+xCvJMUBVAb6pqA4U8pxhT3RWT3LP3bKbiolYL2CkL1bSKZZO4eeTew==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-}
-
 @section OpenGraph {
     <meta property="og:title" content="@Model.Title"/>
     <meta property="og:url" content="@(ViewData["UrlRoot"])/Post/View/@Model.Id"/>
@@ -25,6 +21,10 @@
         <meta property="og:image" content="@(ViewData["UrlRoot"])/File/Thumbnail/@(Model.Thumbnail)"/>
         <meta name="twitter:image" content="@(ViewData["UrlRoot"])/File/Thumbnail/@Model.Thumbnail" />
     }
+}
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/vs2015.min.css" integrity="sha512-mtXspRdOWHCYp+f4c7CkWGYPPRAhq9X+xCvJMUBVAb6pqA4U8pxhT3RWT3LP3bKbiolYL2CkL1bSKZZO4eeTew==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 }
 
 <article>
