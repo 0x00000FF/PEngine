@@ -470,6 +470,7 @@ footer .mdd {
     gap: 10px;
     padding: 0 30px;
     list-style: none;
+    margin-bottom: 20px;
 }
 
 @media screen and (min-width: 1921px) {
