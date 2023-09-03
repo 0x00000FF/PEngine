@@ -1,0 +1,10 @@
+<form class="comment-form">
+    <div class="comment-form-header">
+        <input type="text" name="name" placeholder="Name..." required />
+        <input type="password" name="password" placeholder="Password..." required />
+    </div>
+            
+    <textarea name="content" placeholder="Still under construction..." required readonly></textarea>
+    <input type="submit" value="Save" class="button dark" />            
+    @Html.AntiForgeryToken()
+</form>
