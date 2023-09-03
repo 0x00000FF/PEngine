@@ -821,6 +821,12 @@ input:focus, textarea:focus {
         height: calc(100% - 50px);
         z-index: 100;
         transition: .5s;
+        padding-bottom: 50px;
+        overflow-y: auto;
+    }
+
+    main aside::-webkit-scrollbar {
+        width: 0;
     }
 
     main aside + content {
@@ -835,6 +841,8 @@ input:focus, textarea:focus {
     }
     
     main aside .aside-mdd {
+        position: fixed;
+        left: 0;
         bottom: 0;
     }
 }
