@@ -4,6 +4,10 @@
     Layout = "_Layout";
 }
 
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/vs2015.min.css" integrity="sha512-mtXspRdOWHCYp+f4c7CkWGYPPRAhq9X+xCvJMUBVAb6pqA4U8pxhT3RWT3LP3bKbiolYL2CkL1bSKZZO4eeTew==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+}
+
 @section OpenGraph {
     <meta property="og:title" content="@Model.Title"/>
     <meta property="og:url" content="@(ViewData["UrlRoot"])/Post/View/@Model.Id"/>
@@ -77,44 +81,17 @@
     <input type="checkbox" id="commentBoxToggle" />     
         
     <div class="article-tail-collapsible" >
-        <form class="comment-form">
-            <div class="comment-form-header">
-                <input type="text" name="name" placeholder="Name..." required />
-                <input type="password" name="password" placeholder="Password..." required />
-            </div>
-            
-            <textarea name="content" placeholder="Still under construction..." required readonly></textarea>
-            <input type="submit" value="Save" class="button dark" />            
-            @Html.AntiForgeryToken()
-        </form>
+        <partial name="CommentEditor" />
         <div id="comments"></div>
     </div>
 </article>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js" integrity="sha512-rdhY3cbXURo13l/WU9VlaRyaIYeJ/KBakckXIvJNAQde8DgpOmE+eZf7ha4vdqVjTtwQt69bD2wH2LXob/LB7Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script defer>
     (function ($) {
-        function handleCommentHeaderButton() {
-            const invoker = $(this);
-            const [_, event, id] = invoker.id.split('-');
-            
-            switch (event) {
-                case "reply":
-                    break;
-                case "delete":
-                    break;
-            }
-        }
-        
-        function refreshComment(id) {
-            $.get("/Comment/List/" + id)
-            .then(data => {
-                $("#comments").html(data);
-                $("#comments .comment-header-button").click(handleCommentHeaderButton);
-            });   
-        }
-        
         $(function () {
-            // refreshComment(@Model.Id);
+            hljs.highlightAll();                   
         });
     })(jQuery);
 </script>
