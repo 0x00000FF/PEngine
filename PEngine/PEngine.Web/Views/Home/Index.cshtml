@@ -10,7 +10,7 @@
 <div class="post-shelf">
 	<h2>Latest Posts</h2>
 	<ul class="post-shelf-list">
-		@for (var i = 0; i < 4; ++i)
+		@for (var i = 0; i < Model.Latest.Count; ++i)
 		{
 			var nothing = Model.Latest.Count <= i;
 			
@@ -25,7 +25,14 @@
 			{
 				<li>
 					<a asp-controller="Post" asp-action="View" asp-route-id="@Model.Latest[i].Id">
-						<h3>@Model.Latest[i].Title</h3>
+						@if (Model.Latest[i].Thumbnail is null)
+						{
+							<h3>@Model.Latest[i].Title</h3>
+						}
+						else
+						{
+							<img src="@Model.Latest[i].Thumbnail" class="post-shelf-thumbnail" />
+						}
 						<span>@Model.Latest[i].WrittenAt.ToString("yyyy-MM-dd HH:mm:ss")</span>
 					</a>
 				</li>

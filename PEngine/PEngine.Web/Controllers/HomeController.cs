@@ -23,7 +23,7 @@ namespace PEngine.Web.Controllers
             HomeVM model = new();
 
             model.Latest = _context.Posts.OrderByDescending(p => p.Id)
-                .Take(4).ToList();
+                .Take(10).ToList();
 
             model.Categories = new Dictionary<string, List<Post>>();
             

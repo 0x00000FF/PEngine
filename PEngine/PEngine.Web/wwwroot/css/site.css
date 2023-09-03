@@ -289,24 +289,29 @@ footer .mdd {
 }
 
 .post-shelf-list {
-    display: flex;
     list-style: none;
     width: 100%;
     white-space: nowrap;
+    display: flex;
+    overflow: auto;
+    gap: 15px;
 }
 
 .post-shelf-list li {
+    display: flex;
+    flex-shrink: 0;
+    
     height: 250px;
-    width: 25%;
-    margin-right: 20px;
+    width: 250px;
+    
     border: 1px solid #ccc;
     border-radius: 15px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     transition: .3s;
+}
+
+.post-shelf-list li::-webkit-scrollbar {
+    height: 0;
 }
 
 .post-shelf-list li:hover {
@@ -329,6 +334,15 @@ footer .mdd {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow-x: hidden;
+}
+
+.post-shelf-list li a img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 15px;
 }
 
 .post-shelf-list li a p {
@@ -843,8 +857,14 @@ input:focus, textarea:focus {
     
     main aside .aside-mdd {
         position: fixed;
-        left: 0;
+        left: -300px;
         bottom: 0;
+        transition: .5s;
+    }
+
+    main #asideToggle:checked + aside .aside-mdd {
+        left: 0;
+        transition: .5s;
     }
 }
 
