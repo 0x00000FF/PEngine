@@ -23,6 +23,14 @@ public abstract class CommonControllerBase<T> : Controller
 
     public override void OnActionExecuting(ActionExecutingContext context)
     {
+        if (HttpContext.Request.Headers.UserAgent.ToString().Trim() == "" || 
+            (HttpContext.Request.Method.ToUpper() != "POST" &&
+            HttpContext.Request.Method.ToUpper() != "GET"))
+        {
+            context.Result = new StatusCodeResult(404);
+            return;
+        }
+        
         IsAuthenticated = HttpContext?.User?.Identity?.IsAuthenticated ?? false;
         
         var userId = HttpContext?.User?.Claims.FirstOrDefault(c => c.Type == "Id")?.Value ?? "";
