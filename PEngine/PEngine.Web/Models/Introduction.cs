@@ -7,6 +7,7 @@ public class Introduction
     public DateTime Birthdate { get; set; }
     public string? Pronouns { get; set; }
     public string? Nationality { get; set; }
+    public string? Religion { get; set; }
     public string? AsKnown { get; set; }
     public string? Contact { get; set; }
     public string? Bio { get; set; }

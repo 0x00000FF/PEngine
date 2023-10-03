@@ -40,6 +40,30 @@ public static class FileHelper
             }
         }
     }
+
+    public static bool UpdateSymbolLink(BasePath basePath, string fileName, string linkName)
+    {
+        if (!IsSafePath(basePath, fileName, out var fileAbsPath) ||
+            !IsSafePath(basePath, linkName, out var symbolAbsPath))
+        {
+            return false;
+        }
+
+        try
+        {
+            if (File.Exists(symbolAbsPath))
+            {
+                File.Delete(symbolAbsPath);
+            }
+
+            var link = File.CreateSymbolicLink(symbolAbsPath, fileAbsPath);
+            return link.Exists;
+        }
+        catch
+        {
+            return false;
+        }
+    }
     
     private static Stream LoadAsStream(string path)
     {
@@ -53,7 +77,7 @@ public static class FileHelper
             return;
         }
         
-        using var stream = File.OpenWrite(path);
+        using var stream = File.Create(path);
         sourceStream.CopyTo(stream);
     }
 
@@ -107,11 +131,10 @@ public static class FileHelper
         callback(fullPath);
     }
     
-    public static T? LoadFromJson<T>(BasePath basePath, string path)
+    public static T? LoadFromJson<T>(BasePath basePath, string path) where T: class
     {
-        return JsonSerializer.Deserialize<T>(
-            SafePathDelegate(basePath, path, LoadAsStream)
-            );
+        using var json = SafePathDelegate(basePath, path, LoadAsStream);
+        return json == Stream.Null ? null : JsonSerializer.Deserialize<T>(json);
     }
 
     public static void SaveToJson(BasePath basePath, string path, object obj)

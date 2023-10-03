@@ -20,31 +20,31 @@
             <div class="introduce-block">
                 <p class="identity-row">
                     <span>Name</span>
-                    <input type="text" name="name"/>
+                    <input type="text" name="name" value="@Model?.Name"/>
                 </p>
                 <p class="identity-row">
                     <span>Birthdate</span>
-                    <input type="date" name="birthdate"/>
+                    <input type="date" name="birthdate" value="@Model?.Birthdate" asp-format="{0:yyyy-MM-dd}"/>
                 </p>
                 <p class="identity-row">
                     <span>Pronouns</span>
-                    <input type="text" name="pronouns"/>
+                    <input type="text" name="pronouns" value="@Model?.Pronouns"/>
                 </p>
                 <p class="identity-row">
                     <span>Nationality</span>
-                    <input type="text" name="nationality"/>
+                    <input type="text" name="nationality" value="@Model?.Nationality"/>
                 </p>
                 <p class="identity-row">
                     <span>Religion</span>
-                    <input type="text" name="religion"/>
+                    <input type="text" name="religion" value="@Model?.Religion"/>
                 </p>
                 <p class="identity-row">
                     <span>As known as</span>
-                    <input type="text" name="asknown"/>
+                    <input type="text" name="asknown" value="@Model?.AsKnown"/>
                 </p>
                 <p class="identity-row">
                     <span>Contact</span>
-                    <input type="text" name="contact"/>
+                    <input type="text" name="contact" value="@Model?.Contact"/>
                 </p>
             </div>
         </div>

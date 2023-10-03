@@ -1,10 +1,10 @@
-@model PEngine.Web.Models.Introduction
+@model PEngine.Web.Models.Introduction?
 @{
     ViewBag.Title = "Introduction";
     Layout = "_Layout";
 
-    var birthdate = DateTime.Now;
-    var age = (DateTime.Now - birthdate).Days / (float)365;
+    var birthdate = Model?.Birthdate ?? DateTime.Now;
+    var age = Math.Round((DateTime.Now - birthdate).Days / (float)365, 1);
 }
 
 <div class="introduce-block">
@@ -19,17 +19,17 @@
     <div class="introduce-block-horiz">
         <img src="/Introduction/ProfileImage" alt="profile image"/>
         <div class="introduce-block">
-            <p class="identity-row"><span>Name</span> </p>  
+            <p class="identity-row"><span>Name</span> @Model?.Name</p>  
             <p class="identity-row"><span>Birthdate</span> @birthdate.ToString("yyyy. MM. dd.") (@age y/o)</p>
-            <p class="identity-row"><span>Pronouns</span> </p>
-            <p class="identity-row"><span>Nationality</span> </p>
-            <p class="identity-row"><span>Religion</span> </p>
-            <p class="identity-row"><span>As known as</span> </p>
-            <p class="identity-row"><span>Contact</span> </p>
+            <p class="identity-row"><span>Pronouns</span> @Model?.Pronouns</p>
+            <p class="identity-row"><span>Nationality</span> @Model?.Nationality</p>
+            <p class="identity-row"><span>Religion</span> @Model?.Religion</p>
+            <p class="identity-row"><span>As known as</span> @Model?.AsKnown</p>
+            <p class="identity-row"><span>Contact</span> @Model?.Contact</p>
         </div>
     </div>
     
-    <p>Message Here...</p>
+    <p>@Model?.Bio</p>
 </div>
 
 <div class="introduce-block">
