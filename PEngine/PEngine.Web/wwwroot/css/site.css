@@ -575,6 +575,14 @@ article .article-body * {
     word-break: break-word;
 }
 
+article .article-body a {
+    color: #4343ff;
+}
+
+article .article-body a:hover {
+    text-decoration: underline;
+}
+
 article .article-body img {
     object-fit: cover;
 }
