@@ -10,4 +10,5 @@ public class FileTag
     public string? Name { get; set; }
     public long Size { get; set; }
     public string Type { get; set; } = null!;
+    public DateTime WrittenAt { get; set; } = DateTime.Now;
 }

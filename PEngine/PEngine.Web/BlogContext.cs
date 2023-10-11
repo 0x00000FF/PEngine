@@ -13,6 +13,7 @@ public sealed class BlogContext : DbContext
     }
     
     public DbSet<Comment> Comments { get; set; } = null!;
+    public DbSet<CommentMeta> CommentMetas { get; set; } = null!;
     public DbSet<Guestbook> Guestbooks { get; set; } = null!;
     public DbSet<Post> Posts { get; set; } = null!;
     public DbSet<Category> Categories { get; set; } = null!;

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PEngine.Web.Models
 {
@@ -13,6 +14,9 @@ namespace PEngine.Web.Models
         public string? Title { get; set; }
         public string? Content { get; set; }
         public DateTime WrittenAt { get; set; } = DateTime.Now;
+        
+        [NotMapped]
+        [Obsolete("No longer be used, migrated to PostViewCount.Count")]
         public int Hits { get; set; }
     }
 }

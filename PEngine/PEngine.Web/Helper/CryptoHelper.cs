@@ -30,4 +30,25 @@ public static class CryptoHelper
     {
         return RandomNumberGenerator.GetBytes(size);
     }
+
+    public static Aes CreateAes(byte[] key)
+    {
+        var aes = Aes.Create();
+
+        aes.KeySize = 256;
+        aes.BlockSize = 128;
+        aes.Key = key;
+
+        return aes;
+    }
+    
+    public static byte[] Encrypt(this byte[] plaintext, byte[] key, byte[] iv)
+    {
+        return CreateAes(key).EncryptCbc(plaintext, iv);
+    }
+
+    public static byte[] Decrypt(this byte[] ciphertext, byte[] key, byte[] iv)
+    {
+        return CreateAes(key).DecryptCbc(ciphertext, iv);
+    }
 }

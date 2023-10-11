@@ -7,7 +7,6 @@ namespace PEngine.Web.Models
         [Key]
         public Guid Id { get; set; }
         public Guid? WrittenBy { get; set; }
-        public long Post { get; set; }
         public string? WriterName { get; set; }
         public string? WriterIp { get; set; }
         public string? WriterUserAgent { get; set; }

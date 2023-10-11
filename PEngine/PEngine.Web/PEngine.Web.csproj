@@ -24,4 +24,8 @@
     <PackageReference Include="System.ServiceModel.Syndication" Version="7.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Honeypots" />
+  </ItemGroup>
+
 </Project>
