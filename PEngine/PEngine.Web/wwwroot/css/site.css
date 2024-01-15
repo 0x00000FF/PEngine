@@ -167,11 +167,12 @@ aside .gnb li:hover ul {
 }
 
 aside .gnb li .submenu li {
+    display: flex;
     background: #303030;
 }
 
 
-aside .gnb li .submenu li a {
+aside .gnb li .submenu li a:nth-child(1) {
     display: flex;
     align-items: center;
     padding-left: 30px;
@@ -184,8 +185,22 @@ aside .gnb li .submenu li a {
     gap: 5px;
 }
 
-aside .gnb li .submenu li a span {
+aside .gnb li .submenu li a:nth-child(1) span {
     flex: 1
+}
+
+aside .gnb li .submenu li a:not(:first-child){
+    width: 36px;
+    justify-content: center;
+    color: #666;
+    font-size: .8em;
+    border-left: 1px solid #fff;
+    cursor: pointer;
+    padding: 0;
+}
+
+aside .gnb li .submenu li a:not(:first-child):hover {
+    color: #fff;
 }
 
 aside .gnb li .submenu li:not(:last-child) a {

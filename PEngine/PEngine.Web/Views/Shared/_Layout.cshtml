@@ -70,6 +70,15 @@
                                     <a asp-controller="Post" asp-action="List" asp-route-category="@category.Name">
                                         <span>@(string.IsNullOrEmpty(category.Name) ? "전체" : category.Name) (@category.Count)</span>
                                     </a>
+                                    @if (ViewBag.Authenticated)
+                                    {
+                                        <a asp-controller="Post" asp-action="ModCategory" asp-route-category="@category.Name">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        <a asp-controller="Post" asp-action="DelCategory" asp-route-category="@category.Name">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    }
                                 </li>
                             }
 
