@@ -29,7 +29,7 @@ namespace PEngine.Web.Controllers
 
         private List<Category> GetCategoryList()
         {
-            var categories = _context.Categories.OrderBy(c => c.Name).ToList();
+            var categories = _context.Categories.OrderBy(c => c.Order).ToList();
             categories[0].Count = _context.Categories.Sum(c => c.Count);
 
             return categories;
