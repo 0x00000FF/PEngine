@@ -44,3 +44,7 @@ msbuild.wrn
 
 # Program generated files
 Storage
+
+# Next / Node
+node_modules
+.next
