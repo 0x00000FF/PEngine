@@ -19,32 +19,31 @@ public class UserController : CommonControllerBase<UserController>
     
     public IActionResult Login(string? returnUrl)
     {
+        if (!_context.Users.Any())
+        {
+            return View("UserCreateFirst", new UserCreateFirstVM { });
+        }
+
         ViewData.Add("ReturnUrl", returnUrl ?? "/");
-        
         return View();
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Login(string username, string password)
+    public IActionResult Login(string username, string password, string? ipsec)
     {
         var user = _context.Users.FirstOrDefault(u => u.Username == username);
 
         if (user is null)
         {
-            if (_context.Users.Any())
-            {
-                return View("UserNotFound");
-            }
-            else
-            {
-                return View("UserCreateFirst",
-                    new UserCreateFirstVM { Username = username });
-            }
+            return View("UserNotFound");
         }
 
         if (user.Password != password.Password(user.PasswordSalt!).ToBase64())
         {
+            // TODO: make option for failing password matches:
+            // return View("UserNotFound");
+
             return View("UserFail");
         }
 
@@ -53,6 +52,21 @@ public class UserController : CommonControllerBase<UserController>
         var claimsIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
         claimsIdentity.AddClaim(new Claim("Id", user.Id.ToString()));
         claimsIdentity.AddClaim(new Claim("Name", user.Name!));
+        
+        // IP-Security
+        if (ipsec == "y")
+        {
+            claimsIdentity.AddClaim(new Claim("IPSec", "y"));
+
+            var remoteIp = HttpContext.Connection.RemoteIpAddress;
+            
+            if (remoteIp is null)
+            {
+                return View("UserFailIPAddr");
+            }
+
+            claimsIdentity.AddClaim(new Claim("IPAddress", remoteIp.ToString()));
+        }
 
         claimPrincipal.AddIdentity(claimsIdentity);
 

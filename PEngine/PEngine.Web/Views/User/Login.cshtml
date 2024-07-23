@@ -5,10 +5,14 @@
 
 <form class="common-dialog login-form" asp-controller="User" asp-action="Login" asp-route-returnUrl="@ViewData["ReturnUrl"]">
     <h2>Who are you?</h2>
-    <div>
+    <div class="login-group">
         <input type="text" name="username" placeholder="Username..."/>
         <input type="password" name="password" placeholder="Password..."/>
-        <input type="submit" class="button dark" value="Login"/>
+        <label>
+            <input type="checkbox" name="ipsec" value="y" />
+            <span>Make Session IP-Dependent</span>
+        </label>
     </div>
+    <button type="submit">Login</button>
     @Html.AntiForgeryToken()
 </form>

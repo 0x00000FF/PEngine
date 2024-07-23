@@ -36,6 +36,11 @@
         <menu>
             @if (ViewBag.Authenticated)
             {
+                if (ViewData.TryGetValue("IPSec", out var ipSec) && (bool?)ipSec == true)
+                {
+                    <span class="ipsec-enforce">Enforced IP-Sec for @ViewData["IPAddress"]</span>
+                }
+
                 <a class="login-locked unlocked" asp-controller="User" asp-action="Logout">
                     <i class="fa fa-unlock"></i>
                 </a>
@@ -66,11 +71,12 @@
                         <ul class="submenu">
                             @foreach (var category in categories)
                             {
+                                var isTotalCategory = string.IsNullOrEmpty(category.Name);
                                 <li>
                                     <a asp-controller="Post" asp-action="List" asp-route-category="@category.Name">
-                                        <span>@(string.IsNullOrEmpty(category.Name) ? "전체" : category.Name) (@category.Count)</span>
+                                        <span>@(isTotalCategory ? "전체" : category.Name) (@category.Count)</span>
                                     </a>
-                                    @if (ViewBag.Authenticated)
+                                    @if (ViewBag.Authenticated && !isTotalCategory)
                                     {
                                         <a asp-controller="Post" asp-action="ModCategory" asp-route-category="@category.Name">
                                             <i class="fa fa-pencil"></i>
@@ -93,6 +99,9 @@
                             }
                         </ul>
                     }
+                </li>
+                <li>
+                    <a asp-controller="Tag">Tags</a>
                 </li>
                 <li>
                     <a asp-controller="Search">Search</a>
@@ -130,7 +139,6 @@
             <a href="https://github.com/0x00000FF/PEngine" target="_blank">PEngine α</a> 
             &copy; P.Knowledge, @(DateTime.Now.Year).
         </span>
-        <a class="mdd" href="https://www.conoha.jp/conoha/" target="_blank">Running on ConoHa</a>
     </footer>
 
 <script src="~/js/site.js" asp-append-version="true"></script>

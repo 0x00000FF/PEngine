@@ -100,6 +100,12 @@ header brand form input::placeholder {
 header menu {
     flex: 1;
     display: flex;
+    align-items: center;
+}
+
+header menu .ipsec-enforce {
+    padding: 0 10px;
+    color: #c00;
 }
 
 header menu .login-locked {
@@ -280,8 +286,40 @@ footer .mdd {
     font-size: 1em;
 }
 
-/* home/index */
+.login-form .login-group {
+    flex-direction: column;
+    min-width: 300px;
+    max-width: 500px;
+    margin: auto;
+}
 
+.login-form .login-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none
+}
+
+.login-form .login-group label:hover {
+    font-weight: bold;
+}
+
+.login-form .login-group label input[type=checkbox]:checked + span  {
+    font-weight: bold;
+}
+
+.login-form button {
+    background: #000;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+    border: 0;
+    width: 300px;
+    margin: auto;
+}
+
+/* home/index */
 .post-shelf {
     min-height: 300px;
     display: flex;
