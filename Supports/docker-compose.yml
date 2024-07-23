@@ -1,0 +1,21 @@
+services:
+  app:
+    image: pknowledge/pengine
+    ports:
+      - "30000:5000"
+    volumes:
+      - ./app/data:/app/Storage
+    environment:
+      - ConnectionString=$(CONNECTION_STRING)
+
+  db:
+    image: mysql:9.0
+    ports:
+      - "30001:3306"
+    volumes:
+      - ./database:/var/lib/mysql
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MYSQL_USER=pengine
+      - MYSQL_PASSWORD=$(DATABASE_PASSWORD)
+      - MYSQL_DATABASE=pengine
