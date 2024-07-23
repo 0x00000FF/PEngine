@@ -287,7 +287,12 @@ namespace PEngine.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AddCategory(string category)
         {
-            _context.Categories.Add(new() { Name = category, Count = default });
+            _context.Categories.Add(
+                new() { 
+                    Name = category, 
+                    Count = default, 
+                    Order = _context.Categories.Count() 
+                });
             
             return _context.SaveChanges() > 0 ? 
                 RedirectToAction("List", "Post") : 
