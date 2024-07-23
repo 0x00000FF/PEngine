@@ -15,14 +15,14 @@ public enum BasePath
 
 public static class FileHelper
 {
-    private static string StorageBase => Path.GetFullPath("Storage");
+    private static string? StorageBasePath;
+    private static string StorageBase => StorageBasePath ?? Path.GetFullPath("Storage");
     
-    private static Dictionary<BasePath, string> BaseMap = new()
+    private readonly static Dictionary<BasePath, string> BaseMap = new()
     {
-        { BasePath.UploadBase, $"{StorageBase}/Uploads"},
-        { BasePath.IntroductionBase, $"{StorageBase}/Introduction"},
-        { BasePath.ThumbnailsBase, $"{StorageBase}/Thumbnails"},
-        { BasePath.SettingsBase, $"{StorageBase}/Settings"}
+        { BasePath.UploadBase, Path.Combine(StorageBase, "Uploads")},
+        { BasePath.ThumbnailsBase, Path.Combine(StorageBase, "Thumbnails")},
+        { BasePath.SettingsBase, Path.Combine(StorageBase, "Settings")}
     };
     
     static FileHelper()
@@ -104,7 +104,7 @@ public static class FileHelper
         }
         
         var basePath = SelectBase(basePathSelector);
-        var fullPath = Path.GetFullPath($"{basePath}/{path}");
+        var fullPath = Path.Combine(basePath, path);
 
         outFullPath = fullPath;
         
@@ -157,5 +157,11 @@ public static class FileHelper
         {
             SaveFromStream(fullPath, sourceStream);
         });
+    }
+
+    public static void SaveFromStreamInit(BasePath basePathSelector, string path, Stream sourceStream)
+    {
+        sourceStream.Seek(0, SeekOrigin.Begin);
+        SaveFromStream(basePathSelector, path, sourceStream);
     }
 }

@@ -5,6 +5,7 @@ using PEngine.Web.Helper;
 using PEngine.Web.Models;
 using PEngine.Web.Models.ViewModels;
 using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Processing;
 
 namespace PEngine.Web.Controllers;
 
@@ -25,7 +26,7 @@ public class FileController : CommonControllerBase<FileController>
         
         if (tag is null)
         {
-            Logger.Log(LogLevel.Warning, "Requested type {0}, but not found for filtered", typeFilter);
+            Logger.Log(LogLevel.Warning, "Requested type {0}, but not found, seems filtered", typeFilter);
             return result;
         }
         
@@ -49,6 +50,7 @@ public class FileController : CommonControllerBase<FileController>
     {
         return await TryCreateThumbnail(id, 300, 300);
     }
+
     private async Task<Stream> TryCreateThumbnail(Guid id, int width, int height)
     {
         var req = await GetFile(id, "image/");
@@ -67,9 +69,8 @@ public class FileController : CommonControllerBase<FileController>
         });
         
         await sourceImage.SaveAsync(destStream, new PngEncoder());
-        destStream.Position = 0;
 
-        FileHelper.SaveFromStream(BasePath.ThumbnailsBase, $"{id}", destStream);
+        FileHelper.SaveFromStreamInit(BasePath.ThumbnailsBase, $"{id}", destStream);
         destStream.Position = 0;
         
         return destStream;
@@ -123,7 +124,6 @@ public class FileController : CommonControllerBase<FileController>
     public async Task<IActionResult> Upload(List<IFormFile> files)
     {
         var succeeded = new List<UploadResultVM>();
-        var failed = new List<UploadResultVM>();
         
         foreach (var file in files)
         {
@@ -161,7 +161,7 @@ public class FileController : CommonControllerBase<FileController>
         }
 
         return succeeded.Count == 1 ? Json(succeeded[0])
-            : Json(new { succeeded, failed });
+            : Json(new { succeeded });
     }
     
 }
