@@ -25,7 +25,7 @@ public static class FileHelper
         { BasePath.SettingsBase, Path.Combine(StorageBase, "Settings")}
     };
     
-    static FileHelper()
+    public static void InitializeStorage()
     {
         if (!Directory.Exists(StorageBase))
         {

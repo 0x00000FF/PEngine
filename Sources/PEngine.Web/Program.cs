@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Npgsql;
 using PEngine.Web.Controllers;
 using PEngine.Web.Data;
+using PEngine.Web.Helper;
 using System.Data;
 
 namespace PEngine.Web
@@ -26,6 +27,16 @@ namespace PEngine.Web
         {
             options.ForwardedHeaders =
                 ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        }
+
+        private static void ConfigureLocalStorage()
+        {
+            FileHelper.InitializeStorage();
+        }
+
+        private static void ConfigureMasterSecret()
+        {
+            // TODO: Query TPM Availability or Master Secret generated in the Storage
         }
 
         private static void ConfigureAuthCookies(CookieAuthenticationOptions options)
@@ -72,6 +83,8 @@ namespace PEngine.Web
             }
             
             builder.Services.Configure<ForwardedHeadersOptions>(ConfigureReverseProxy);
+
+            ConfigureLocalStorage();
         }
 
         private static void Configure(WebApplication app)
