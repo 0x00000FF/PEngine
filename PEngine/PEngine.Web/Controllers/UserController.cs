@@ -10,11 +10,9 @@ namespace PEngine.Web.Controllers;
 
 public class UserController : CommonControllerBase<UserController>
 {
-    private readonly BlogContext _context;
-    public UserController(ILogger<UserController> logger,
-        BlogContext context) : base(logger)
+    public UserController(ILogger<UserController> logger) : base(logger)
     {
-        _context = context;
+
     }
     
     public IActionResult Login(string? returnUrl)
@@ -88,8 +86,9 @@ public class UserController : CommonControllerBase<UserController>
             Username = username,
             Password = password.Password(newSalt).ToBase64(),
             PasswordSalt = newSalt,
-            Id = Guid.NewGuid(),
-            Name = name
+            Id = default,
+            Name = name,
+            Role = UserRole.Root
         });
 
         return await _context.SaveChangesAsync() > 0 ? 

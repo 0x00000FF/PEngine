@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 using PEngine.Web.Helper;
 using PEngine.Web.Models;
 
@@ -8,15 +8,13 @@ namespace PEngine.Web.Controllers;
 
 public class ImageController : CommonControllerBase<ImageController>
 {
-    private readonly BlogContext _context;
-    
-    public ImageController(ILogger<ImageController> logger, BlogContext context) : base(logger)
+    public ImageController(ILogger<ImageController> logger) : base(logger)
     {
-        _context = context;
+
     }
     
     [HttpGet("/[controller]/{id}")]
-    public async Task<IActionResult> Show(Guid id)
+    public async Task<IActionResult> Show(Guid id, bool? thumbnail)
     {
         var item = await _context.FileTags.FirstOrDefaultAsync(f => f.Id == id);
 

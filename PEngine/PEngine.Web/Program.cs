@@ -1,8 +1,9 @@
 using Ganss.Xss;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Npgsql;
+using PEngine.Web.Data;
+using System.Data;
 
 namespace PEngine.Web
 {
@@ -41,20 +42,27 @@ namespace PEngine.Web
             DevMode = builder.Environment.IsDevelopment();
             
             var mvcBuilder = builder.Services.AddControllersWithViews();
-
             builder.Services.AddHttpContextAccessor();
-            
+
+            // ------------------- SECURITY
+
             builder.Services.AddAntiforgery();
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(ConfigureAuthCookies);
-
-            BlogContext.SetConnectionString(DevMode ? 
-                builder.Configuration.GetConnectionString("Development") :
-                builder.Configuration.GetConnectionString("Production"));
-
-            builder.Services.AddDbContext<BlogContext>();
             builder.Services.AddSingleton<IHtmlSanitizer, HtmlSanitizer>(InitSanitizer);
-            
+
+            // ------------------- DATABASE CONFIGURATION
+
+            var connectionString = DevMode ?
+                builder.Configuration.GetConnectionString("Development") :
+                builder.Configuration.GetConnectionString("Production");
+
+            var factory = new DataConnectionFactory<NpgsqlConnection>(connectionString!);
+
+            builder.Services.AddTransient<IDbConnection, NpgsqlConnection>(factory.Create);
+
+            // ------------------- MISC
+
             if (DevMode)
             {
                 mvcBuilder.AddRazorRuntimeCompilation();

@@ -4,7 +4,6 @@ namespace PEngine.Web.Models
 {
     public class Guestbook
     {
-        [Key]
         public long Id { get; set; }
         public Guid? WrittenBy { get; set; }
         public long ReplyTo { get; set; }

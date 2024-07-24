@@ -3,8 +3,6 @@ using Ganss.Xss;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PEngine.Web.Models;
 using PEngine.Web.Models.ViewModels;
 
@@ -12,11 +10,9 @@ namespace PEngine.Web.Controllers
 {
     public class PostController : CommonControllerBase<PostController>
     {
-        private readonly BlogContext _context;
-        
-        public PostController(ILogger<PostController> logger, BlogContext context) : base(logger)
+        public PostController(ILogger<PostController> logger) : base(logger)
         {
-            _context = context;
+
         }
 
         public override void OnActionExecuted(ActionExecutedContext context)

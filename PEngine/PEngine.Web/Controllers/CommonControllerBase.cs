@@ -31,7 +31,7 @@ public abstract class CommonControllerBase<T> : Controller
 
         Method = HttpContext.Request.Method;
         UserAgent = HttpContext.Request.Headers.UserAgent.ToString().Trim();
-        ClientAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+        ClientAddress = HttpContext.Connection.RemoteIpAddress?.ToString() ?? "";
     }
 
     public override void OnActionExecuting(ActionExecutingContext context)
