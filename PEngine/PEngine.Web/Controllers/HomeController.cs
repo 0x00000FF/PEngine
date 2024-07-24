@@ -11,11 +11,11 @@ namespace PEngine.Web.Controllers
 {
     public class HomeController : CommonControllerBase<HomeController>
     {
-        private readonly BlogContext _context;
         
-        public HomeController(ILogger<HomeController> logger, BlogContext context) : base(logger)
+        
+        public HomeController(ILogger<HomeController> logger) : base(logger)
         {
-            _context = context;
+            
         }
 
         public IActionResult Index()

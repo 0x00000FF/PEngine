@@ -5,11 +5,11 @@ namespace PEngine.Web.Controllers;
 
 public class IntroductionController : CommonControllerBase<IntroductionController>
 {
-    private readonly BlogContext _context;
     
-    public IntroductionController(ILogger<IntroductionController> logger, BlogContext context) : base(logger)
+    
+    public IntroductionController(ILogger<IntroductionController> logger) : base(logger)
     {
-        _context = context;
+        
     }
     
     public IActionResult Index()

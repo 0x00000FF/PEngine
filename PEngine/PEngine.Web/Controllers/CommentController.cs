@@ -4,11 +4,11 @@ namespace PEngine.Web.Controllers
 {
     public class CommentController : CommonControllerBase<CommentController>
     {
-        private readonly BlogContext _context;
         
-        public CommentController(ILogger<CommentController> logger, BlogContext context) : base(logger)
+        
+        public CommentController(ILogger<CommentController> logger) : base(logger)
         {
-            _context = context;
+            
         }
 
         public IActionResult List(long postId)

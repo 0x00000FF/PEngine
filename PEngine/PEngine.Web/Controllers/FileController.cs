@@ -11,11 +11,11 @@ namespace PEngine.Web.Controllers;
 
 public class FileController : CommonControllerBase<FileController>
 {
-    private readonly BlogContext _context;
     
-    public FileController(ILogger<FileController> logger, BlogContext context) : base(logger)
+    
+    public FileController(ILogger<FileController> logger) : base(logger)
     {
-        _context = context;
+        
     }
 
     private async Task<DownloadResultVM> GetFile(Guid id, string typeFilter)
