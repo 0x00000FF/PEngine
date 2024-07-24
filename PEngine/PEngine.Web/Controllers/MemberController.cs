@@ -8,9 +8,9 @@ using PEngine.Web.Models.ViewModels;
 
 namespace PEngine.Web.Controllers;
 
-public class UserController : CommonControllerBase<UserController>
+public class MemberController : CommonControllerBase<MemberController>
 {
-    public UserController(ILogger<UserController> logger) : base(logger)
+    public MemberController(ILogger<MemberController> logger) : base(logger)
     {
 
     }

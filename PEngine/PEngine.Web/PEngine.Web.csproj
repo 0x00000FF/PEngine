@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\UnitOfWorks\" />
     <Folder Include="Models\DataModels\" />
     <Folder Include="Units\" />
     <Folder Include="Services\" />

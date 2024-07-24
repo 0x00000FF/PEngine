@@ -2,6 +2,7 @@ using Ganss.Xss;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpOverrides;
 using Npgsql;
+using PEngine.Web.Controllers;
 using PEngine.Web.Data;
 using System.Data;
 
@@ -29,8 +30,10 @@ namespace PEngine.Web
 
         private static void ConfigureAuthCookies(CookieAuthenticationOptions options)
         {
-            options.LoginPath = "/User/Login";
-            options.LogoutPath = "/User/Logout";
+            var controllerFragment = nameof(MemberController).Replace("Controller", string.Empty);
+
+            options.LoginPath = $"/{controllerFragment}/Login";
+            options.LogoutPath = $"/{controllerFragment}/Logout";
 
             options.Cookie.Name = "_PEngineAuth_";
             options.Cookie.HttpOnly = true;
