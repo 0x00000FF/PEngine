@@ -39,7 +39,7 @@ CREATE TABLE Members (
 
 CREATE TABLE MemberAuditLogs (
     Id          UUID         PRIMARY KEY,
-    Member      UUID         NOT NULL REFERENCES Members(Id) ON DELETE RESTRICT,
+    Member      UUID         REFERENCES Members(Id) ON DELETE SET NULL,
     Action      VARCHAR(32)  NOT NULL,
     Description VARCHAR(256) NOT NULL,
     Timestamp   TIMESTAMP    DEFAULT NOW()
@@ -47,6 +47,7 @@ CREATE TABLE MemberAuditLogs (
 
 CREATE TABLE MemberAuthFactors (
     Id          UUID         PRIMARY KEY,
+    Member      UUID         REFERENCES Members(Id) ON DELETE CASCADE,  
     Factor      UUID         NOT NULL REFERENCES AuthFactors(Id) ON DELETE CASCADE,
     EncToken    TEXT,
     AddedAt     TIMESTAMP    DEFAULT NOW(),
@@ -57,7 +58,7 @@ CREATE TABLE MemberAuthFactors (
 
 CREATE TABLE MemberRoles (
     Id          UUID         PRIMARY KEY,
-    Role        UUID         NOT NULL REFERENCES Roles(Id) ON DELETE RESTRICT,
+    Role        UUID         NOT NULL REFERENCES Roles(Id) ON DELETE CASCADE,
     AddedAt     TIMESTAMP    DEFAULT NOW(),
     Ord         INT          NOT NULL
 );
@@ -141,11 +142,12 @@ CREATE TABLE PostVersions (
 );
 
 CREATE TABLE Posts (
-    Id          SERIAL       PRIMARY KEY,
-    Version     UUID   NOT NULL REFERENCES PostVersions(Id) ON DELETE RESTRICT,
+    Id          SERIAL      PRIMARY KEY,
+    Category    UUID        REFERENCES Categories(Id) ON DELETE SET NULL,
+    Version     UUID        NOT NULL REFERENCES PostVersions(Id) ON DELETE RESTRICT,
 
     Visibility  VARCHAR(32)  NOT NULL CHECK ( Visibility IN ('public', 'permallink', 'private') ),
-    Permalink   UUID,
+    Permalink   VARCHAR(256),
     Password    VARCHAR(64),
 
     AddedAt     TIMESTAMP    DEFAULT NOW(),
