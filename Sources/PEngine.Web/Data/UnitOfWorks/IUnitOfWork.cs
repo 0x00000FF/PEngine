@@ -1,7 +1,11 @@
-﻿namespace PEngine.Web.Data.UnitOfWorks
+﻿using PEngine.Web.Data.Repositories;
+
+namespace PEngine.Web.Data.UnitOfWorks
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
-        Task<int> CompleteAsync();
+        public TRepository? Entity<TRepository>(string entityName) where TRepository : class, IRepository;
+        public Task<int> RollbackAsync();
+        public Task<int> CompleteAsync();
     }
 }
