@@ -32,7 +32,6 @@
   <ItemGroup>
     <Folder Include="Models\DataModels\" />
     <Folder Include="Units\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
