@@ -15,23 +15,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\DataModels\**" />
+    <Compile Remove="Units\**" />
+    <Content Remove="Models\DataModels\**" />
+    <Content Remove="Units\**" />
+    <EmbeddedResource Remove="Models\DataModels\**" />
+    <EmbeddedResource Remove="Units\**" />
+    <None Remove="Models\DataModels\**" />
+    <None Remove="Units\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="Dapper.Contrib" Version="2.0.78" />
     <PackageReference Include="Dapper.SqlBuilder" Version="2.0.78" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.61" />
     <PackageReference Include="HtmlSanitizer" Version="8.0.843" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.7" />
     <PackageReference Include="Microsoft.TSS" Version="2.1.1" />
     <PackageReference Include="Npgsql" Version="8.0.3" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.5" />
     <PackageReference Include="System.Drawing.Common" Version="8.0.6" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
     <PackageReference Include="System.Text.Json" Version="8.0.4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models\DataModels\" />
-    <Folder Include="Units\" />
   </ItemGroup>
 
 </Project>

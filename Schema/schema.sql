@@ -26,23 +26,46 @@ CREATE TABLE Members (
     Id           UUID         PRIMARY KEY,
 
     Username     VARCHAR(128) NOT NULL UNIQUE,
-    Password     VARCHAR(64)  NOT NULL,
-    PasswordSalt VARCHAR(64)  NOT NULL,
+    Password     VARCHAR(256)  NOT NULL,
 
-    Name         VARCHAR(32)  NOT NULL,
-    Email        VARCHAR(64)  NOT NULL,
+    Name         VARCHAR(128)  NOT NULL,
+    Email        VARCHAR(128)  NOT NULL,
 
     Disabled     BOOLEAN      NOT NULL,
 
-    CreatedAt    TIMESTAMP    DEFAULT NOW()
+    CreatedAt    TIMESTAMP    DEFAULT NOW(),
+    UpdatedAt    TIMESTAMP,
+
+    UseIpSecurity   BOOLEAN,
+
+    PasswordExpires TIMESTAMP,
+    BlockedUntil    TIMESTAMP
 );
 
 CREATE TABLE MemberAuditLogs (
     Id          UUID         PRIMARY KEY,
+
     Member      UUID         REFERENCES Members(Id) ON DELETE SET NULL,
+    Invoker     UUID         REFERENCES Members(Id),
+
     Action      VARCHAR(32)  NOT NULL,
     Description VARCHAR(256) NOT NULL,
+
+    IPAddress   VARCHAR(32)  NOT NULL,
+    UserAgent   VARCHAR(256) NOT NULL,
     Timestamp   TIMESTAMP    DEFAULT NOW()
+);
+
+CREATE TABLE MemberWhitelist (
+    Id          UUID        PRIMARY KEY,
+    Member      UUID        REFERENCES Members(Id) ON DELETE CASCADE,
+
+    Country     VARCHAR(64) NOT NULL,
+    IPAddress   VARCHAR(32)  NOT NULL,
+    UserAgent   VARCHAR(256) NOT NULL DEFAULT '*',
+
+    Description VARCHAR(1024),
+    CreatedAt   TIMESTAMP   NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE MemberAuthFactors (
@@ -66,8 +89,9 @@ CREATE TABLE MemberRoles (
 CREATE TABLE FileStorages (
     Id          UUID         PRIMARY KEY,
     Name        VARCHAR(32)  NOT NULL UNIQUE,
+    Description VARCHAR(512) NOT NULL DEFAULT '',
     Path        TEXT         NOT NULL,
-    Provider    VARCHAR(32)  CHECK (Provider IN ('Local', 'Remote', 'ObjectStorage'))
+    Provider    VARCHAR(32)
 );
 
 CREATE TABLE Files (
@@ -91,12 +115,6 @@ CREATE TABLE FileHits (
     UserAgent   VARCHAR(256) NOT NULL,
 
     Timestamp   TIMESTAMP    DEFAULT NOW()
-);
-
-CREATE TABLE Categories (
-    Name    VARCHAR(32) PRIMARY KEY,
-    Count   INT DEFAULT 0,
-    Ord     INT NOT NULL
 );
 
 CREATE TABLE DocumentTypes (
@@ -141,12 +159,18 @@ CREATE TABLE PostVersions (
     Document    UUID         NOT NULL REFERENCES Documents(Id) ON DELETE CASCADE
 );
 
+CREATE TABLE Categories (
+    Name    VARCHAR(32) PRIMARY KEY,
+    Count   INT DEFAULT 0,
+    Ord     INT NOT NULL
+);
+
 CREATE TABLE Posts (
     Id          SERIAL      PRIMARY KEY,
     Category    UUID        REFERENCES Categories(Id) ON DELETE SET NULL,
     Version     UUID        NOT NULL REFERENCES PostVersions(Id) ON DELETE RESTRICT,
 
-    Visibility  VARCHAR(32)  NOT NULL CHECK ( Visibility IN ('public', 'permallink', 'private') ),
+    Visibility  VARCHAR(32)  NOT NULL CHECK ( Visibility IN ('public', 'permallink', 'protected', 'private') ),
     Permalink   VARCHAR(256),
     Password    VARCHAR(64),
 
