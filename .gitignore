@@ -42,5 +42,8 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
+# Frontend Libraries
+Sources/PEngineApp/wwwroot/lib
+
 # Program generated files
 Storage

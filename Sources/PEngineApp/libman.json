@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "@fortawesome/fontawesome-free@6.7.1",
+      "destination": "wwwroot/lib/fontawesome"
+    },
+    {
+      "library": "monaco-editor@0.52.0",
+      "destination": "wwwroot/lib/monaco-editor"
+    },
+    {
+      "library": "katex@0.16.11",
+      "destination": "wwwroot/lib/katex"
+    }
+  ]
+}
