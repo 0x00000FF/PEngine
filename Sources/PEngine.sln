@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEngineApi", "PEngineApi\PEngineApi.csproj", "{30F5D19B-3511-4112-81ED-CD85B8931149}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEngineApp", "PEngineApp\PEngineApp.csproj", "{02C1FAA5-632F-4931-94B5-24B839D6B552}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEngineTest", "PEngineTest\PEngineTest.csproj", "{7960F502-9DCA-4C60-8E3F-3F9AB52A288F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30F5D19B-3511-4112-81ED-CD85B8931149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30F5D19B-3511-4112-81ED-CD85B8931149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30F5D19B-3511-4112-81ED-CD85B8931149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30F5D19B-3511-4112-81ED-CD85B8931149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02C1FAA5-632F-4931-94B5-24B839D6B552}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02C1FAA5-632F-4931-94B5-24B839D6B552}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02C1FAA5-632F-4931-94B5-24B839D6B552}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02C1FAA5-632F-4931-94B5-24B839D6B552}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7960F502-9DCA-4C60-8E3F-3F9AB52A288F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7960F502-9DCA-4C60-8E3F-3F9AB52A288F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7960F502-9DCA-4C60-8E3F-3F9AB52A288F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7960F502-9DCA-4C60-8E3F-3F9AB52A288F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

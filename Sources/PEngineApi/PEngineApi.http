@@ -1,0 +1,6 @@
+@PEngineApi_HostAddress = http://localhost:5177
+
+GET {{PEngineApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
